@@ -1,9 +1,385 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-    <title>My First GitHub Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROS 2 자율주행 랩타임 챌린지 대시보드</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 40vh;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container { height: 350px; }
+        }
+        .nav-button.active {
+            background-color: #0f766e;
+            color: white;
+            border-color: #0f766e;
+        }
+        .timeline-dot {
+            height: 1rem; width: 1rem; background-color: #0f766e; border-radius: 9999px; position: absolute; left: -0.55rem; top: 0.25rem;
+        }
+    </style>
 </head>
-<body>
-    <h1>안녕하세요! 제 GitHub Pagesㅋㄹㅇㅋㅇㄹㄴㅁ 사이트입니다.</h1>
+<body class="bg-stone-50 text-stone-800 antialiased overflow-x-hidden">
+
+    <!-- Chosen Palette: Warm Stone Base (stone-50 to stone-200), Tech Teal Accent (teal-600/700), Alert Amber (amber-500) -->
+    <!-- Application Structure Plan: A single-page dashboard designed to guide new recruits through the project conceptually. It moves from 'Overview/Mission' to interactive 'Team Roles & Requirements', visualizes 'Penalty Rules' dynamically, outlines the 'Tech Stack & Sensors', and concludes with the 'Schedule'. This non-linear, visually separated structure is much more engaging and easier to digest than a linear document, allowing recruits to interact with the roles they are most interested in. -->
+    <!-- Visualization & Content Choices: 1. Team Roles -> Interactive Radar Chart (Chart.js) & Dynamic Text -> Goal: Compare/Inform -> Justification: Clearly distinguishes the skill sets and focus areas of Perception, Planning, and Control. 2. Penalty Rules -> Stacked Bar Chart (Chart.js) -> Goal: Inform/Change -> Justification: Visually demonstrates how mistakes exponentially impact the core objective (lap time). 3. Sensor Data -> Grid Cards -> Goal: Organize -> Justification: Makes raw technical topic definitions visually distinct and easy to reference without SVG icons. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-teal-700">🚗 AutoDrive Initiative</h1>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium text-stone-600">
+                <a href="#overview" class="hover:text-teal-600 transition-colors">프로젝트 개요</a>
+                <a href="#roles" class="hover:text-teal-600 transition-colors">팀 역할</a>
+                <a href="#rules" class="hover:text-teal-600 transition-colors">규칙 및 인프라</a>
+                <a href="#schedule" class="hover:text-teal-600 transition-colors">일정</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-8 space-y-16">
+
+        <section id="overview" class="bg-white rounded-2xl p-8 shadow-sm border border-stone-100 relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-12 text-9xl opacity-5">🏁</div>
+            <div class="relative z-10">
+                <h2 class="text-3xl font-black mb-4 text-stone-900">ROS 2 기반 자율주행 장애물 회피 및 랩타임 경진대회</h2>
+                <p class="text-lg text-stone-600 mb-8 leading-relaxed max-w-3xl">
+                    자율주행 동아리의 새로운 주역이 되신 신입부원 여러분을 환영합니다! 이 섹션은 프로젝트의 궁극적인 목표와 핵심 미션을 소개합니다. 여러분은 팀을 이루어 시뮬레이터 환경에서 트랙에 배치된 장애물을 회피하며 가장 빠른 랩타임을 기록해야 합니다.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-stone-50 rounded-xl p-6 border border-stone-200">
+                        <div class="text-4xl mb-4">🛣️</div>
+                        <h3 class="text-xl font-bold mb-2">안정적인 주행</h3>
+                        <p class="text-sm text-stone-600">직선 및 곡선 코스를 이탈하지 않고 (Line Tracking & Lane Keeping) 안정적으로 주행하는 기초 기술을 구현합니다.</p>
+                    </div>
+                    <div class="bg-stone-50 rounded-xl p-6 border border-stone-200">
+                        <div class="text-4xl mb-4">⚠️</div>
+                        <h3 class="text-xl font-bold mb-2">장애물 회피</h3>
+                        <p class="text-sm text-stone-600">주행 경로상에 임의로 배치된 꼬깔콘과 원통형 드럼을 센서로 3D 인식하고 충돌 없이 안전한 경로를 생성합니다.</p>
+                    </div>
+                    <div class="bg-stone-50 rounded-xl p-6 border border-stone-200">
+                        <div class="text-4xl mb-4">⏱️</div>
+                        <h3 class="text-xl font-bold mb-2">랩타임 기록</h3>
+                        <p class="text-sm text-stone-600">출발선에서 시작하여 트랙을 완전히 돌아 결승선을 통과할 때까지의 최단 시간을 겨루는 것이 최종 목표입니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="roles" class="py-8">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-black text-stone-900 mb-4">팀 역할 및 요구 역량 분석</h2>
+                <p class="text-stone-600 max-w-2xl mx-auto">
+                    원활한 협업을 위해 인지(Perception), 판단(Planning), 제어(Control)의 3가지 핵심 역할로 팀을 나눕니다. 아래 버튼을 클릭하여 각 파트별 주요 임무와 필요한 기술 스택 비중을 확인하고 본인에게 맞는 역할을 찾아보세요.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-6 md:p-10 flex flex-col lg:flex-row gap-10 items-center">
+                <div class="w-full lg:w-1/2 space-y-6">
+                    <div class="flex flex-wrap gap-3" id="role-buttons">
+                        <button onclick="updateRoleView('perception')" class="nav-button active px-6 py-3 rounded-lg font-bold border-2 border-teal-700 text-teal-700 hover:bg-teal-50 transition-colors">👁️ 인지 (Perception)</button>
+                        <button onclick="updateRoleView('planning')" class="nav-button px-6 py-3 rounded-lg font-bold border-2 border-stone-300 text-stone-600 hover:bg-stone-50 transition-colors">🧠 판단 (Planning)</button>
+                        <button onclick="updateRoleView('control')" class="nav-button px-6 py-3 rounded-lg font-bold border-2 border-stone-300 text-stone-600 hover:bg-stone-50 transition-colors">⚙️ 제어 (Control)</button>
+                    </div>
+
+                    <div id="role-content" class="bg-stone-50 rounded-xl p-6 border border-stone-200 min-h-[250px]">
+                        <h3 id="role-title" class="text-2xl font-bold text-teal-800 mb-4">인지 파트 주요 임무</h3>
+                        <ul id="role-list" class="space-y-3 text-stone-700 list-disc list-inside">
+                            <li><strong>3D LiDAR 데이터 처리:</strong> Point Cloud 데이터 필터링(Voxel Grid 등) 및 지면 제거 알고리즘 구현</li>
+                            <li><strong>객체 군집화(Clustering):</strong> 장애물의 3D 공간상 바운딩 박스 생성 및 위치(X,Y,Z) 추출</li>
+                            <li><strong>카메라 이미지 처리:</strong> OpenCV 기반 차선 인식 또는 딥러닝 객체 인지</li>
+                            <li><strong>센서 데이터 융합:</strong> LiDAR와 GPS를 융합한 정확한 차량 위치 추정 기초 마련</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="w-full lg:w-1/2">
+                    <div class="text-center mb-2 text-sm font-semibold text-stone-500">역량 포커스 다이어그램</div>
+                    <div class="chart-container">
+                        <canvas id="roleChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="rules" class="grid grid-cols-1 lg:grid-cols-2 gap-8 py-8">
+            <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-8">
+                <h2 class="text-2xl font-black text-stone-900 mb-4">🏆 대회 규칙 및 페널티</h2>
+                <p class="text-stone-600 mb-6">
+                    가장 빠른 랩타임이 우승의 조건이지만, 실수는 치명적인 시간 지연으로 이어집니다. 우측 차트는 기본 랩타임에 페널티가 누적되었을 때의 심각성을 시각적으로 보여줍니다.
+                </p>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-start">
+                        <span class="text-amber-500 mr-3 text-xl">⚠️</span>
+                        <div>
+                            <strong class="text-stone-800 block">장애물 접촉 페널티</strong>
+                            <span class="text-sm text-stone-600">꼬깔콘이나 드럼과 충돌할 때마다 기록에 <span class="font-bold text-red-500">+N초</span> 가산</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-amber-500 mr-3 text-xl">⚠️</span>
+                        <div>
+                            <strong class="text-stone-800 block">트랙 이탈 페널티</strong>
+                            <span class="text-sm text-stone-600">차량 바퀴가 트랙 밖으로 완전히 벗어나면 이탈 지점 수동 재출발 및 <span class="font-bold text-red-500">+N초</span> 가산</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-red-500 mr-3 text-xl">🚫</span>
+                        <div>
+                            <strong class="text-stone-800 block">실격 (DNF)</strong>
+                            <span class="text-sm text-stone-600">차량 전복, 또는 제어 불능 상태 N분 이상 지속 시</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-8 flex flex-col justify-center">
+                <div class="text-center mb-2 text-sm font-semibold text-stone-500">페널티 누적 시뮬레이션 (예시)</div>
+                <div class="chart-container">
+                    <canvas id="penaltyChart"></canvas>
+                </div>
+                <p class="text-xs text-center text-stone-400 mt-4">안전한 주행이 궁극적으로 가장 빠른 기록을 만듭니다.</p>
+            </div>
+        </section>
+
+        <section id="infra" class="py-8">
+            <h2 class="text-3xl font-black text-stone-900 mb-4 text-center">📡 인프라 및 제공 센서 토픽</h2>
+            <p class="text-stone-600 max-w-2xl mx-auto text-center mb-10">
+                본 프로젝트는 Ubuntu 24.04와 최신 ROS 2 Kilted Kaiju를 기반으로 운영됩니다. 차량(car1)에 장착된 3D 가상 센서들의 데이터 구조를 파악하고 알고리즘에 활용하세요.
+            </p>
+
+            <div class="bg-teal-800 rounded-2xl p-6 md:p-8 text-white shadow-lg mb-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div>
+                        <h3 class="text-xl font-bold mb-1">시뮬레이션 플랫폼</h3>
+                        <p class="text-teal-200 text-sm">자체 제작 Autonomous-Racing-Simulator (커스텀 맵 제공)</p>
+                    </div>
+                    <a href="https://github.com/ttaehyun/Autonomous-Racing-Simulator" target="_blank" class="px-6 py-3 bg-white text-teal-900 font-bold rounded-lg hover:bg-teal-50 transition-colors shadow-sm">
+                        💻 GitHub 확인하기
+                    </a>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-white p-6 rounded-xl border-l-4 border-l-blue-500 shadow-sm border-y border-r border-stone-100">
+                    <div class="flex justify-between items-start mb-2">
+                        <h4 class="font-bold text-lg">3D LiDAR</h4>
+                        <span class="text-xs bg-stone-100 px-2 py-1 rounded text-stone-600">입력(Input)</span>
+                    </div>
+                    <p class="text-sm font-mono bg-stone-100 p-2 rounded mb-2 text-stone-700">Topic: /car1/scan/points</p>
+                    <p class="text-sm text-stone-500 mb-2">Type: sensor_msgs/msg/PointCloud2</p>
+                    <p class="text-sm text-stone-700">차량 주변의 3D 점군 데이터를 수신하여 장애물의 거리와 형태를 공간적으로 파악합니다.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border-l-4 border-l-green-500 shadow-sm border-y border-r border-stone-100">
+                    <div class="flex justify-between items-start mb-2">
+                        <h4 class="font-bold text-lg">RGB Camera</h4>
+                        <span class="text-xs bg-stone-100 px-2 py-1 rounded text-stone-600">입력(Input)</span>
+                    </div>
+                    <p class="text-sm font-mono bg-stone-100 p-2 rounded mb-2 text-stone-700">Topic: /car1/camera/image</p>
+                    <p class="text-sm text-stone-500 mb-2">Type: sensor_msgs/msg/Image</p>
+                    <p class="text-sm text-stone-700">전방 컬러 이미지를 수신하여 차선 인식 및 장애물의 시각적 형태를 파악합니다.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border-l-4 border-l-purple-500 shadow-sm border-y border-r border-stone-100">
+                    <div class="flex justify-between items-start mb-2">
+                        <h4 class="font-bold text-lg">GPS</h4>
+                        <span class="text-xs bg-stone-100 px-2 py-1 rounded text-stone-600">입력(Input)</span>
+                    </div>
+                    <p class="text-sm font-mono bg-stone-100 p-2 rounded mb-2 text-stone-700">Topic: /car1/gps/fix</p>
+                    <p class="text-sm text-stone-500 mb-2">Type: sensor_msgs/msg/NavSatFix</p>
+                    <p class="text-sm text-stone-700">차량의 현재 글로벌 위치(위도, 경도, 고도) 데이터를 수신하여 전역 매핑에 활용합니다.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border-l-4 border-l-amber-500 shadow-sm border-y border-r border-stone-100">
+                    <div class="flex justify-between items-start mb-2">
+                        <h4 class="font-bold text-lg">Control Cmd</h4>
+                        <span class="text-xs bg-teal-100 px-2 py-1 rounded text-teal-800">출력(Output)</span>
+                    </div>
+                    <p class="text-sm font-mono bg-stone-100 p-2 rounded mb-2 text-stone-700">Topic: /car1/cmd_vel</p>
+                    <p class="text-sm text-stone-500 mb-2">Type: geometry_msgs/msg/Twist</p>
+                    <p class="text-sm text-stone-700">계산된 최적의 차량 주행 선속도 및 조향 각속도 제어 명령을 시뮬레이터에 전달합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="schedule" class="bg-white rounded-2xl shadow-sm border border-stone-100 p-8 py-8 mb-16">
+            <h2 class="text-2xl font-black text-stone-900 mb-8 text-center">📅 전체 일정 안내</h2>
+            <p class="text-stone-600 mb-10 text-center max-w-xl mx-auto">
+                프로젝트 공고부터 최종 대회까지의 흐름입니다. 단계별 일정을 숙지하고 팀원들과 계획을 세워보세요.
+            </p>
+            
+            <div class="max-w-2xl mx-auto relative border-l-2 border-stone-200 pl-8 space-y-8">
+                <div class="relative">
+                    <div class="timeline-dot"></div>
+                    <h4 class="text-lg font-bold text-teal-800">1단계: 팀 빌딩</h4>
+                    <p class="text-stone-600 text-sm mt-1">프로젝트 공고 확인 및 역할 분담 (인지/판단/제어) 후 팀 구성 완료</p>
+                </div>
+                <div class="relative">
+                    <div class="timeline-dot"></div>
+                    <h4 class="text-lg font-bold text-teal-800">2단계: 기술 세미나</h4>
+                    <p class="text-stone-600 text-sm mt-1">ROS 2 Kilted 환경 구축, 시뮬레이터 구동 및 센서 활용 기초 튜토리얼 진행</p>
+                </div>
+                <div class="relative">
+                    <div class="timeline-dot"></div>
+                    <h4 class="text-lg font-bold text-teal-800">3단계: 멘토링 & 개발</h4>
+                    <p class="text-stone-600 text-sm mt-1">선배들의 코드 리뷰 및 피드백을 통한 알고리즘 고도화</p>
+                </div>
+                <div class="relative">
+                    <div class="timeline-dot"></div>
+                    <h4 class="text-lg font-bold text-teal-800">4단계: 예선전</h4>
+                    <p class="text-stone-600 text-sm mt-1">시뮬레이터 맵 기반 코스 완주 여부 및 기본 기능 검증</p>
+                </div>
+                <div class="relative">
+                    <div class="timeline-dot bg-amber-500 border-4 border-white shadow"></div>
+                    <h4 class="text-xl font-black text-amber-600">최종: 본선 대회 및 파티</h4>
+                    <p class="text-stone-800 mt-1 font-medium">최종 랩타임 기록 측정 및 시상, 네트워킹 행사 진행 🏆</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-stone-900 text-stone-400 py-8 text-center">
+        <p class="mb-2">본 프로젝트는 자율주행 연구의 첫걸음입니다. 질문은 언제든 환영합니다!</p>
+        <p class="text-sm">© 2026 자율주행 동아리 AutoDrive Initiative</p>
+    </footer>
+
+    <script>
+        const roleData = {
+            perception: {
+                title: '인지 파트 주요 임무',
+                items: [
+                    '<strong>3D LiDAR 데이터 처리:</strong> Point Cloud 데이터 필터링(Voxel Grid 등) 및 지면 제거 알고리즘 구현',
+                    '<strong>객체 군집화(Clustering):</strong> 장애물의 3D 공간상 바운딩 박스 생성 및 위치(X,Y,Z) 추출',
+                    '<strong>카메라 이미지 처리:</strong> OpenCV 기반 차선 인식 또는 딥러닝 객체 인지',
+                    '<strong>센서 데이터 융합:</strong> LiDAR와 GPS를 융합한 정확한 차량 위치 추정 기초 마련'
+                ],
+                chart: [90, 60, 40, 95, 75]
+            },
+            planning: {
+                title: '판단 파트 주요 임무',
+                items: [
+                    '<strong>로컬 경로 생성:</strong> 인지에서 전달받은 정보 기반 충돌 가능성 판단 및 실시간 회피 경로 설계',
+                    '<strong>위치 추정(Localization):</strong> GPS 기반 맵 위 전역 위치 매핑 및 현재 위치 보정',
+                    '<strong>속도 프로파일 설계:</strong> 다가오는 곡선 구간과 장애물 밀집 구역에서의 최적 감속 속도 계획'
+                ],
+                chart: [60, 90, 70, 50, 95]
+            },
+            control: {
+                title: '제어 파트 주요 임무',
+                items: [
+                    '<strong>경로 추종(Path Tracking):</strong> 전달받은 경로점(Waypoint)을 오차 없이 따르기 위한 조향 제어 (Pure Pursuit 등)',
+                    '<strong>종방향 제어:</strong> 목표 속도 도달을 위한 가속/감속 PID 제어기 설계 및 튜닝',
+                    '<strong>제어 명령 전송:</strong> 최종 산출된 선속도와 각속도를 ROS 2 제어 토픽으로 퍼블리시'
+                ],
+                chart: [70, 70, 95, 30, 80]
+            }
+        };
+
+        let roleRadarChart;
+
+        function initCharts() {
+            const ctxRadar = document.getElementById('roleChart').getContext('2d');
+            roleRadarChart = new Chart(ctxRadar, {
+                type: 'radar',
+                data: {
+                    labels: ['센서/비전', '알고리즘', '동역학/수학', 'ROS 2 활용', 'C++/Python'],
+                    datasets: [{
+                        label: '요구 역량 비중',
+                        data: roleData.perception.chart,
+                        backgroundColor: 'rgba(15, 118, 110, 0.2)',
+                        borderColor: 'rgba(15, 118, 110, 1)',
+                        pointBackgroundColor: 'rgba(15, 118, 110, 1)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                            pointLabels: { font: { size: 12, family: "'Noto Sans KR', sans-serif" }, color: '#444' },
+                            ticks: { display: false, min: 0, max: 100 }
+                        }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            const ctxBar = document.getElementById('penaltyChart').getContext('2d');
+            new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: ['완벽 주행', '콘 1회 충돌', '콘 충돌 + 코스 이탈'],
+                    datasets: [
+                        {
+                            label: '순수 랩타임',
+                            data: [60, 60, 60],
+                            backgroundColor: '#0f766e'
+                        },
+                        {
+                            label: '콘 충돌 페널티',
+                            data: [0, 5, 5],
+                            backgroundColor: '#f59e0b'
+                        },
+                        {
+                            label: '코스 이탈 페널티',
+                            data: [0, 0, 15],
+                            backgroundColor: '#ef4444'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: { stacked: true, title: { display: true, text: '총 소요 시간 (초)' } },
+                        y: { stacked: true }
+                    },
+                    plugins: {
+                        tooltip: { mode: 'index', intersect: false },
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+        }
+
+        window.updateRoleView = function(role) {
+            const buttons = document.querySelectorAll('#role-buttons button');
+            buttons.forEach(btn => {
+                btn.className = 'nav-button px-6 py-3 rounded-lg font-bold border-2 border-stone-300 text-stone-600 hover:bg-stone-50 transition-colors';
+            });
+            event.target.className = 'nav-button active px-6 py-3 rounded-lg font-bold border-2 border-teal-700 text-teal-700 hover:bg-teal-50 transition-colors';
+
+            const data = roleData[role];
+            document.getElementById('role-title').innerText = data.title;
+            
+            const listHtml = data.items.map(item => `<li>${item}</li>`).join('');
+            document.getElementById('role-list').innerHTML = listHtml;
+
+            roleRadarChart.data.datasets[0].data = data.chart;
+            roleRadarChart.update();
+        };
+
+        document.addEventListener('DOMContentLoaded', initCharts);
+    </script>
 </body>
 </html>
