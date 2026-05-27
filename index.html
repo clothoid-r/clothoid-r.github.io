@@ -22,12 +22,12 @@
             .chart-container { height: 350px; }
         }
         .nav-button.active {
-            background-color: #0f766e;
+            background-color: #9f1239;
             color: white;
-            border-color: #0f766e;
+            border-color: #9f1239;
         }
         .timeline-dot {
-            height: 1rem; width: 1rem; background-color: #0f766e; border-radius: 9999px; position: absolute; left: -0.55rem; top: 0.25rem;
+            height: 1rem; width: 1rem; background-color: #9f1239; border-radius: 9999px; position: absolute; left: -0.55rem; top: 0.25rem;
         }
         /* 부드러운 페이드 전환 애니메이션 */
         .view-section {
@@ -52,22 +52,26 @@
 </head>
 <body class="bg-stone-50 text-stone-800 antialiased overflow-x-hidden">
 
-    <!-- Chosen Palette: Warm Stone Base (stone-50 to stone-200), Tech Teal Accent (teal-600/700/800), Slate Gray highlights -->
-    <!-- Application Structure Plan: Designed as a 2-view Single Page Application (SPA). View 1 is the 'Clothoid-R' Main Portal Home featuring the club identity, technical pillars, GitHub code ecosystems, interactive crew directories, and active projects. View 2 is the 'ROS 2 Laptime Challenge' dashboard. This architecture improves readability, acts as a high-fidelity portal for recruiting, and guides students from general interest to technical challenge specifics seamlessly. -->
+    <!-- Chosen Palette: Warm Stone Base (stone-50 to stone-200), Tech Burgundy/Rose Accent (rose-800/900/950) matching the official logo, Slate Gray highlights -->
+    <!-- Application Structure Plan: Designed as a 2-view Single Page Application (SPA). View 1 is the 'Clothoid-R' Main Portal Home featuring the club identity, technical pillars, GitHub code ecosystems, interactive crew & alumni directories, and active projects. View 2 is the 'ROS 2 Laptime Challenge' dashboard. This architecture improves readability, acts as a high-fidelity portal for recruiting, and guides students from general interest to technical challenge specifics seamlessly. -->
     <!-- Visualization & Content Choices: 1. Club Divisions Overview -> Dynamic HTML Card Grid. 2. Project Radar & Stacked Bar Charts inside Project View -> Initialized dynamically only when transitioning to the view to prevent canvas dimensions glitching inside a hidden tab. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
     <!-- Global Header & Navigation -->
     <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-stone-100">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-            <button onclick="switchView('home')" class="text-2xl font-black text-teal-800 tracking-tight flex items-center gap-2">
-                <span>🔄</span> Clothoid-R
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <button onclick="switchView('home')" class="text-2xl font-black text-rose-900 tracking-tight flex items-center gap-3">
+                <!-- Logo integration with dynamic fallback -->
+                <div class="h-9 w-9 flex items-center justify-center overflow-hidden rounded bg-stone-100 p-0.5 border border-stone-200">
+                    <img src="image/clothoid-r로고.png" alt="Clothoid-R Logo" class="h-full w-full object-contain" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\'font-black text-rose-800 text-lg\'>CR</span>';">
+                </div>
+                <span>Clothoid-R</span>
             </button>
-            <nav class="flex space-x-6 text-sm font-semibold text-stone-600">
-                <button onclick="switchView('home')" class="hover:text-teal-600 transition-colors">홈</button>
-                <button onclick="scrollToSection('about')" class="hover:text-teal-600 transition-colors hidden md:inline-block">소개</button>
-                <button onclick="scrollToSection('members')" class="hover:text-teal-600 transition-colors">크루</button>
-                <button onclick="switchView('project')" class="hover:text-teal-600 transition-colors text-teal-700 font-bold bg-teal-50 px-3 py-1.5 rounded-md">신입 부원 프로젝트 🏁</button>
+            <nav class="flex space-x-5 text-sm font-semibold text-stone-600">
+                <button onclick="switchView('home')" class="hover:text-rose-700 transition-colors">홈</button>
+                <button onclick="scrollToSection('about')" class="hover:text-rose-700 transition-colors hidden md:inline-block">소개</button>
+                <button onclick="scrollToSection('members')" class="hover:text-rose-700 transition-colors">크루 & 졸업생</button>
+                <button onclick="switchView('project')" class="hover:text-rose-700 transition-colors text-rose-800 font-bold bg-rose-50 px-3 py-1.5 rounded-md">신입 부원 프로젝트 🏁</button>
             </nav>
         </div>
     </header>
@@ -75,27 +79,44 @@
     <!-- VIEW 1: Clothoid-R MAIN PORTAL (HOME) -->
     <div id="view-home" class="view-section">
         <!-- Hero Section -->
-        <section class="bg-gradient-to-br from-stone-900 via-stone-800 to-teal-950 text-white py-24 px-4 relative overflow-hidden">
+        <section class="bg-gradient-to-br from-stone-950 via-stone-900 to-rose-950 text-white py-24 px-4 relative overflow-hidden">
             <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]"></div>
-            <div class="max-w-4xl mx-auto text-center relative z-10">
-                <span class="inline-block bg-teal-500/20 text-teal-300 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-4">
-                    Autonomous Driving Engineering Club
-                </span>
-                <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-6">
-                    Perfect Path, Smooth Drive.<br>
-                    <span class="text-teal-400">Clothoid-R</span>
-                </h1>
-                <p class="text-lg md:text-xl text-stone-300 max-w-2xl mx-auto mb-10 leading-relaxed">
-                    도로 설계에서 시작된 완벽한 조향 전이 곡선인 '클로소이드(Clothoid)'처럼,<br>
-                    우리는 인지·판단·제어가 유기적이고 부드럽게 융합된 자율주행의 최적 경로를 연구합니다.
-                </p>
-                <div class="flex flex-wrap justify-center gap-4">
-                    <button onclick="switchView('project')" class="px-8 py-4 bg-teal-600 hover:bg-teal-500 text-white font-bold rounded-xl shadow-lg transition-transform hover:-translate-y-1">
-                        🚀 신입부원 프로젝트 구경하기
-                    </button>
-                    <button onclick="scrollToSection('about')" class="px-8 py-4 bg-stone-800/80 hover:bg-stone-700 border border-stone-700 text-stone-200 font-bold rounded-xl transition-all">
-                        동아리 가치관 보기
-                    </button>
+            <div class="max-w-5xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 relative z-10">
+                <div class="text-center lg:text-left flex-1">
+                    <span class="inline-block bg-rose-500/20 text-rose-300 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-4">
+                        Autonomous Driving Engineering Club
+                    </span>
+                    <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-6 leading-tight">
+                        Perfect Path,<br>Smooth Drive.<br>
+                        <span class="text-rose-400">Clothoid-R</span>
+                    </h1>
+                    <p class="text-lg text-stone-300 max-w-2xl mx-auto lg:mx-0 mb-10 leading-relaxed">
+                        도로 설계에서 시작된 완벽한 조향 전이 곡선인 '클로소이드(Clothoid)'처럼,<br>
+                        우리는 인지·판단·제어가 유기적이고 부드럽게 융합된 자율주행의 최적 경로를 연구합니다.
+                    </p>
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-4">
+                        <button onclick="switchView('project')" class="px-8 py-4 bg-rose-700 hover:bg-rose-600 text-white font-bold rounded-xl shadow-lg transition-transform hover:-translate-y-1">
+                            🚀 신입부원 프로젝트 구경하기
+                        </button>
+                        <button onclick="scrollToSection('about')" class="px-8 py-4 bg-stone-800/80 hover:bg-stone-700 border border-stone-700 text-stone-200 font-bold rounded-xl transition-all">
+                            동아리 가치관 보기
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Premium Logo Display Box -->
+                <div class="w-full max-w-sm lg:w-96 flex flex-col items-center">
+                    <div class="w-full bg-stone-900/40 p-6 rounded-3xl border border-stone-800/80 backdrop-blur shadow-2xl flex flex-col items-center justify-center relative group">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-rose-500 to-amber-500 rounded-3xl blur opacity-15 group-hover:opacity-25 transition duration-1000"></div>
+                        <div class="relative w-full aspect-[4/3] flex items-center justify-center bg-white/5 rounded-2xl border border-white/10 overflow-hidden mb-4">
+                            <!-- Official Logo -->
+                            <img src="image/clothoid-r로고.png" alt="Clothoid-R Emblem" class="max-h-[85%] max-w-[85%] object-contain" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1542282088-fe8426682b8f?auto=format&fit=crop&q=80&w=600';">
+                        </div>
+                        <div class="text-center">
+                            <h3 class="text-lg font-bold text-white tracking-wide">Clothoid-R Official Emblem</h3>
+                            <p class="text-xs text-stone-400 mt-1">인지·판단·제어의 최적 조향 전이 시스템 형상화</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -104,7 +125,7 @@
         <section id="about" class="max-w-6xl mx-auto px-4 py-20">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div>
-                    <span class="text-teal-700 font-bold text-sm tracking-widest uppercase block mb-2">Who We Are</span>
+                    <span class="text-rose-800 font-bold text-sm tracking-widest uppercase block mb-2">Who We Are</span>
                     <h2 class="text-3xl font-black text-stone-900 mb-6">왜 'Clothoid-R' 인가요?</h2>
                     <p class="text-stone-600 leading-relaxed mb-4">
                         자동차가 직선 도로에서 급격한 곡선으로 진입할 때 원심력이 급증하여 조향장치가 불안정해집니다. 이를 방지하기 위해 곡률이 완만하게 변하는 전이 곡선을 설계하는데, 이것이 바로 <strong>'클로소이드 곡선'</strong>입니다.
@@ -114,15 +135,15 @@
                     </p>
                     <div class="border-t border-stone-200 pt-6 flex gap-8">
                         <div>
-                            <div class="text-2xl font-black text-teal-800">2026</div>
+                            <div class="text-2xl font-black text-rose-900">2026</div>
                             <div class="text-xs text-stone-500 mt-1">최신 Kilted 버전 연구</div>
                         </div>
                         <div>
-                            <div class="text-2xl font-black text-teal-800">3D LiDAR</div>
+                            <div class="text-2xl font-black text-rose-900">3D LiDAR</div>
                             <div class="text-xs text-stone-500 mt-1">포인트클라우드 기반 제어</div>
                         </div>
                         <div>
-                            <div class="text-2xl font-black text-teal-800">100%</div>
+                            <div class="text-2xl font-black text-rose-900">100%</div>
                             <div class="text-xs text-stone-500 mt-1">자체 시뮬레이터 구동</div>
                         </div>
                     </div>
@@ -153,21 +174,21 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-200 hover:shadow-md transition-shadow">
-                        <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-2xl font-bold mb-6">👁️</div>
+                        <div class="w-12 h-12 bg-rose-50 text-rose-800 rounded-xl flex items-center justify-center text-2xl font-bold mb-6">👁️</div>
                         <h3 class="text-xl font-bold mb-3">인지 (Perception)</h3>
                         <p class="text-sm text-stone-600 leading-relaxed">
                             3D LiDAR 점군(Point Cloud) 데이터 군집화, 카메라의 비전 인식 차선 검출, 센서 데이터를 종합하여 차량 주위 환경을 밀도 높게 재구성합니다.
                         </p>
                     </div>
                     <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-200 hover:shadow-md transition-shadow">
-                        <div class="w-12 h-12 bg-green-50 text-green-600 rounded-xl flex items-center justify-center text-2xl font-bold mb-6">🧠</div>
+                        <div class="w-12 h-12 bg-stone-100 text-stone-800 rounded-xl flex items-center justify-center text-2xl font-bold mb-6">🧠</div>
                         <h3 class="text-xl font-bold mb-3">판단 (Planning)</h3>
                         <p class="text-sm text-stone-600 leading-relaxed">
                             GPS와 전역 경로 노드를 매핑하고 실시간 장애물 정보를 조합하여 충돌을 피하고 최속으로 주행할 수 있는 정밀 회피 궤적을 연산합니다.
                         </p>
                     </div>
                     <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-200 hover:shadow-md transition-shadow">
-                        <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center text-2xl font-bold mb-6">⚙️</div>
+                        <div class="w-12 h-12 bg-stone-950 text-white rounded-xl flex items-center justify-center text-2xl font-bold mb-6">⚙️</div>
                         <h3 class="text-xl font-bold mb-3">제어 (Control)</h3>
                         <p class="text-sm text-stone-600 leading-relaxed">
                             순수 추종(Pure Pursuit) 및 횡/종방향 조향 속도 프로파일을 토대로 모터 액추에이터에 보낼 물리 명령을 완벽한 정밀도로 수행시킵니다.
@@ -180,18 +201,18 @@
         <!-- GitHub Open Source Ecosystem Section -->
         <section class="max-w-6xl mx-auto px-4 py-20 border-b border-stone-200">
             <div class="text-center mb-12">
-                <span class="text-teal-700 font-bold text-sm tracking-widest uppercase block mb-2">GitHub Repositories</span>
+                <span class="text-rose-800 font-bold text-sm tracking-widest uppercase block mb-2">GitHub Repositories</span>
                 <h2 class="text-3xl font-black text-stone-900 mb-4">Clothoid-R 개발 및 교육 리소스</h2>
                 <p class="text-stone-600 max-w-xl mx-auto">동아리원들의 성장과 연구 성과 보존을 위해 투명하게 관리되는 공식 오픈소스 인프라입니다.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Repo 1: Competitior stack -->
-                <div class="bg-white rounded-xl p-6 border border-stone-200 shadow-sm hover:border-teal-500 transition-all flex flex-col justify-between">
+                <div class="bg-white rounded-xl p-6 border border-stone-200 shadow-sm hover:border-rose-500 transition-all flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-start mb-4">
                             <span class="text-3xl">🏎️</span>
-                            <span class="bg-teal-50 text-teal-800 text-xs font-bold px-2 py-1 rounded">대회 메인</span>
+                            <span class="bg-rose-50 text-rose-800 text-xs font-bold px-2 py-1 rounded">대회 메인</span>
                         </div>
                         <h3 class="text-lg font-bold text-stone-900 mb-2">Clothoid-R Main System</h3>
                         <p class="text-xs text-stone-500 mb-4 font-mono">clothoid-r / Clothoid-R</p>
@@ -205,11 +226,11 @@
                 </div>
 
                 <!-- Repo 2: Seminar Stack -->
-                <div class="bg-white rounded-xl p-6 border border-stone-200 shadow-sm hover:border-teal-500 transition-all flex flex-col justify-between">
+                <div class="bg-white rounded-xl p-6 border border-stone-200 shadow-sm hover:border-rose-500 transition-all flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-start mb-4">
                             <span class="text-3xl">📚</span>
-                            <span class="bg-blue-50 text-blue-800 text-xs font-bold px-2 py-1 rounded">교육 자료</span>
+                            <span class="bg-rose-100 text-rose-900 text-xs font-bold px-2 py-1 rounded">교육 자료</span>
                         </div>
                         <h3 class="text-lg font-bold text-stone-900 mb-2">Autonomous Racing Seminar</h3>
                         <p class="text-xs text-stone-500 mb-4 font-mono">clothoid-r / Autonomous-Racing-Seminar</p>
@@ -223,7 +244,7 @@
                 </div>
 
                 <!-- Repo 3: Racing Simulator -->
-                <div class="bg-white rounded-xl p-6 border border-stone-200 shadow-sm hover:border-teal-500 transition-all flex flex-col justify-between">
+                <div class="bg-white rounded-xl p-6 border border-stone-200 shadow-sm hover:border-rose-500 transition-all flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-start mb-4">
                             <span class="text-3xl">💻</span>
@@ -242,20 +263,21 @@
             </div>
         </section>
 
-        <!-- Crew / Members Section -->
+        <!-- Crew & Alumni Section -->
         <section id="members" class="max-w-6xl mx-auto px-4 py-20 border-b border-stone-200">
             <div class="text-center mb-12">
-                <span class="text-teal-700 font-bold text-sm tracking-widest uppercase block mb-2">Our Crew</span>
+                <span class="text-rose-800 font-bold text-sm tracking-widest uppercase block mb-2">Our Crew & Alumni</span>
                 <h2 class="text-3xl font-black text-stone-900 mb-4">Clothoid-R을 움직이는 사람들</h2>
-                <p class="text-stone-600 max-w-xl mx-auto mb-8">연구 및 레이싱 대회를 함께 준비하며 자율주행 기술을 고도화해 나가는 핵심 멤버들입니다.</p>
+                <p class="text-stone-600 max-w-xl mx-auto mb-8">연구 및 레이싱 대회를 함께 준비하는 액티브 크루와, 각계 명문대 및 자율주행 기업에서 역량을 떨치고 있는 자랑스러운 졸업생들입니다.</p>
                 
                 <!-- Division Filter Controls -->
                 <div class="flex flex-wrap justify-center gap-2" id="member-filters">
-                    <button onclick="filterMembers('all')" id="filter-btn-all" class="px-5 py-2.5 rounded-full text-sm font-bold bg-teal-800 text-white transition-all shadow-sm">전체보기</button>
+                    <button onclick="filterMembers('all')" id="filter-btn-all" class="px-5 py-2.5 rounded-full text-sm font-bold bg-rose-800 text-white transition-all shadow-sm">전체보기</button>
                     <button onclick="filterMembers('core')" id="filter-btn-core" class="px-5 py-2.5 rounded-full text-sm font-bold bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition-all">운영진 (Core)</button>
                     <button onclick="filterMembers('perception')" id="filter-btn-perception" class="px-5 py-2.5 rounded-full text-sm font-bold bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition-all">인지 (Perception)</button>
                     <button onclick="filterMembers('planning')" id="filter-btn-planning" class="px-5 py-2.5 rounded-full text-sm font-bold bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition-all">판단 (Planning)</button>
                     <button onclick="filterMembers('control')" id="filter-btn-control" class="px-5 py-2.5 rounded-full text-sm font-bold bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition-all">제어 (Control)</button>
+                    <button onclick="filterMembers('alumni')" id="filter-btn-alumni" class="px-5 py-2.5 rounded-full text-sm font-bold bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition-all">🎓 졸업생 (Alumni)</button>
                 </div>
             </div>
 
@@ -374,6 +396,63 @@
                         <span class="bg-stone-100 px-2 py-1 rounded">#PID_Tuning</span>
                     </div>
                 </div>
+
+                <!-- ALUMNI 1 -->
+                <div class="member-card bg-stone-100 rounded-xl p-6 border border-rose-200 shadow-sm flex flex-col justify-between" data-divisions="all alumni">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-black tracking-widest bg-stone-800 text-white px-2.5 py-1 rounded">1기 회장 (Alumni)</span>
+                            <span class="text-xs font-semibold text-rose-800">Hyundai Motors</span>
+                        </div>
+                        <h3 class="text-xl font-black text-stone-900 mb-1">박재범</h3>
+                        <p class="text-xs text-rose-800 mb-4">현 현대자동차 자율주행개발센터 연구원</p>
+                        <p class="text-sm text-stone-600 leading-relaxed mb-6">
+                            학부 시절 Clothoid-R의 기틀을 닦았으며, Pure Pursuit 및 PID 제어 기반 조향 시스템 프로토타입 설계를 완료했습니다. 후배들의 창의적인 랩타임 도전을 응원합니다!
+                        </p>
+                    </div>
+                    <div class="flex gap-2 text-xs border-t border-stone-200 pt-4 text-stone-500">
+                        <span class="bg-white/80 px-2 py-1 rounded">#Founding_President</span>
+                        <span class="bg-white/80 px-2 py-1 rounded">#Control_Expert</span>
+                    </div>
+                </div>
+
+                <!-- ALUMNI 2 -->
+                <div class="member-card bg-stone-100 rounded-xl p-6 border border-rose-200 shadow-sm flex flex-col justify-between" data-divisions="all alumni">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-black tracking-widest bg-stone-800 text-white px-2.5 py-1 rounded">2기 멤버 (Alumni)</span>
+                            <span class="text-xs font-semibold text-rose-800">SNU Grad School</span>
+                        </div>
+                        <h3 class="text-xl font-black text-stone-900 mb-1">윤수한</h3>
+                        <p class="text-xs text-rose-800 mb-4">현 서울대학교 대학원 자율주행전공 석사과정</p>
+                        <p class="text-sm text-stone-600 leading-relaxed mb-6">
+                            동아리 연구 인프라인 3D LiDAR 기반 SLAM 아키텍처 및 정밀 GPS 측위 세션을 직접 빌드했습니다. 막힐 때는 언제든 편하게 랩실로 물어보러 오세요!
+                        </p>
+                    </div>
+                    <div class="flex gap-2 text-xs border-t border-stone-200 pt-4 text-stone-500">
+                        <span class="bg-white/80 px-2 py-1 rounded">#LiDAR_SLAM</span>
+                        <span class="bg-white/80 px-2 py-1 rounded">#Academic_Path</span>
+                    </div>
+                </div>
+
+                <!-- ALUMNI 3 -->
+                <div class="member-card bg-stone-100 rounded-xl p-6 border border-rose-200 shadow-sm flex flex-col justify-between" data-divisions="all alumni">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-black tracking-widest bg-stone-800 text-white px-2.5 py-1 rounded">2기 멤버 (Alumni)</span>
+                            <span class="text-xs font-semibold text-rose-800">NAVER LABS</span>
+                        </div>
+                        <h3 class="text-xl font-black text-stone-900 mb-1">이지은</h3>
+                        <p class="text-xs text-rose-800 mb-4">현 네이버랩스 로보틱스 자율주행 그룹 연구원</p>
+                        <p class="text-sm text-stone-600 leading-relaxed mb-6">
+                            OpenCV 차선 감지 및 카메라-라이다 캘리브레이션 융합 모듈을 개발했습니다. 신입 부원 챌린지 시뮬레이터 미션은 자율주행 현업 기술의 기본기를 담고 있는 명품 과제입니다.
+                        </p>
+                    </div>
+                    <div class="flex gap-2 text-xs border-t border-stone-200 pt-4 text-stone-500">
+                        <span class="bg-white/80 px-2 py-1 rounded">#Camera_Calibration</span>
+                        <span class="bg-white/80 px-2 py-1 rounded">#Naver_Labs</span>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -381,7 +460,7 @@
         <section class="max-w-6xl mx-auto px-4 py-20">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
                 <div>
-                    <span class="text-teal-700 font-bold text-sm tracking-widest uppercase block mb-2">Projects & Challenges</span>
+                    <span class="text-rose-800 font-bold text-sm tracking-widest uppercase block mb-2">Projects & Challenges</span>
                     <h2 class="text-3xl font-black text-stone-900">진행 중인 활성 프로젝트</h2>
                 </div>
                 <div class="text-stone-500 text-sm max-w-sm">
@@ -391,25 +470,25 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <!-- clickable card for project dashboard -->
-                <div onclick="switchView('project')" class="lg:col-span-2 group cursor-pointer bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-200 hover:border-teal-500 hover:shadow-lg transition-all flex flex-col md:flex-row">
+                <div onclick="switchView('project')" class="lg:col-span-2 group cursor-pointer bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-200 hover:border-rose-500 hover:shadow-lg transition-all flex flex-col md:flex-row">
                     <div class="p-8 flex-1 flex flex-col justify-between">
                         <div>
                             <div class="flex items-center gap-2 mb-4">
-                                <span class="bg-teal-100 text-teal-800 text-xs font-bold px-2.5 py-1 rounded-md">신입 부원 챌린지</span>
+                                <span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-1 rounded-md">신입 부원 챌린지</span>
                                 <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-md">ROS 2 Kilted</span>
                             </div>
-                            <h3 class="text-2xl font-black group-hover:text-teal-700 transition-colors mb-3">ROS 2 장애물 회피 & 랩타임 기록 경진대회</h3>
+                            <h3 class="text-2xl font-black group-hover:text-rose-700 transition-colors mb-3">ROS 2 장애물 회피 & 랩타임 기록 경진대회</h3>
                             <p class="text-stone-600 text-sm mb-6 leading-relaxed">
                                 자체 시뮬레이터 상에 설치된 꼬깔콘과 원통형 드럼 장애물을 피하여 최속의 랩타임을 경신해야 하는 Clothoid-R의 핵심 등용문 미션입니다.
                             </p>
                         </div>
-                        <div class="flex items-center text-teal-700 font-bold gap-2 text-sm">
+                        <div class="flex items-center text-rose-800 font-bold gap-2 text-sm">
                             <span>👉 실시간 세부 대시보드 바로 입장하기</span>
                         </div>
                     </div>
-                    <div class="bg-teal-900 md:w-48 p-8 flex flex-col justify-center items-center text-white text-center border-t md:border-t-0 md:border-l border-teal-800/80">
+                    <div class="bg-rose-950 md:w-48 p-8 flex flex-col justify-center items-center text-white text-center border-t md:border-t-0 md:border-l border-rose-900/80">
                         <div class="text-4xl mb-2">⏱️</div>
-                        <div class="text-xs text-teal-200">우승 핵심 전략</div>
+                        <div class="text-xs text-rose-200">우승 핵심 전략</div>
                         <div class="text-lg font-black mt-1">최소 페널티<br>최속 주행</div>
                     </div>
                 </div>
@@ -436,11 +515,11 @@
             
             <!-- Breadcrumbs / Back button -->
             <div class="flex items-center gap-2">
-                <button onclick="switchView('home')" class="text-sm font-bold text-stone-500 hover:text-teal-700 transition-colors flex items-center gap-1">
+                <button onclick="switchView('home')" class="text-sm font-bold text-stone-500 hover:text-rose-800 transition-colors flex items-center gap-1">
                     <span>🏠</span> 홈으로 돌아가기
                 </button>
                 <span class="text-stone-300">/</span>
-                <span class="text-sm font-semibold text-teal-700">신입 부원 프로젝트 대시보드</span>
+                <span class="text-sm font-semibold text-rose-800">신입 부원 프로젝트 대시보드</span>
             </div>
 
             <section id="overview" class="bg-white rounded-2xl p-8 shadow-sm border border-stone-100 relative overflow-hidden">
@@ -482,13 +561,13 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-6 md:p-10 flex flex-col lg:flex-row gap-10 items-center">
                     <div class="w-full lg:w-1/2 space-y-6">
                         <div class="flex flex-wrap gap-3" id="role-buttons">
-                            <button onclick="updateRoleView('perception')" class="nav-button active px-6 py-3 rounded-lg font-bold border-2 border-teal-700 text-teal-700 hover:bg-teal-50 transition-colors">👁️ 인지 (Perception)</button>
+                            <button onclick="updateRoleView('perception')" class="nav-button active px-6 py-3 rounded-lg font-bold border-2 border-rose-800 text-rose-800 hover:bg-rose-50 transition-colors">👁️ 인지 (Perception)</button>
                             <button onclick="updateRoleView('planning')" class="nav-button px-6 py-3 rounded-lg font-bold border-2 border-stone-300 text-stone-600 hover:bg-stone-50 transition-colors">🧠 판단 (Planning)</button>
                             <button onclick="updateRoleView('control')" class="nav-button px-6 py-3 rounded-lg font-bold border-2 border-stone-300 text-stone-600 hover:bg-stone-50 transition-colors">⚙️ 제어 (Control)</button>
                         </div>
 
                         <div id="role-content" class="bg-stone-50 rounded-xl p-6 border border-stone-200 min-h-[250px]">
-                            <h3 id="role-title" class="text-2xl font-bold text-teal-800 mb-4">인지 파트 주요 임무</h3>
+                            <h3 id="role-title" class="text-2xl font-bold text-rose-900 mb-4">인지 파트 주요 임무</h3>
                             <ul id="role-list" class="space-y-3 text-stone-700 list-disc list-inside">
                                 <li><strong>3D LiDAR 데이터 처리:</strong> Point Cloud 데이터 필터링(Voxel Grid 등) 및 지면 제거 알고리즘 구현</li>
                                 <li><strong>객체 군집화(Clustering):</strong> 장애물의 3D 공간상 바운딩 박스 생성 및 위치(X,Y,Z) 추출</li>
@@ -554,32 +633,32 @@
                 </p>
 
                 <!-- Resource Link Banner (Teal Accent) -->
-                <div class="bg-teal-800 rounded-2xl p-6 md:p-8 text-white shadow-lg mb-8 space-y-6">
+                <div class="bg-rose-900 rounded-2xl p-6 md:p-8 text-white shadow-lg mb-8 space-y-6">
                     <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                         <div>
                             <h3 class="text-xl font-bold mb-1">시뮬레이션 플랫폼</h3>
-                            <p class="text-teal-200 text-sm">자체 제작 Autonomous-Racing-Simulator (커스텀 맵 제공)</p>
+                            <p class="text-rose-200 text-sm">자체 제작 Autonomous-Racing-Simulator (커스텀 맵 제공)</p>
                         </div>
-                        <a href="https://github.com/ttaehyun/Autonomous-Racing-Simulator" target="_blank" class="px-6 py-3 bg-white text-teal-900 font-bold rounded-lg hover:bg-teal-50 transition-colors shadow-sm text-sm">
+                        <a href="https://github.com/ttaehyun/Autonomous-Racing-Simulator" target="_blank" class="px-6 py-3 bg-white text-rose-900 font-bold rounded-lg hover:bg-rose-50 transition-colors shadow-sm text-sm">
                             💻 Simulator GitHub
                         </a>
                     </div>
-                    <div class="border-t border-teal-700 pt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-teal-900/50 p-4 rounded-xl flex justify-between items-center">
+                    <div class="border-t border-rose-800/80 pt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-rose-950/60 p-4 rounded-xl flex justify-between items-center">
                             <div>
                                 <h4 class="font-bold text-sm">💡 추천 학습 리소스</h4>
-                                <p class="text-xs text-teal-200 mt-1">ROS 2 기초 코드 및 알고리즘 구현 방법 정리</p>
+                                <p class="text-xs text-rose-200 mt-1">ROS 2 기초 코드 및 알고리즘 구현 방법 정리</p>
                             </div>
-                            <a href="https://github.com/clothoid-r/Autonomous-Racing-Seminar" target="_blank" class="px-3 py-1.5 bg-teal-600 hover:bg-teal-500 rounded text-xs font-bold text-white transition-colors">
+                            <a href="https://github.com/clothoid-r/Autonomous-Racing-Seminar" target="_blank" class="px-3 py-1.5 bg-rose-700 hover:bg-rose-600 rounded text-xs font-bold text-white transition-colors">
                                 Seminar GitHub
                             </a>
                         </div>
-                        <div class="bg-teal-900/50 p-4 rounded-xl flex justify-between items-center">
+                        <div class="bg-rose-950/60 p-4 rounded-xl flex justify-between items-center">
                             <div>
                                 <h4 class="font-bold text-sm">🏆 대회 메인 워크스페이스</h4>
-                                <p class="text-xs text-teal-200 mt-1">실제 자율주행 패키지 구성 참고</p>
+                                <p class="text-xs text-rose-200 mt-1">실제 자율주행 패키지 구성 참고</p>
                             </div>
-                            <a href="https://github.com/clothoid-r/Clothoid-R" target="_blank" class="px-3 py-1.5 bg-teal-600 hover:bg-teal-500 rounded text-xs font-bold text-white transition-colors">
+                            <a href="https://github.com/clothoid-r/Clothoid-R" target="_blank" class="px-3 py-1.5 bg-rose-700 hover:bg-rose-600 rounded text-xs font-bold text-white transition-colors">
                                 System GitHub
                             </a>
                         </div>
@@ -638,22 +717,22 @@
                 <div class="max-w-2xl mx-auto relative border-l-2 border-stone-200 pl-8 space-y-8">
                     <div class="relative">
                         <div class="timeline-dot"></div>
-                        <h4 class="text-lg font-bold text-teal-800">1단계: 팀 빌딩</h4>
+                        <h4 class="text-lg font-bold text-rose-800">1단계: 팀 빌딩</h4>
                         <p class="text-stone-600 text-sm mt-1">프로젝트 공고 확인 및 역할 분담 (인지/판단/제어) 후 팀 구성 완료</p>
                     </div>
                     <div class="relative">
                         <div class="timeline-dot"></div>
-                        <h4 class="text-lg font-bold text-teal-800">2단계: 기술 세미나</h4>
+                        <h4 class="text-lg font-bold text-rose-800">2단계: 기술 세미나</h4>
                         <p class="text-stone-600 text-sm mt-1">ROS 2 Kilted 환경 구축, 시뮬레이터 구동 및 센서 활용 기초 튜토리얼 진행</p>
                     </div>
                     <div class="relative">
                         <div class="timeline-dot"></div>
-                        <h4 class="text-lg font-bold text-teal-800">3단계: 멘토링 & 개발</h4>
+                        <h4 class="text-lg font-bold text-rose-800">3단계: 멘토링 & 개발</h4>
                         <p class="text-stone-600 text-sm mt-1">선배들의 코드 리뷰 및 피드백을 통한 알고리즘 고도화</p>
                     </div>
                     <div class="relative">
                         <div class="timeline-dot"></div>
-                        <h4 class="text-lg font-bold text-teal-800">4단계: 예선전</h4>
+                        <h4 class="text-lg font-bold text-rose-800">4단계: 예선전</h4>
                         <p class="text-stone-600 text-sm mt-1">시뮬레이터 맵 기반 코스 완주 여부 및 기본 기능 검증</p>
                     </div>
                     <div class="relative">
@@ -761,7 +840,7 @@
             
             const activeBtn = document.getElementById(`filter-btn-${division}`);
             if (activeBtn) {
-                activeBtn.className = 'px-5 py-2.5 rounded-full text-sm font-bold bg-teal-800 text-white transition-all shadow-sm';
+                activeBtn.className = 'px-5 py-2.5 rounded-full text-sm font-bold bg-rose-800 text-white transition-all shadow-sm';
             }
 
             // Filter member cards
@@ -787,9 +866,9 @@
                     datasets: [{
                         label: '요구 역량 비중',
                         data: roleData.perception.chart,
-                        backgroundColor: 'rgba(15, 118, 110, 0.2)',
-                        borderColor: 'rgba(15, 118, 110, 1)',
-                        pointBackgroundColor: 'rgba(15, 118, 110, 1)',
+                        backgroundColor: 'rgba(159, 18, 57, 0.2)',
+                        borderColor: 'rgba(159, 18, 57, 1)',
+                        pointBackgroundColor: 'rgba(159, 18, 57, 1)',
                         borderWidth: 2
                     }]
                 },
@@ -817,7 +896,7 @@
                         {
                             label: '순수 랩타임',
                             data: [60, 60, 60],
-                            backgroundColor: '#0f766e'
+                            backgroundColor: '#9f1239'
                         },
                         {
                             label: '콘 충돌 페널티',
@@ -854,7 +933,7 @@
             buttons.forEach(btn => {
                 btn.className = 'nav-button px-6 py-3 rounded-lg font-bold border-2 border-stone-300 text-stone-600 hover:bg-stone-50 transition-colors';
             });
-            event.target.className = 'nav-button active px-6 py-3 rounded-lg font-bold border-2 border-teal-700 text-teal-700 hover:bg-teal-50 transition-colors';
+            event.target.className = 'nav-button active px-6 py-3 rounded-lg font-bold border-2 border-rose-800 text-rose-800 hover:bg-rose-50 transition-colors';
 
             const data = roleData[role];
             document.getElementById('role-title').innerText = data.title;
