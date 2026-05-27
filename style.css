@@ -1,0 +1,39 @@
+body { font-family: 'Noto Sans KR', sans-serif; }
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 40vh;
+    max-height: 400px;
+}
+
+@media (min-width: 768px) {
+    .chart-container { height: 350px; }
+}
+
+.nav-button.active {
+    background-color: #9f1239;
+    color: white;
+    border-color: #9f1239;
+}
+
+.timeline-dot {
+    height: 1rem; width: 1rem; background-color: #9f1239; border-radius: 9999px; position: absolute; left: -0.55rem; top: 0.25rem;
+}
+
+/* 부드러운 페이드 전환 애니메이션 */
+.view-section {
+    transition: opacity 0.5s ease-in-out;
+    opacity: 1;
+}
+
+.opacity-0 {
+    opacity: 0 !important;
+}
+
+.member-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}

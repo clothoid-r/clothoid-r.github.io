@@ -77,9 +77,24 @@ let roleRadarChart;
 
 // 화면 전환 함수
 window.switchView = function(viewName) {
+    const views = document.querySelectorAll('.view-section');
+    
+    // 모든 뷰 페이드 아웃 및 숨기기
+    views.forEach(view => {
+        view.classList.add('opacity-0');
+        view.classList.add('hidden');
+    });
+
+    // 대상 뷰 보이기
+    const targetView = document.getElementById(`view-${viewName}`);
+    targetView.classList.remove('hidden');
+    
+    // 브라우저 렌더링 후 페이드 인
+    setTimeout(() => {
+        targetView.classList.remove('opacity-0');
+    }, 10);
+
     currentView = viewName;
-    document.querySelectorAll('.view-section').forEach(view => view.classList.add('hidden'));
-    document.getElementById(`view-${viewName}`).classList.remove('hidden');
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     if (viewName === 'project' && !chartsInitialized) {
@@ -88,20 +103,6 @@ window.switchView = function(viewName) {
     
     if (viewName === 'members') {
         renderMembers();
-    }
-};
-
-// 섹션 스크롤 함수 (홈이 아닐 경우 홈으로 이동 후 스크롤)
-window.scrollToSection = function(sectionId) {
-    if (currentView !== 'home') {
-        switchView('home');
-        setTimeout(() => {
-            const element = document.getElementById(sectionId);
-            if (element) element.scrollIntoView({ behavior: 'smooth' });
-        }, 150);
-    } else {
-        const element = document.getElementById(sectionId);
-        if (element) element.scrollIntoView({ behavior: 'smooth' });
     }
 };
 
