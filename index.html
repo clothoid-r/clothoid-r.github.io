@@ -29,11 +29,9 @@
         .timeline-dot {
             height: 1rem; width: 1rem; background-color: #9f1239; border-radius: 9999px; position: absolute; left: -0.55rem; top: 0.25rem;
         }
-        /* 부드러운 페이드 전환 애니메이션 */
         .view-section {
             transition: opacity 0.3s ease-in-out;
         }
-        /* 멤버 카드 전환 애니메이션 */
         .member-card {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -53,15 +51,13 @@
 <body class="bg-stone-50 text-stone-800 antialiased overflow-x-hidden">
 
     <!-- Chosen Palette: Warm Stone Base (stone-50 to stone-200), Tech Burgundy/Rose Accent (rose-800/900/950) matching the official logo, Slate Gray highlights -->
-    <!-- Application Structure Plan: Designed as a 2-view Single Page Application (SPA). View 1 is the 'Clothoid-R' Main Portal Home featuring the club identity, technical pillars, GitHub code ecosystems, interactive crew & alumni directories, and active projects. View 2 is the 'ROS 2 Laptime Challenge' dashboard. This architecture improves readability, acts as a high-fidelity portal for recruiting, and guides students from general interest to technical challenge specifics seamlessly. -->
+    <!-- Application Structure Plan: Designed as a 3-view Single Page Application (SPA). View 1 is the 'Clothoid-R' Portal Home detailing core technical pillars, repository environments, and active projects. View 2 is a newly isolated Crew & Alumni Directory, preventing clutter on the homepage while enabling targeted career path mapping. View 3 is the 'ROS 2 Laptime Challenge' dashboard. This clean division delivers a robust high-fidelity platform for current members, prospective recruits, and legacy alumni. -->
     <!-- Visualization & Content Choices: 1. Club Divisions Overview -> Dynamic HTML Card Grid. 2. Project Radar & Stacked Bar Charts inside Project View -> Initialized dynamically only when transitioning to the view to prevent canvas dimensions glitching inside a hidden tab. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
-    <!-- Global Header & Navigation -->
     <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-stone-100">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
             <button onclick="switchView('home')" class="text-2xl font-black text-rose-900 tracking-tight flex items-center gap-3">
-                <!-- Logo integration with dynamic fallback -->
                 <div class="h-9 w-9 flex items-center justify-center overflow-hidden rounded bg-stone-100 p-0.5 border border-stone-200">
                     <img src="image/clothoid-r로고.png" alt="Clothoid-R Logo" class="h-full w-full object-contain" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\'font-black text-rose-800 text-lg\'>CR</span>';">
                 </div>
@@ -70,15 +66,13 @@
             <nav class="flex space-x-5 text-sm font-semibold text-stone-600">
                 <button onclick="switchView('home')" class="hover:text-rose-700 transition-colors">홈</button>
                 <button onclick="scrollToSection('about')" class="hover:text-rose-700 transition-colors hidden md:inline-block">소개</button>
-                <button onclick="scrollToSection('members')" class="hover:text-rose-700 transition-colors">크루 & 졸업생</button>
+                <button onclick="switchView('members')" class="hover:text-rose-700 transition-colors">크루 & 졸업생</button>
                 <button onclick="switchView('project')" class="hover:text-rose-700 transition-colors text-rose-800 font-bold bg-rose-50 px-3 py-1.5 rounded-md">신입 부원 프로젝트 🏁</button>
             </nav>
         </div>
     </header>
 
-    <!-- VIEW 1: Clothoid-R MAIN PORTAL (HOME) -->
     <div id="view-home" class="view-section">
-        <!-- Hero Section -->
         <section class="bg-gradient-to-br from-stone-950 via-stone-900 to-rose-950 text-white py-24 px-4 relative overflow-hidden">
             <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]"></div>
             <div class="max-w-5xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 relative z-10">
@@ -104,12 +98,10 @@
                     </div>
                 </div>
 
-                <!-- Premium Logo Display Box -->
                 <div class="w-full max-w-sm lg:w-96 flex flex-col items-center">
                     <div class="w-full bg-stone-900/40 p-6 rounded-3xl border border-stone-800/80 backdrop-blur shadow-2xl flex flex-col items-center justify-center relative group">
                         <div class="absolute -inset-1 bg-gradient-to-r from-rose-500 to-amber-500 rounded-3xl blur opacity-15 group-hover:opacity-25 transition duration-1000"></div>
                         <div class="relative w-full aspect-[4/3] flex items-center justify-center bg-white/5 rounded-2xl border border-white/10 overflow-hidden mb-4">
-                            <!-- Official Logo -->
                             <img src="image/clothoid-r로고.png" alt="Clothoid-R Emblem" class="max-h-[85%] max-w-[85%] object-contain" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1542282088-fe8426682b8f?auto=format&fit=crop&q=80&w=600';">
                         </div>
                         <div class="text-center">
@@ -121,7 +113,6 @@
             </div>
         </section>
 
-        <!-- About "clothoid" Section -->
         <section id="about" class="max-w-6xl mx-auto px-4 py-20">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div>
@@ -165,7 +156,6 @@
             </div>
         </section>
 
-        <!-- Technical Pillars -->
         <section class="bg-stone-100/60 border-y border-stone-200/80 py-20 px-4">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-16">
@@ -198,7 +188,6 @@
             </div>
         </section>
 
-        <!-- GitHub Open Source Ecosystem Section -->
         <section class="max-w-6xl mx-auto px-4 py-20 border-b border-stone-200">
             <div class="text-center mb-12">
                 <span class="text-rose-800 font-bold text-sm tracking-widest uppercase block mb-2">GitHub Repositories</span>
@@ -207,7 +196,6 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Repo 1: Competitior stack -->
                 <div class="bg-white rounded-xl p-6 border border-stone-200 shadow-sm hover:border-rose-500 transition-all flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-start mb-4">
@@ -225,7 +213,6 @@
                     </a>
                 </div>
 
-                <!-- Repo 2: Seminar Stack -->
                 <div class="bg-white rounded-xl p-6 border border-stone-200 shadow-sm hover:border-rose-500 transition-all flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-start mb-4">
@@ -243,7 +230,6 @@
                     </a>
                 </div>
 
-                <!-- Repo 3: Racing Simulator -->
                 <div class="bg-white rounded-xl p-6 border border-stone-200 shadow-sm hover:border-rose-500 transition-all flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-start mb-4">
@@ -263,200 +249,17 @@
             </div>
         </section>
 
-        <!-- Crew & Alumni Section -->
-        <section id="members" class="max-w-6xl mx-auto px-4 py-20 border-b border-stone-200">
-            <div class="text-center mb-12">
-                <span class="text-rose-800 font-bold text-sm tracking-widest uppercase block mb-2">Our Crew & Alumni</span>
-                <h2 class="text-3xl font-black text-stone-900 mb-4">Clothoid-R을 움직이는 사람들</h2>
-                <p class="text-stone-600 max-w-xl mx-auto mb-8">연구 및 레이싱 대회를 함께 준비하는 액티브 크루와, 각계 명문대 및 자율주행 기업에서 역량을 떨치고 있는 자랑스러운 졸업생들입니다.</p>
-                
-                <!-- Division Filter Controls -->
-                <div class="flex flex-wrap justify-center gap-2" id="member-filters">
-                    <button onclick="filterMembers('all')" id="filter-btn-all" class="px-5 py-2.5 rounded-full text-sm font-bold bg-rose-800 text-white transition-all shadow-sm">전체보기</button>
-                    <button onclick="filterMembers('core')" id="filter-btn-core" class="px-5 py-2.5 rounded-full text-sm font-bold bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition-all">운영진 (Core)</button>
-                    <button onclick="filterMembers('perception')" id="filter-btn-perception" class="px-5 py-2.5 rounded-full text-sm font-bold bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition-all">인지 (Perception)</button>
-                    <button onclick="filterMembers('planning')" id="filter-btn-planning" class="px-5 py-2.5 rounded-full text-sm font-bold bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition-all">판단 (Planning)</button>
-                    <button onclick="filterMembers('control')" id="filter-btn-control" class="px-5 py-2.5 rounded-full text-sm font-bold bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition-all">제어 (Control)</button>
-                    <button onclick="filterMembers('alumni')" id="filter-btn-alumni" class="px-5 py-2.5 rounded-full text-sm font-bold bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition-all">🎓 졸업생 (Alumni)</button>
-                </div>
-            </div>
-
-            <!-- Member Cards Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="member-grid">
-                <!-- Member 1: President -->
-                <div class="member-card bg-white rounded-xl p-6 border border-stone-200 shadow-sm flex flex-col justify-between" data-divisions="all core control">
-                    <div>
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs font-black tracking-widest bg-amber-100 text-amber-800 px-2.5 py-1 rounded">회장 (President)</span>
-                            <span class="text-xs font-semibold text-stone-400">Control / Integration</span>
-                        </div>
-                        <h3 class="text-xl font-black text-stone-900 mb-1">김태현</h3>
-                        <p class="text-xs text-stone-500 mb-4">ttaehyun</p>
-                        <p class="text-sm text-stone-600 leading-relaxed mb-6">
-                            자체 레이싱 시뮬레이터 개발 및 전체 시스템 파이프라인 통합을 담당합니다. 부드러운 전이 곡선 주행 최적화에 힘쓰고 있습니다.
-                        </p>
-                    </div>
-                    <div class="flex gap-2 text-xs border-t border-stone-100 pt-4 text-stone-500">
-                        <span class="bg-stone-100 px-2 py-1 rounded">#System_Integration</span>
-                        <span class="bg-stone-100 px-2 py-1 rounded">#Pure_Pursuit</span>
-                    </div>
-                </div>
-
-                <!-- Member 2: Perception Lead -->
-                <div class="member-card bg-white rounded-xl p-6 border border-stone-200 shadow-sm flex flex-col justify-between" data-divisions="all core perception">
-                    <div>
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs font-black tracking-widest bg-blue-100 text-blue-800 px-2.5 py-1 rounded">인지 파트장 (Lead)</span>
-                            <span class="text-xs font-semibold text-stone-400">Perception / Vision</span>
-                        </div>
-                        <h3 class="text-xl font-black text-stone-900 mb-1">이민준</h3>
-                        <p class="text-xs text-stone-500 mb-4">minjun-lee</p>
-                        <p class="text-sm text-stone-600 leading-relaxed mb-6">
-                            3D LiDAR 점군(Point Cloud) 정밀 클러스터링 및 실시간 카메라 오브젝트 트래킹을 통한 전방 장애물 식별 시스템을 책임집니다.
-                        </p>
-                    </div>
-                    <div class="flex gap-2 text-xs border-t border-stone-100 pt-4 text-stone-500">
-                        <span class="bg-stone-100 px-2 py-1 rounded">#LiDAR_3D</span>
-                        <span class="bg-stone-100 px-2 py-1 rounded">#OpenCV</span>
-                    </div>
-                </div>
-
-                <!-- Member 3: Planning Lead -->
-                <div class="member-card bg-white rounded-xl p-6 border border-stone-200 shadow-sm flex flex-col justify-between" data-divisions="all core planning">
-                    <div>
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs font-black tracking-widest bg-green-100 text-green-800 px-2.5 py-1 rounded">판단 파트장 (Lead)</span>
-                            <span class="text-xs font-semibold text-stone-400">Planning / Localization</span>
-                        </div>
-                        <h3 class="text-xl font-black text-stone-900 mb-1">박서연</h3>
-                        <p class="text-xs text-stone-500 mb-4">seoyeon-p</p>
-                        <p class="text-sm text-stone-600 leading-relaxed mb-6">
-                            GPS와 전역 경로 노드 오차 보정, 실시간 충돌 가능 영역(Costmap)을 기반으로 한 Dynamic Path Optimization 연구를 이끌고 있습니다.
-                        </p>
-                    </div>
-                    <div class="flex gap-2 text-xs border-t border-stone-100 pt-4 text-stone-500">
-                        <span class="bg-stone-100 px-2 py-1 rounded">#Dijkstra</span>
-                        <span class="bg-stone-100 px-2 py-1 rounded">#GPS_NavSat</span>
-                    </div>
-                </div>
-
-                <!-- Member 4: Perception Engineer -->
-                <div class="member-card bg-white rounded-xl p-6 border border-stone-200 shadow-sm flex flex-col justify-between" data-divisions="all perception">
-                    <div>
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs font-black tracking-widest bg-stone-100 text-stone-700 px-2.5 py-1 rounded">파트원 (Member)</span>
-                            <span class="text-xs font-semibold text-stone-400">Perception / SLAM</span>
-                        </div>
-                        <h3 class="text-xl font-black text-stone-900 mb-1">정우진</h3>
-                        <p class="text-xs text-stone-500 mb-4">woojin-vision</p>
-                        <p class="text-sm text-stone-600 leading-relaxed mb-6">
-                            2D/3D 환경 맵 작성을 위한 LiDAR SLAM 패키지 튜닝 및 카메라 단안 차선 감지 신경망 모형을 통합 구현합니다.
-                        </p>
-                    </div>
-                    <div class="flex gap-2 text-xs border-t border-stone-100 pt-4 text-stone-500">
-                        <span class="bg-stone-100 px-2 py-1 rounded">#Cartographer</span>
-                        <span class="bg-stone-100 px-2 py-1 rounded">#Semantic_Segmentation</span>
-                    </div>
-                </div>
-
-                <!-- Member 5: Planning Engineer -->
-                <div class="member-card bg-white rounded-xl p-6 border border-stone-200 shadow-sm flex flex-col justify-between" data-divisions="all planning">
-                    <div>
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs font-black tracking-widest bg-stone-100 text-stone-700 px-2.5 py-1 rounded">파트원 (Member)</span>
-                            <span class="text-xs font-semibold text-stone-400">Planning / FSM</span>
-                        </div>
-                        <h3 class="text-xl font-black text-stone-900 mb-1">한소희</h3>
-                        <p class="text-xs text-stone-500 mb-4">sohee-planning</p>
-                        <p class="text-sm text-stone-600 leading-relaxed mb-6">
-                            교차로 및 정지선, 장애물 급가속 등 실시간 규칙 기반 상태 판단을 위한 Finite State Machine(FSM) 아키텍처 설계를 고도화합니다.
-                        </p>
-                    </div>
-                    <div class="flex gap-2 text-xs border-t border-stone-100 pt-4 text-stone-500">
-                        <span class="bg-stone-100 px-2 py-1 rounded">#State_Machine</span>
-                        <span class="bg-stone-100 px-2 py-1 rounded">#Behavior_Tree</span>
-                    </div>
-                </div>
-
-                <!-- Member 6: Control Engineer -->
-                <div class="member-card bg-white rounded-xl p-6 border border-stone-200 shadow-sm flex flex-col justify-between" data-divisions="all control">
-                    <div>
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs font-black tracking-widest bg-stone-100 text-stone-700 px-2.5 py-1 rounded">파트원 (Member)</span>
-                            <span class="text-xs font-semibold text-stone-400">Control / MPC</span>
-                        </div>
-                        <h3 class="text-xl font-black text-stone-900 mb-1">최지우</h3>
-                        <p class="text-xs text-stone-500 mb-4">jiwoo-control</p>
-                        <p class="text-sm text-stone-600 leading-relaxed mb-6">
-                            차량 횡/종방향 통합 주행 제어를 위해 PID 정밀 제어기 및 Model Predictive Control(MPC) 알고리즘의 응답 성능 분석을 담당합니다.
-                        </p>
-                    </div>
-                    <div class="flex gap-2 text-xs border-t border-stone-100 pt-4 text-stone-500">
-                        <span class="bg-stone-100 px-2 py-1 rounded">#MPC</span>
-                        <span class="bg-stone-100 px-2 py-1 rounded">#PID_Tuning</span>
-                    </div>
-                </div>
-
-                <!-- ALUMNI 1 -->
-                <div class="member-card bg-stone-100 rounded-xl p-6 border border-rose-200 shadow-sm flex flex-col justify-between" data-divisions="all alumni">
-                    <div>
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs font-black tracking-widest bg-stone-800 text-white px-2.5 py-1 rounded">1기 회장 (Alumni)</span>
-                            <span class="text-xs font-semibold text-rose-800">Hyundai Motors</span>
-                        </div>
-                        <h3 class="text-xl font-black text-stone-900 mb-1">박재범</h3>
-                        <p class="text-xs text-rose-800 mb-4">현 현대자동차 자율주행개발센터 연구원</p>
-                        <p class="text-sm text-stone-600 leading-relaxed mb-6">
-                            학부 시절 Clothoid-R의 기틀을 닦았으며, Pure Pursuit 및 PID 제어 기반 조향 시스템 프로토타입 설계를 완료했습니다. 후배들의 창의적인 랩타임 도전을 응원합니다!
-                        </p>
-                    </div>
-                    <div class="flex gap-2 text-xs border-t border-stone-200 pt-4 text-stone-500">
-                        <span class="bg-white/80 px-2 py-1 rounded">#Founding_President</span>
-                        <span class="bg-white/80 px-2 py-1 rounded">#Control_Expert</span>
-                    </div>
-                </div>
-
-                <!-- ALUMNI 2 -->
-                <div class="member-card bg-stone-100 rounded-xl p-6 border border-rose-200 shadow-sm flex flex-col justify-between" data-divisions="all alumni">
-                    <div>
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs font-black tracking-widest bg-stone-800 text-white px-2.5 py-1 rounded">2기 멤버 (Alumni)</span>
-                            <span class="text-xs font-semibold text-rose-800">SNU Grad School</span>
-                        </div>
-                        <h3 class="text-xl font-black text-stone-900 mb-1">윤수한</h3>
-                        <p class="text-xs text-rose-800 mb-4">현 서울대학교 대학원 자율주행전공 석사과정</p>
-                        <p class="text-sm text-stone-600 leading-relaxed mb-6">
-                            동아리 연구 인프라인 3D LiDAR 기반 SLAM 아키텍처 및 정밀 GPS 측위 세션을 직접 빌드했습니다. 막힐 때는 언제든 편하게 랩실로 물어보러 오세요!
-                        </p>
-                    </div>
-                    <div class="flex gap-2 text-xs border-t border-stone-200 pt-4 text-stone-500">
-                        <span class="bg-white/80 px-2 py-1 rounded">#LiDAR_SLAM</span>
-                        <span class="bg-white/80 px-2 py-1 rounded">#Academic_Path</span>
-                    </div>
-                </div>
-
-                <!-- ALUMNI 3 -->
-                <div class="member-card bg-stone-100 rounded-xl p-6 border border-rose-200 shadow-sm flex flex-col justify-between" data-divisions="all alumni">
-                    <div>
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs font-black tracking-widest bg-stone-800 text-white px-2.5 py-1 rounded">2기 멤버 (Alumni)</span>
-                            <span class="text-xs font-semibold text-rose-800">NAVER LABS</span>
-                        </div>
-                        <h3 class="text-xl font-black text-stone-900 mb-1">이지은</h3>
-                        <p class="text-xs text-rose-800 mb-4">현 네이버랩스 로보틱스 자율주행 그룹 연구원</p>
-                        <p class="text-sm text-stone-600 leading-relaxed mb-6">
-                            OpenCV 차선 감지 및 카메라-라이다 캘리브레이션 융합 모듈을 개발했습니다. 신입 부원 챌린지 시뮬레이터 미션은 자율주행 현업 기술의 기본기를 담고 있는 명품 과제입니다.
-                        </p>
-                    </div>
-                    <div class="flex gap-2 text-xs border-t border-stone-200 pt-4 text-stone-500">
-                        <span class="bg-white/80 px-2 py-1 rounded">#Camera_Calibration</span>
-                        <span class="bg-white/80 px-2 py-1 rounded">#Naver_Labs</span>
-                    </div>
-                </div>
-            </div>
+        <section class="max-w-6xl mx-auto px-4 py-20 text-center bg-stone-100/40 rounded-3xl border border-stone-200/60 my-12 shadow-sm">
+            <span class="text-rose-800 font-bold text-sm tracking-widest uppercase block mb-2">Clothoid-R Crew</span>
+            <h2 class="text-3xl font-black text-stone-900 mb-4">함께 성과를 만들어가는 정예 연구 크루</h2>
+            <p class="text-stone-600 max-w-lg mx-auto mb-8">
+                동아리를 빛낸 역대 운영진과 각 연구 도메인별 크루, 그리고 산업계 각계층에서 활약 중인 최고의 졸업생 목록을 지금 확인해 보세요.
+            </p>
+            <button onclick="switchView('members')" class="px-8 py-4 bg-rose-800 hover:bg-rose-700 text-white font-bold rounded-xl transition-all shadow-md transform hover:-translate-y-0.5">
+                👥 크루 & 졸업생 프로필 전체보기
+            </button>
         </section>
 
-        <!-- Active Projects Showcase -->
         <section class="max-w-6xl mx-auto px-4 py-20">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
                 <div>
@@ -469,7 +272,6 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- clickable card for project dashboard -->
                 <div onclick="switchView('project')" class="lg:col-span-2 group cursor-pointer bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-200 hover:border-rose-500 hover:shadow-lg transition-all flex flex-col md:flex-row">
                     <div class="p-8 flex-1 flex flex-col justify-between">
                         <div>
@@ -493,7 +295,6 @@
                     </div>
                 </div>
 
-                <!-- Coming soon cards -->
                 <div class="bg-stone-100/60 p-8 rounded-2xl border border-stone-200/60 flex flex-col justify-between">
                     <div>
                         <span class="bg-stone-200 text-stone-700 text-xs font-bold px-2.5 py-1 rounded-md mb-4 inline-block">연구과제</span>
@@ -508,12 +309,194 @@
         </section>
     </div>
 
+    <div id="view-members" class="view-section hidden">
+        <section class="max-w-6xl mx-auto px-4 py-12">
+            <div class="text-center mb-12">
+                <span class="text-rose-800 font-bold text-sm tracking-widest uppercase block mb-2">Our Crew & Alumni</span>
+                <h2 class="text-4xl font-black text-stone-900 mb-4">Clothoid-R 크루 & 졸업 명예의 전당</h2>
+                <p class="text-stone-600 max-w-2xl mx-auto mb-8">
+                    자율주행 연구 및 대회 성과를 함께 축적해가는 액티브 멤버들과 연구실의 위상을 높이고 계신 졸업생들의 명단입니다.
+                </p>
+                
+                <div class="flex flex-wrap justify-center gap-2" id="member-filters">
+                    <button onclick="filterMembers('all')" id="filter-btn-all" class="px-5 py-2.5 rounded-full text-sm font-bold bg-rose-800 text-white transition-all shadow-sm">전체보기</button>
+                    <button onclick="filterMembers('core')" id="filter-btn-core" class="px-5 py-2.5 rounded-full text-sm font-bold bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition-all">운영진 (Core)</button>
+                    <button onclick="filterMembers('perception')" id="filter-btn-perception" class="px-5 py-2.5 rounded-full text-sm font-bold bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition-all">인지 (Perception)</button>
+                    <button onclick="filterMembers('planning')" id="filter-btn-planning" class="px-5 py-2.5 rounded-full text-sm font-bold bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition-all">판단 (Planning)</button>
+                    <button onclick="filterMembers('control')" id="filter-btn-control" class="px-5 py-2.5 rounded-full text-sm font-bold bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition-all">제어 (Control)</button>
+                    <button onclick="filterMembers('alumni')" id="filter-btn-alumni" class="px-5 py-2.5 rounded-full text-sm font-bold bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition-all">🎓 졸업생 (Alumni)</button>
+                </div>
+            </div>
 
-    <!-- VIEW 2: ROS 2 PROJECT DASHBOARD -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16" id="member-grid">
+                <div class="member-card bg-white rounded-xl p-6 border border-stone-200 shadow-sm flex flex-col justify-between animate-fade-in" data-divisions="all core control">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-black tracking-widest bg-amber-100 text-amber-800 px-2.5 py-1 rounded">회장 (President)</span>
+                            <span class="text-xs font-semibold text-stone-400">Control / Integration</span>
+                        </div>
+                        <h3 class="text-xl font-black text-stone-900 mb-1">김태현</h3>
+                        <p class="text-xs text-stone-500 mb-4">ttaehyun</p>
+                        <p class="text-sm text-stone-600 leading-relaxed mb-6">
+                            자체 레이싱 시뮬레이터 개발 및 전체 시스템 파이프라인 통합을 담당합니다. 부드러운 전이 곡선 주행 최적화에 힘쓰고 있습니다.
+                        </p>
+                    </div>
+                    <div class="flex gap-2 text-xs border-t border-stone-100 pt-4 text-stone-500">
+                        <span class="bg-stone-100 px-2 py-1 rounded">#System_Integration</span>
+                        <span class="bg-stone-100 px-2 py-1 rounded">#Pure_Pursuit</span>
+                    </div>
+                </div>
+
+                <div class="member-card bg-white rounded-xl p-6 border border-stone-200 shadow-sm flex flex-col justify-between animate-fade-in" data-divisions="all core perception">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-black tracking-widest bg-blue-100 text-blue-800 px-2.5 py-1 rounded">인지 파트장 (Lead)</span>
+                            <span class="text-xs font-semibold text-stone-400">Perception / Vision</span>
+                        </div>
+                        <h3 class="text-xl font-black text-stone-900 mb-1">이민준</h3>
+                        <p class="text-xs text-stone-500 mb-4">minjun-lee</p>
+                        <p class="text-sm text-stone-600 leading-relaxed mb-6">
+                            3D LiDAR 점군(Point Cloud) 정밀 클러스터링 및 실시간 카메라 오브젝트 트래킹을 통한 전방 장애물 식별 시스템을 책임집니다.
+                        </p>
+                    </div>
+                    <div class="flex gap-2 text-xs border-t border-stone-100 pt-4 text-stone-500">
+                        <span class="bg-stone-100 px-2 py-1 rounded">#LiDAR_3D</span>
+                        <span class="bg-stone-100 px-2 py-1 rounded">#OpenCV</span>
+                    </div>
+                </div>
+
+                <div class="member-card bg-white rounded-xl p-6 border border-stone-200 shadow-sm flex flex-col justify-between animate-fade-in" data-divisions="all core planning">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-black tracking-widest bg-green-100 text-green-800 px-2.5 py-1 rounded">판단 파트장 (Lead)</span>
+                            <span class="text-xs font-semibold text-stone-400">Planning / Localization</span>
+                        </div>
+                        <h3 class="text-xl font-black text-stone-900 mb-1">박서연</h3>
+                        <p class="text-xs text-stone-500 mb-4">seoyeon-p</p>
+                        <p class="text-sm text-stone-600 leading-relaxed mb-6">
+                            GPS와 전역 경로 노드 오차 보정, 실시간 충돌 가능 영역(Costmap)을 기반으로 한 Dynamic Path Optimization 연구를 이끌고 있습니다.
+                        </p>
+                    </div>
+                    <div class="flex gap-2 text-xs border-t border-stone-100 pt-4 text-stone-500">
+                        <span class="bg-stone-100 px-2 py-1 rounded">#Dijkstra</span>
+                        <span class="bg-stone-100 px-2 py-1 rounded">#GPS_NavSat</span>
+                    </div>
+                </div>
+
+                <div class="member-card bg-white rounded-xl p-6 border border-stone-200 shadow-sm flex flex-col justify-between animate-fade-in" data-divisions="all perception">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-black tracking-widest bg-stone-100 text-stone-700 px-2.5 py-1 rounded">파트원 (Member)</span>
+                            <span class="text-xs font-semibold text-stone-400">Perception / SLAM</span>
+                        </div>
+                        <h3 class="text-xl font-black text-stone-900 mb-1">정우진</h3>
+                        <p class="text-xs text-stone-500 mb-4">woojin-vision</p>
+                        <p class="text-sm text-stone-600 leading-relaxed mb-6">
+                            2D/3D 환경 맵 작성을 위한 LiDAR SLAM 패키지 튜닝 및 카메라 단안 차선 감지 신경망 모형을 통합 구현합니다.
+                        </p>
+                    </div>
+                    <div class="flex gap-2 text-xs border-t border-stone-100 pt-4 text-stone-500">
+                        <span class="bg-stone-100 px-2 py-1 rounded">#Cartographer</span>
+                        <span class="bg-stone-100 px-2 py-1 rounded">#Semantic_Segmentation</span>
+                    </div>
+                </div>
+
+                <div class="member-card bg-white rounded-xl p-6 border border-stone-200 shadow-sm flex flex-col justify-between animate-fade-in" data-divisions="all planning">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-black tracking-widest bg-stone-100 text-stone-700 px-2.5 py-1 rounded">파트원 (Member)</span>
+                            <span class="text-xs font-semibold text-stone-400">Planning / FSM</span>
+                        </div>
+                        <h3 class="text-xl font-black text-stone-900 mb-1">한소희</h3>
+                        <p class="text-xs text-stone-500 mb-4">sohee-planning</p>
+                        <p class="text-sm text-stone-600 leading-relaxed mb-6">
+                            교차로 및 정지선, 장애물 급가속 등 실시간 규칙 기반 상태 판단을 위한 Finite State Machine(FSM) 아키텍처 설계를 고도화합니다.
+                        </p>
+                    </div>
+                    <div class="flex gap-2 text-xs border-t border-stone-100 pt-4 text-stone-500">
+                        <span class="bg-stone-100 px-2 py-1 rounded">#State_Machine</span>
+                        <span class="bg-stone-100 px-2 py-1 rounded">#Behavior_Tree</span>
+                    </div>
+                </div>
+
+                <div class="member-card bg-white rounded-xl p-6 border border-stone-200 shadow-sm flex flex-col justify-between animate-fade-in" data-divisions="all control">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-black tracking-widest bg-stone-100 text-stone-700 px-2.5 py-1 rounded">파트원 (Member)</span>
+                            <span class="text-xs font-semibold text-stone-400">Control / MPC</span>
+                        </div>
+                        <h3 class="text-xl font-black text-stone-900 mb-1">최지우</h3>
+                        <p class="text-xs text-stone-500 mb-4">jiwoo-control</p>
+                        <p class="text-sm text-stone-600 leading-relaxed mb-6">
+                            차량 횡/종방향 통합 주행 제어를 위해 PID 정밀 제어기 및 Model Predictive Control(MPC) 알고리즘의 응답 성능 분석을 담당합니다.
+                        </p>
+                    </div>
+                    <div class="flex gap-2 text-xs border-t border-stone-100 pt-4 text-stone-500">
+                        <span class="bg-stone-100 px-2 py-1 rounded">#MPC</span>
+                        <span class="bg-stone-100 px-2 py-1 rounded">#PID_Tuning</span>
+                    </div>
+                </div>
+
+                <div class="member-card bg-stone-100 rounded-xl p-6 border border-rose-200 shadow-sm flex flex-col justify-between animate-fade-in" data-divisions="all alumni">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-black tracking-widest bg-stone-800 text-white px-2.5 py-1 rounded">1기 회장 (Alumni)</span>
+                            <span class="text-xs font-semibold text-rose-800">Hyundai Motors</span>
+                        </div>
+                        <h3 class="text-xl font-black text-stone-900 mb-1">박재범</h3>
+                        <p class="text-xs text-rose-800 mb-4">현 현대자동차 자율주행개발센터 연구원</p>
+                        <p class="text-sm text-stone-600 leading-relaxed mb-6">
+                            학부 시절 Clothoid-R의 기틀을 닦았으며, Pure Pursuit 및 PID 제어 기반 조향 시스템 프로토타입 설계를 완료했습니다. 후배들의 창의적인 랩타임 도전을 응원합니다!
+                        </p>
+                    </div>
+                    <div class="flex gap-2 text-xs border-t border-stone-200 pt-4 text-stone-500">
+                        <span class="bg-white/80 px-2 py-1 rounded">#Founding_President</span>
+                        <span class="bg-white/80 px-2 py-1 rounded">#Control_Expert</span>
+                    </div>
+                </div>
+
+                <div class="member-card bg-stone-100 rounded-xl p-6 border border-rose-200 shadow-sm flex flex-col justify-between animate-fade-in" data-divisions="all alumni">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-black tracking-widest bg-stone-800 text-white px-2.5 py-1 rounded">2기 멤버 (Alumni)</span>
+                            <span class="text-xs font-semibold text-rose-800">SNU Grad School</span>
+                        </div>
+                        <h3 class="text-xl font-black text-stone-900 mb-1">윤수한</h3>
+                        <p class="text-xs text-rose-800 mb-4">현 서울대학교 대학원 자율주행전공 석사과정</p>
+                        <p class="text-sm text-stone-600 leading-relaxed mb-6">
+                            동아리 연구 인프라인 3D LiDAR 기반 SLAM 아키텍처 및 정밀 GPS 측위 세션을 직접 빌드했습니다. 막힐 때는 언제든 편하게 랩실로 물어보러 오세요!
+                        </p>
+                    </div>
+                    <div class="flex gap-2 text-xs border-t border-stone-200 pt-4 text-stone-500">
+                        <span class="bg-white/80 px-2 py-1 rounded">#LiDAR_SLAM</span>
+                        <span class="bg-white/80 px-2 py-1 rounded">#Academic_Path</span>
+                    </div>
+                </div>
+
+                <div class="member-card bg-stone-100 rounded-xl p-6 border border-rose-200 shadow-sm flex flex-col justify-between animate-fade-in" data-divisions="all alumni">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-black tracking-widest bg-stone-800 text-white px-2.5 py-1 rounded">2기 멤버 (Alumni)</span>
+                            <span class="text-xs font-semibold text-rose-800">NAVER LABS</span>
+                        </div>
+                        <h3 class="text-xl font-black text-stone-900 mb-1">이지은</h3>
+                        <p class="text-xs text-rose-800 mb-4">현 네이버랩스 로보틱스 자율주행 그룹 연구원</p>
+                        <p class="text-sm text-stone-600 leading-relaxed mb-6">
+                            OpenCV 차선 감지 및 카메라-라이다 캘리브레이션 융합 모듈을 개발했습니다. 신입 부원 챌린지 시뮬레이터 미션은 자율주행 현업 기술의 기본기를 담고 있는 명품 과제입니다.
+                        </p>
+                    </div>
+                    <div class="flex gap-2 text-xs border-t border-stone-200 pt-4 text-stone-500">
+                        <span class="bg-white/80 px-2 py-1 rounded">#Camera_Calibration</span>
+                        <span class="bg-white/80 px-2 py-1 rounded">#Naver_Labs</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
     <div id="view-project" class="view-section hidden">
         <main class="max-w-6xl mx-auto px-4 py-8 space-y-16">
             
-            <!-- Breadcrumbs / Back button -->
             <div class="flex items-center gap-2">
                 <button onclick="switchView('home')" class="text-sm font-bold text-stone-500 hover:text-rose-800 transition-colors flex items-center gap-1">
                     <span>🏠</span> 홈으로 돌아가기
@@ -632,7 +615,6 @@
                     본 프로젝트는 Ubuntu 24.04와 최신 ROS 2 Kilted Kaiju를 기반으로 운영됩니다. 차량(car1)에 장착된 3D 가상 센서들의 데이터 구조를 파악하고 알고리즘에 활용하세요.
                 </p>
 
-                <!-- Resource Link Banner (Teal Accent) -->
                 <div class="bg-rose-900 rounded-2xl p-6 md:p-8 text-white shadow-lg mb-8 space-y-6">
                     <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                         <div>
@@ -746,7 +728,6 @@
         </main>
     </div>
 
-    <!-- Global Footer -->
     <footer class="bg-stone-950 text-stone-400 py-12 text-center border-t border-stone-800">
         <div class="max-w-6xl mx-auto px-4">
             <h2 class="text-lg font-bold text-white mb-2">Clothoid-R</h2>
@@ -788,38 +769,41 @@
             }
         };
 
-        // SPA State
         let currentView = 'home';
         let chartsInitialized = false;
         let roleRadarChart;
         let penaltyBarChart;
 
-        // View Switching Manager
         window.switchView = function(viewName) {
             currentView = viewName;
             
-            // Toggle HTML containers
+            const viewHome = document.getElementById('view-home');
+            const viewMembers = document.getElementById('view-members');
+            const viewProject = document.getElementById('view-project');
+            
+            viewHome.classList.add('hidden');
+            viewMembers.classList.add('hidden');
+            viewProject.classList.add('hidden');
+            
             if (viewName === 'home') {
-                document.getElementById('view-home').classList.remove('hidden');
-                document.getElementById('view-project').classList.add('hidden');
+                viewHome.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else if (viewName === 'members') {
+                viewMembers.classList.remove('hidden');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } else if (viewName === 'project') {
-                document.getElementById('view-home').classList.add('hidden');
-                document.getElementById('view-project').classList.remove('hidden');
+                viewProject.classList.remove('hidden');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 
-                // Lazy initialize charts when view becomes visible to prevent zero-dimension display glitch
                 if (!chartsInitialized) {
-                    setTimeout(initCharts, 50); // Small timeout to ensure element is rendered
+                    setTimeout(initCharts, 50);
                 }
             }
         }
 
-        // Section Scroller (handles cross-view navigation to sections)
         window.scrollToSection = function(sectionId) {
             if (currentView !== 'home') {
                 switchView('home');
-                // Allow view transition to complete before scrolling
                 setTimeout(() => {
                     const element = document.getElementById(sectionId);
                     if (element) element.scrollIntoView({ behavior: 'smooth' });
@@ -830,9 +814,7 @@
             }
         }
 
-        // Member Filtering Manager
         window.filterMembers = function(division) {
-            // Update filter buttons appearance
             const filterButtons = document.querySelectorAll('#member-filters button');
             filterButtons.forEach(btn => {
                 btn.className = 'px-5 py-2.5 rounded-full text-sm font-bold bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition-all';
@@ -843,7 +825,6 @@
                 activeBtn.className = 'px-5 py-2.5 rounded-full text-sm font-bold bg-rose-800 text-white transition-all shadow-sm';
             }
 
-            // Filter member cards
             const cards = document.querySelectorAll('#member-grid .member-card');
             cards.forEach(card => {
                 const divisions = card.getAttribute('data-divisions').split(' ');
