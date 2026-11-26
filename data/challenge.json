@@ -1,0 +1,215 @@
+{
+  "overview": {
+    "title": "ROS 2 기반 자율주행 장애물 회피 및 랩타임 경진대회",
+    "description": "자율주행 동아리의 새로운 주역이 되신 신입부원 여러분을 환영합니다! 이 섹션은 프로젝트의 궁극적인 목표와 핵심 미션을 소개합니다. 여러분은 팀을 이루어 시뮬레이터 환경에서 트랙에 배치된 장애물을 회피하며 가장 빠른 랩타임을 기록해야 합니다.",
+    "missions": [
+      {
+        "icon": "🛣️",
+        "title": "안정적인 주행",
+        "description": "직선 및 곡선 코스를 이탈하지 않고 (Line Tracking & Lane Keeping) 안정적으로 주행하는 기초 기술을 구현합니다."
+      },
+      {
+        "icon": "⚠️",
+        "title": "장애물 회피",
+        "description": "주행 경로상에 임의로 배치된 꼬깔콘과 원통형 드럼을 센서로 3D 인식하고 충돌 없이 안전한 경로를 생성합니다."
+      },
+      {
+        "icon": "⏱️",
+        "title": "랩타임 기록",
+        "description": "출발선에서 시작하여 트랙을 완전히 돌아 결승선을 통과할 때까지의 최단 시간을 겨루는 것이 최종 목표입니다."
+      }
+    ]
+  },
+  "roles": {
+    "chartLabels": ["센서/비전", "알고리즘", "동역학/수학", "ROS 2 활용", "C++/Python"],
+    "items": [
+      {
+        "id": "perception",
+        "buttonLabel": "👁️ 인지 (Perception)",
+        "title": "인지 파트 주요 임무",
+        "tasks": [
+          {
+            "label": "3D LiDAR 데이터 처리",
+            "detail": "Point Cloud 데이터 필터링(Voxel Grid 등) 및 지면 제거 알고리즘 구현"
+          },
+          {
+            "label": "객체 군집화(Clustering)",
+            "detail": "장애물의 3D 공간상 바운딩 박스 생성 및 위치(X,Y,Z) 추출"
+          },
+          {
+            "label": "카메라 이미지 처리",
+            "detail": "OpenCV 기반 차선 인식 또는 딥러닝 객체 인지"
+          },
+          {
+            "label": "센서 데이터 융합",
+            "detail": "LiDAR와 GPS를 융합한 정확한 차량 위치 추정 기초 마련"
+          }
+        ],
+        "scores": [90, 60, 40, 95, 75]
+      },
+      {
+        "id": "planning",
+        "buttonLabel": "🧠 판단 (Planning)",
+        "title": "판단 파트 주요 임무",
+        "tasks": [
+          {
+            "label": "로컬 경로 생성",
+            "detail": "인지에서 전달받은 정보 기반 충돌 가능성 판단 및 실시간 회피 경로 설계"
+          },
+          {
+            "label": "위치 추정(Localization)",
+            "detail": "GPS 기반 맵 위 전역 위치 매핑 및 현재 위치 보정"
+          },
+          {
+            "label": "속도 프로파일 설계",
+            "detail": "다가오는 곡선 구간과 장애물 밀집 구역에서의 최적 감속 속도 계획"
+          }
+        ],
+        "scores": [60, 90, 70, 50, 95]
+      },
+      {
+        "id": "control",
+        "buttonLabel": "⚙️ 제어 (Control)",
+        "title": "제어 파트 주요 임무",
+        "tasks": [
+          {
+            "label": "경로 추종(Path Tracking)",
+            "detail": "전달받은 경로점(Waypoint)을 오차 없이 따르기 위한 조향 제어 (Pure Pursuit 등)"
+          },
+          {
+            "label": "종방향 제어",
+            "detail": "목표 속도 도달을 위한 가속/감속 PID 제어기 설계 및 튜닝"
+          },
+          {
+            "label": "제어 명령 전송",
+            "detail": "최종 산출된 선속도와 각속도를 ROS 2 제어 토픽으로 퍼블리시"
+          }
+        ],
+        "scores": [70, 70, 95, 30, 80]
+      }
+    ]
+  },
+  "rules": {
+    "items": [
+      {
+        "icon": "⚠️",
+        "title": "장애물 접촉 페널티",
+        "description": "꼬깔콘이나 드럼과 충돌할 때마다 기록에",
+        "highlight": "+N초",
+        "suffix": "가산"
+      },
+      {
+        "icon": "⚠️",
+        "title": "트랙 이탈 페널티",
+        "description": "차량 바퀴가 트랙 밖으로 완전히 벗어나면 이탈 지점 수동 재출발 및",
+        "highlight": "+N초",
+        "suffix": "가산"
+      },
+      {
+        "icon": "🚫",
+        "title": "실격 (DNF)",
+        "description": "차량 전복, 또는 제어 불능 상태 N분 이상 지속 시",
+        "highlight": "",
+        "suffix": ""
+      }
+    ],
+    "penaltyChart": {
+      "labels": ["완벽 주행", "콘 1회 충돌", "콘 충돌 + 코스 이탈"],
+      "baseLaptime": [60, 60, 60],
+      "conePenalty": [0, 5, 5],
+      "offTrackPenalty": [0, 0, 15],
+      "caption": "안전한 주행이 궁극적으로 가장 빠른 기록을 만듭니다."
+    }
+  },
+  "infra": {
+    "platform": {
+      "title": "시뮬레이션 플랫폼",
+      "subtitle": "자체 제작 Autonomous-Racing-Simulator (커스텀 맵 제공)",
+      "buttonText": "💻 Simulator GitHub",
+      "url": "https://github.com/ttaehyun/Autonomous-Racing-Simulator",
+      "subLinks": [
+        {
+          "title": "💡 추천 학습 리소스",
+          "subtitle": "ROS 2 기초 코드 및 알고리즘 구현 방법 정리",
+          "buttonText": "Seminar GitHub",
+          "url": "https://github.com/clothoid-r/Autonomous-Racing-Seminar"
+        },
+        {
+          "title": "🏆 대회 메인 워크스페이스",
+          "subtitle": "실제 자율주행 패키지 구성 참고",
+          "buttonText": "System GitHub",
+          "url": "https://github.com/clothoid-r/Clothoid-R"
+        }
+      ]
+    },
+    "sensors": [
+      {
+        "id": "lidar",
+        "name": "3D LiDAR",
+        "direction": "입력(Input)",
+        "directionTheme": "stone",
+        "accentTheme": "blue",
+        "topic": "/car1/scan/points",
+        "msgType": "sensor_msgs/msg/PointCloud2",
+        "description": "차량 주변의 3D 점군 데이터를 수신하여 장애물의 거리와 형태를 공간적으로 파악합니다."
+      },
+      {
+        "id": "camera",
+        "name": "RGB Camera",
+        "direction": "입력(Input)",
+        "directionTheme": "stone",
+        "accentTheme": "green",
+        "topic": "/car1/camera/image",
+        "msgType": "sensor_msgs/msg/Image",
+        "description": "전방 컬러 이미지를 수신하여 차선 인식 및 장애물의 시각적 형태를 파악합니다."
+      },
+      {
+        "id": "gps",
+        "name": "GPS",
+        "direction": "입력(Input)",
+        "directionTheme": "stone",
+        "accentTheme": "purple",
+        "topic": "/car1/gps/fix",
+        "msgType": "sensor_msgs/msg/NavSatFix",
+        "description": "차량의 현재 글로벌 위치(위도, 경도, 고도) 데이터를 수신하여 전역 매핑에 활용합니다."
+      },
+      {
+        "id": "cmd-vel",
+        "name": "Control Cmd",
+        "direction": "출력(Output)",
+        "directionTheme": "teal",
+        "accentTheme": "amber",
+        "topic": "/car1/cmd_vel",
+        "msgType": "geometry_msgs/msg/Twist",
+        "description": "계산된 최적의 차량 주행 선속도 및 조향 각속도 제어 명령을 시뮬레이터에 전달합니다."
+      }
+    ]
+  },
+  "schedule": [
+    {
+      "stepTitle": "1단계: 팀 빌딩",
+      "description": "프로젝트 공고 확인 및 역할 분담 (인지/판단/제어) 후 팀 구성 완료",
+      "isFinal": false
+    },
+    {
+      "stepTitle": "2단계: 기술 세미나",
+      "description": "ROS 2 Kilted 환경 구축, 시뮬레이터 구동 및 센서 활용 기초 튜토리얼 진행",
+      "isFinal": false
+    },
+    {
+      "stepTitle": "3단계: 멘토링 & 개발",
+      "description": "선배들의 코드 리뷰 및 피드백을 통한 알고리즘 고도화",
+      "isFinal": false
+    },
+    {
+      "stepTitle": "4단계: 예선전",
+      "description": "시뮬레이터 맵 기반 코스 완주 여부 및 기본 기능 검증",
+      "isFinal": false
+    },
+    {
+      "stepTitle": "최종: 본선 대회 및 파티",
+      "description": "최종 랩타임 기록 측정 및 시상, 네트워킹 행사 진행 🏆",
+      "isFinal": true
+    }
+  ]
+}

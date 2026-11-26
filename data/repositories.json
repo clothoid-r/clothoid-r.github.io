@@ -1,0 +1,37 @@
+{
+  "repositories": [
+    {
+      "id": "main-system",
+      "icon": "🏎️",
+      "badgeText": "대회 메인",
+      "badgeTheme": "rose-soft",
+      "title": "Clothoid-R Main System",
+      "repoPath": "clothoid-r / Clothoid-R",
+      "description": "실제 자율주행 레이싱 대회 차량에서 구동 및 테스트되는 핵심 소스코드 워크스페이스입니다. 슬램, 경로계획, 차량 제어 알고리즘의 유기적 통합 아키텍처를 확인해 보세요.",
+      "buttonText": "📦 소스코드 탐색하기",
+      "url": "https://github.com/clothoid-r/Clothoid-R"
+    },
+    {
+      "id": "racing-seminar",
+      "icon": "📚",
+      "badgeText": "교육 자료",
+      "badgeTheme": "rose",
+      "title": "Autonomous Racing Seminar",
+      "repoPath": "clothoid-r / Autonomous-Racing-Seminar",
+      "description": "이전 학기에 진행된 동아리 공식 자율주행 세미나 저장소입니다. ROS 2 설치부터 실전 알고리즘 튜토리얼, 기본 소스코드 패키지가 아주 풍부하게 수록되어 있습니다.",
+      "buttonText": "📖 세미나 문서 보기",
+      "url": "https://github.com/clothoid-r/Autonomous-Racing-Seminar"
+    },
+    {
+      "id": "racing-simulator",
+      "icon": "💻",
+      "badgeText": "시뮬레이터",
+      "badgeTheme": "amber-soft",
+      "title": "Racing Simulator",
+      "repoPath": "ttaehyun / Autonomous-Racing-Simulator",
+      "description": "가상 공간에서 자율주행 차를 완벽하게 물리 구동할 수 있도록 자체 제작된 시뮬레이터 저장소입니다. 신입생 프로젝트의 타겟 플랫폼입니다.",
+      "buttonText": "🎮 시뮬레이터 빌드하기",
+      "url": "https://github.com/ttaehyun/Autonomous-Racing-Simulator"
+    }
+  ]
+}

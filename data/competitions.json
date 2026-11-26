@@ -1,0 +1,69 @@
+{
+  "schedule": [
+    {
+      "id": "sched-ksae-reg",
+      "date": "2026-05-15",
+      "endDate": "2026-05-22",
+      "dateLabel": "",
+      "title": "대학생 자작자동차대회 참가 접수 및 설계보고서 제출",
+      "competitionName": "KSAE 자율주행 부문",
+      "location": "온라인 제출",
+      "status": "상반기 일정",
+      "badgeTheme": "stone"
+    },
+    {
+      "id": "sched-ksae-main",
+      "date": "2026-08-21",
+      "endDate": "2026-08-23",
+      "dateLabel": "",
+      "title": "2026 대학생 자작자동차대회 본선 주행",
+      "competitionName": "KSAE 자율주행 부문",
+      "location": "군산 새만금자동차경주장",
+      "status": "주요 출전",
+      "badgeTheme": "rose-soft"
+    },
+    {
+      "id": "sched-racing-final",
+      "date": "2026-12-19",
+      "endDate": "",
+      "dateLabel": "",
+      "title": "2026 동계 자율주행 레이싱 통합 주행 데모 & 결선",
+      "competitionName": "자율주행 레이싱",
+      "location": "주행 테스트 트랙",
+      "status": "준비 중 🔥",
+      "badgeTheme": "amber"
+    }
+  ],
+  "competitions": [
+    {
+      "id": "ksae-2025",
+      "year": "2025",
+      "statusBadge": "수상 달성",
+      "badgeTheme": "amber",
+      "organizer": "한국자동차공학회 (KSAE)",
+      "title": "대학생 자작자동차대회 자율주행 부문",
+      "category": "ERP-42 실차 자율주행 플랫폼",
+      "description": "3D LiDAR 장애물 인지, 정밀 GPS 측위 및 Pure Pursuit·PID 통합 제어를 바탕으로 정적/동적 장애물 회피와 교차로 미션 트랙을 완주한 주력 출전 대회입니다.",
+      "awardTitle": "🏆 자율주행 부문 우수상",
+      "awardSubtext": "본선 종합 입상 · Clothoid-R 메인 팀",
+      "certificateImage": "",
+      "certificateCaption": "대학생 자작자동차대회 상장",
+      "url": ""
+    },
+    {
+      "id": "autonomous-racing-2026",
+      "year": "2026",
+      "statusBadge": "출전 준비 중",
+      "badgeTheme": "rose-soft",
+      "organizer": "자율주행 레이싱 조직위원회",
+      "title": "대학생 자율주행 레이싱 경진대회",
+      "category": "고속 주행 경로 최적화 & 제어",
+      "description": "클로소이드 전이 곡선 기반 고속 코너링 궤적 생성과 실시간 충돌 회피 알고리즘을 고도화하여 최단 랩타임 경신을 목표로 출전합니다.",
+      "awardTitle": "",
+      "awardSubtext": "",
+      "certificateImage": "",
+      "certificateCaption": "",
+      "url": ""
+    }
+  ]
+}

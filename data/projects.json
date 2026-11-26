@@ -1,0 +1,28 @@
+{
+  "projects": [
+    {
+      "id": "rookie-challenge",
+      "featured": true,
+      "badges": [
+        {
+          "text": "신입 부원 챌린지",
+          "theme": "rose"
+        },
+        {
+          "text": "ROS 2 Kilted",
+          "theme": "blue"
+        }
+      ],
+      "title": "ROS 2 장애물 회피 & 랩타임 기록 경진대회",
+      "description": "자체 시뮬레이터 상에 설치된 꼬깔콘과 원통형 드럼 장애물을 피하여 최속의 랩타임을 경신해야 하는 Clothoid-R의 핵심 등용문 미션입니다.",
+      "ctaText": "👉 실시간 세부 대시보드 바로 입장하기",
+      "actionType": "view",
+      "actionTarget": "project",
+      "sideHighlight": {
+        "icon": "⏱️",
+        "caption": "우승 핵심 전략",
+        "headline": "최소 페널티\n최속 주행"
+      }
+    }
+  ]
+}

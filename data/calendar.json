@@ -1,0 +1,34 @@
+{
+  "events": [
+    {
+      "id": "cal-weekly-seminar",
+      "category": "seminar",
+      "date": "2026-11-27",
+      "endDate": "",
+      "time": "19:00 ~ 21:00",
+      "title": "인지·판단·제어 파트별 통합 코드 리뷰 & 세미나",
+      "location": "동아리 연구실 / 세미나실",
+      "description": "ROS 2 Kilted 토픽 인터페이스 점검 및 시뮬레이터 주행 테스트 피드백 세션"
+    },
+    {
+      "id": "cal-winter-kickoff",
+      "category": "meeting",
+      "date": "2026-12-04",
+      "endDate": "",
+      "time": "18:30",
+      "title": "2학기 종강 총회 및 동계 실차 연구 계획 발표",
+      "location": "공학관 강의실",
+      "description": "학기 연구 성과 공유 및 동계 방학 ERP-42 실차 매핑·제어 집중 개발팀 편성"
+    },
+    {
+      "id": "cal-rookie-final",
+      "category": "club",
+      "date": "2026-12-12",
+      "endDate": "",
+      "time": "14:00 ~ 18:00",
+      "title": "신입 부원 ROS 2 장애물 회피 & 랩타임 경진대회 본선",
+      "location": "자율주행 시뮬레이션 랩",
+      "description": "최종 트랙 랩타임 공식 측정, 우승팀 시상 및 전체 부원 네트워킹 파티"
+    }
+  ]
+}
