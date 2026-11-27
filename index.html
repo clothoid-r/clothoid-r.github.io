@@ -55,41 +55,41 @@
 
     <div id="data-error-banner" class="hidden bg-amber-100 border-b border-amber-300 text-amber-950 text-xs md:text-sm px-4 py-3 text-center"></div>
 
-    <header class="bg-white/95 backdrop-blur shadow-sm sticky top-0 z-50 border-b border-stone-100">
+    <header class="bg-stone-950/95 backdrop-blur-md shadow-md sticky top-0 z-50 border-b border-stone-800/90 text-white">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center gap-3">
-            <button onclick="switchView('home'); closeMobileMenu();" class="text-xl sm:text-2xl font-black text-rose-900 tracking-tight flex items-center gap-2.5 shrink-0">
-                <div class="h-8 w-8 sm:h-9 sm:w-9 flex items-center justify-center overflow-hidden rounded bg-stone-100 p-0.5 border border-stone-200 shrink-0">
-                    <img src="image/clothoid-r로고.png" alt="Clothoid-R Logo" class="h-full w-full object-contain" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\'font-black text-rose-800 text-base\'>CR</span>';">
+            <button onclick="switchView('home'); closeMobileMenu();" class="text-xl sm:text-2xl font-black text-white hover:text-rose-200 tracking-tight flex items-center gap-2.5 shrink-0 transition-colors">
+                <div class="h-9 w-9 sm:h-10 sm:w-10 flex items-center justify-center overflow-hidden rounded-lg bg-stone-900 p-1 border border-stone-700/80 shadow-inner shrink-0">
+                    <img src="image/clothoid-r로고.png" alt="Clothoid-R Logo" class="h-full w-full object-contain" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\'font-black text-rose-400 text-base\'>CR</span>';">
                 </div>
-                <span>Clothoid-R</span>
+                <span>Clothoid-<span class="text-rose-400">R</span></span>
             </button>
 
             <!-- 데스크톱 내비게이션 (md 이상 표시) -->
-            <nav class="hidden md:flex items-center gap-5 lg:gap-6 text-sm font-semibold text-stone-600 whitespace-nowrap">
-                <button onclick="switchView('home')" class="hover:text-rose-700 transition-colors">홈</button>
-                <button onclick="scrollToSection('about')" class="hover:text-rose-700 transition-colors">소개</button>
-                <button onclick="switchView('competitions')" class="hover:text-rose-700 transition-colors">대회 & 수상</button>
-                <button onclick="switchView('calendar')" class="hover:text-rose-700 transition-colors">전체 일정</button>
-                <button onclick="switchView('members')" class="hover:text-rose-700 transition-colors">크루 & 졸업생</button>
-                <button onclick="switchView('project')" class="hover:text-rose-700 transition-colors text-rose-800 font-bold bg-rose-50 px-3 py-1.5 rounded-md">신입 부원 프로젝트 🏁</button>
+            <nav class="hidden md:flex items-center gap-5 lg:gap-6 text-sm font-semibold text-stone-300 whitespace-nowrap">
+                <button onclick="switchView('home')" class="hover:text-white transition-colors">홈</button>
+                <button onclick="scrollToSection('about')" class="hover:text-white transition-colors">소개</button>
+                <button onclick="switchView('competitions')" class="hover:text-white transition-colors">대회 & 수상</button>
+                <button onclick="switchView('calendar')" class="hover:text-white transition-colors">전체 일정</button>
+                <button onclick="switchView('members')" class="hover:text-white transition-colors">크루 & 졸업생</button>
+                <button onclick="switchView('project')" class="bg-rose-700 hover:bg-rose-600 text-white font-bold px-3.5 py-1.5 rounded-lg border border-rose-500/40 shadow-sm transition-all">신입 부원 프로젝트 🏁</button>
             </nav>
 
             <!-- 모바일 햄버거 메뉴 버튼 (md 미만 표시) -->
             <button id="mobile-menu-btn" type="button" onclick="toggleMobileMenu()" aria-label="메뉴 열기" aria-expanded="false"
-                class="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-xl border border-stone-200 bg-stone-50 text-stone-700 hover:bg-stone-100 transition-colors shrink-0">
+                class="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-xl border border-stone-700 bg-stone-900 text-stone-200 hover:bg-stone-800 hover:text-white transition-colors shrink-0">
                 <span id="mobile-menu-icon" class="text-xl leading-none font-bold">☰</span>
             </button>
         </div>
 
         <!-- 모바일 드롭다운 메뉴 패널 -->
-        <div id="mobile-nav-drawer" class="hidden md:hidden border-t border-stone-100 bg-white px-4 pt-2 pb-4 shadow-lg">
-            <div class="flex flex-col space-y-1 text-sm font-bold text-stone-700">
-                <button onclick="switchView('home'); closeMobileMenu();" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-stone-100 transition-colors">🏠 홈</button>
-                <button onclick="scrollToSection('about'); closeMobileMenu();" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-stone-100 transition-colors">💡 동아리 소개</button>
-                <button onclick="switchView('competitions'); closeMobileMenu();" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-stone-100 transition-colors">🏆 역대 대회 & 수상 실적</button>
-                <button onclick="switchView('calendar'); closeMobileMenu();" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-stone-100 transition-colors">📅 전체 일정 캘린더</button>
-                <button onclick="switchView('members'); closeMobileMenu();" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-stone-100 transition-colors">👥 크루 & 졸업생</button>
-                <button onclick="switchView('project'); closeMobileMenu();" class="w-full text-left px-3.5 py-3 rounded-xl bg-rose-50 text-rose-800 hover:bg-rose-100 transition-colors mt-1">🏁 신입 부원 프로젝트</button>
+        <div id="mobile-nav-drawer" class="hidden md:hidden border-t border-stone-800 bg-stone-950 px-4 pt-2 pb-4 shadow-2xl">
+            <div class="flex flex-col space-y-1 text-sm font-bold text-stone-200">
+                <button onclick="switchView('home'); closeMobileMenu();" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-stone-900 hover:text-white transition-colors">🏠 홈</button>
+                <button onclick="scrollToSection('about'); closeMobileMenu();" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-stone-900 hover:text-white transition-colors">💡 동아리 소개</button>
+                <button onclick="switchView('competitions'); closeMobileMenu();" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-stone-900 hover:text-white transition-colors">🏆 역대 대회 & 수상 실적</button>
+                <button onclick="switchView('calendar'); closeMobileMenu();" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-stone-900 hover:text-white transition-colors">📅 전체 일정 캘린더</button>
+                <button onclick="switchView('members'); closeMobileMenu();" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-stone-900 hover:text-white transition-colors">👥 크루 & 졸업생</button>
+                <button onclick="switchView('project'); closeMobileMenu();" class="w-full text-left px-3.5 py-3 rounded-xl bg-rose-700 text-white hover:bg-rose-600 transition-colors mt-1">🏁 신입 부원 프로젝트</button>
             </div>
         </div>
     </header>
