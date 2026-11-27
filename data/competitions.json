@@ -36,6 +36,22 @@
   ],
   "competitions": [
     {
+      "id": "comp-1795764387896",
+      "pinnedOnHome": false,
+      "year": "2025",
+      "statusBadge": "수상 달성",
+      "badgeTheme": "amber",
+      "organizer": "COSS 미래자동차",
+      "title": "2025 CO-SHOW 오토레이스",
+      "category": "webot 실차 자율주행 대회",
+      "description": "대회 미션과 동아리 참가 활동 내용을 입력해 주세요.",
+      "awardTitle": "🏆 교육부장관상",
+      "awardSubtext": "Clothoid-A 팀",
+      "certificateImage": "",
+      "certificateCaption": "",
+      "url": ""
+    },
+    {
       "id": "ksae-2025",
       "pinnedOnHome": true,
       "year": "2024",
@@ -46,7 +62,7 @@
       "category": "webot 실차 자율주행 대회",
       "description": "3D LiDAR 장애물 인지, 정밀 GPS 측위 및 Pure Pursuit·PID 통합 제어를 바탕으로 정적/동적 장애물 회피와 교차로 미션 트랙을 완주한 주력 출전 대회입니다.",
       "awardTitle": "🏆 교육부장관상",
-      "awardSubtext": "Clothoid-R",
+      "awardSubtext": "Clothoid-T",
       "certificateImage": "image/awards/2024-2024-스케일카-경진대회-교육부장관상_충북대-49976.pdf",
       "certificateCaption": "교육부장관상 상장",
       "url": ""
@@ -58,7 +74,7 @@
       "statusBadge": "수상 달성",
       "badgeTheme": "amber",
       "organizer": "자율주행 레이싱 조직위원회",
-      "title": "대학생 자율주행 레이싱 2차 경진대회",
+      "title": "2025 대학생 자율주행 레이싱 2차 경진대회",
       "category": "ERP-42 실차 플랫폼",
       "description": "제주도에서 개최된 제 4회 국제 대학생 EV자율주행 경진대회에서 2위를 수상함",
       "awardTitle": "제주대학교 총장상",
