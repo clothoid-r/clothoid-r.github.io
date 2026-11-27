@@ -365,7 +365,7 @@
 
         return `
             <div class="bg-white rounded-xl p-4 border border-stone-200 hover:border-rose-400 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${rowOpacity}">
-                <div class="flex items-start sm:items-center gap-3.5 min-w-0">
+                <div class="flex items-start sm:items-center gap-3 min-w-0">
                     <span class="${dday.cls} text-xs font-black px-3 py-1.5 rounded-lg shrink-0 text-center min-w-[68px]">
                         ${escapeHtml(dday.text)}
                     </span>
@@ -374,10 +374,10 @@
                             <span class="text-xs font-mono font-bold text-rose-800">${escapeHtml(periodStr)}</span>
                             ${item.competitionName ? `<span class="text-[11px] bg-stone-100 text-stone-600 font-semibold px-2 py-0.5 rounded">${escapeHtml(item.competitionName)}</span>` : ''}
                         </div>
-                        <h4 class="text-sm md:text-base font-black text-stone-900 truncate">${escapeHtml(item.title || '')}</h4>
+                        <h4 class="text-sm md:text-base font-black text-stone-900 sm:truncate break-keep">${escapeHtml(item.title || '')}</h4>
                     </div>
                 </div>
-                <div class="flex items-center justify-between sm:justify-end gap-2.5 shrink-0 pl-[82px] sm:pl-0">
+                <div class="flex flex-wrap items-center justify-between sm:justify-end gap-2 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-stone-100">
                     ${item.location ? `<span class="text-xs text-stone-500 font-medium">📍 ${escapeHtml(item.location)}</span>` : ''}
                     ${item.status ? `<span class="${statusCls} text-xs font-bold px-2.5 py-1 rounded">${escapeHtml(item.status)}</span>` : ''}
                 </div>

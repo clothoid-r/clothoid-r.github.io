@@ -103,6 +103,18 @@
             tilt.glareY = 50;
         });
 
+        hero.addEventListener('touchmove', (e) => {
+            if (!e.touches || !e.touches[0]) return;
+            const rect = hero.getBoundingClientRect();
+            pointer.active = true;
+            pointer.x = e.touches[0].clientX - rect.left;
+            pointer.y = e.touches[0].clientY - rect.top;
+        }, { passive: true });
+
+        hero.addEventListener('touchend', () => {
+            pointer.active = false;
+        }, { passive: true });
+
         if ('IntersectionObserver' in window) {
             const io = new IntersectionObserver((entries) => {
                 isVisible = entries.some(en => en.isIntersecting);

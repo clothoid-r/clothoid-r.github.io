@@ -154,9 +154,9 @@
                 </div>
             </div>
 
-            <!-- 5대 데이터 카테고리 탭 -->
+            <!-- 데이터 카테고리 탭 (모바일 가로 스크롤 지원) -->
             <div class="bg-stone-900 border-t border-stone-800">
-                <div class="max-w-7xl mx-auto px-4 py-2 flex flex-wrap gap-2">
+                <div class="max-w-7xl mx-auto px-4 py-2 flex flex-nowrap sm:flex-wrap gap-2 overflow-x-auto whitespace-nowrap">
                     <button onclick="switchAdminTab('members')" id="tab-btn-members" class="admin-tab active px-4 py-2 rounded-lg text-xs font-bold border border-stone-700 text-stone-300 hover:text-white transition-colors">
                         👥 크루 & 졸업생 <span id="dirty-dot-members" class="hidden text-amber-400 ml-1">●</span>
                     </button>

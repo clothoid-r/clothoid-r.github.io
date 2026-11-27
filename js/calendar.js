@@ -224,26 +224,37 @@
             const pillsHtml = dayEvents.slice(0, 3).map(ev => {
                 const cat = getCategoryInfo(ev.category);
                 return `
-                    <div class="text-[11px] leading-tight px-1.5 py-0.5 rounded border truncate font-semibold ${cat.pillCls}">
+                    <div class="hidden sm:block text-[11px] leading-tight px-1.5 py-0.5 rounded border truncate font-semibold ${cat.pillCls}">
                         ${R.escapeHtml(ev.title)}
                     </div>
                 `;
             }).join('');
 
+            const mobileDotsHtml = dayEvents.length > 0 ? `
+                <div class="flex sm:hidden flex-wrap gap-1 mt-1">
+                    ${dayEvents.slice(0, 4).map(ev => {
+                        const cat = getCategoryInfo(ev.category);
+                        return `<span class="h-1.5 w-1.5 rounded-full ${cat.dotCls}"></span>`;
+                    }).join('')}
+                    ${dayEvents.length > 4 ? `<span class="text-[9px] text-stone-500 leading-none font-bold">+${dayEvents.length - 4}</span>` : ''}
+                </div>
+            ` : '';
+
             const moreHtml = dayEvents.length > 3
-                ? `<div class="text-[10px] text-stone-500 font-bold pl-1">+${dayEvents.length - 3}건 더보기</div>`
+                ? `<div class="hidden sm:block text-[10px] text-stone-500 font-bold pl-1">+${dayEvents.length - 3}건 더보기</div>`
                 : '';
 
             cellsHtml.push(`
                 <button type="button" onclick="selectCalendarDate('${ymd}')"
-                    class="${cellBg} min-h-[92px] md:min-h-[112px] p-2 border-b border-r border-stone-200 text-left flex flex-col justify-between transition-colors focus:outline-none">
-                    <div class="flex items-center justify-between w-full mb-1">
+                    class="${cellBg} min-h-[62px] sm:min-h-[96px] md:min-h-[112px] p-1.5 sm:p-2 border-b border-r border-stone-200 text-left flex flex-col justify-between transition-colors focus:outline-none">
+                    <div class="flex items-center justify-between w-full mb-0.5 sm:mb-1">
                         <span class="text-xs font-black ${numColor} ${isToday ? 'bg-rose-800 !text-white px-1.5 py-0.5 rounded-md' : ''}">
                             ${cellDate.getDate()}
                         </span>
-                        ${isToday ? `<span class="text-[10px] font-bold text-rose-700 hidden sm:inline">오늘</span>` : ''}
+                        ${isToday ? `<span class="text-[10px] font-bold text-rose-700 hidden md:inline">오늘</span>` : ''}
                     </div>
                     <div class="w-full space-y-1 overflow-hidden">
+                        ${mobileDotsHtml}
                         ${pillsHtml}
                         ${moreHtml}
                     </div>

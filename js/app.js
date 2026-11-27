@@ -199,6 +199,26 @@
         renderRoleDetail(roleId);
     };
 
+    window.toggleMobileMenu = function () {
+        const drawer = document.getElementById('mobile-nav-drawer');
+        const btn = document.getElementById('mobile-menu-btn');
+        const icon = document.getElementById('mobile-menu-icon');
+        if (!drawer) return;
+        const willOpen = drawer.classList.contains('hidden');
+        drawer.classList.toggle('hidden', !willOpen);
+        if (btn) btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+        if (icon) icon.textContent = willOpen ? '✕' : '☰';
+    };
+
+    window.closeMobileMenu = function () {
+        const drawer = document.getElementById('mobile-nav-drawer');
+        const btn = document.getElementById('mobile-menu-btn');
+        const icon = document.getElementById('mobile-menu-icon');
+        if (drawer) drawer.classList.add('hidden');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+        if (icon) icon.textContent = '☰';
+    };
+
     window.switchView = function (viewName) {
         currentView = viewName;
 
