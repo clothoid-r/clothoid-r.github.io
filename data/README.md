@@ -29,22 +29,28 @@
 ```json
 {
   "id": "gildong-hong",
+  "cohort": "5기",
   "name": "홍길동",
-  "subtitle": "gildong-hong",
+  "currentPosition": "",
   "isAlumni": false,
   "divisions": ["perception"],
-  "roleBadge": "파트원 (Member)",
+  "roleBadge": "파트원",
   "badgeTheme": "stone",
-  "specialty": "Perception / LiDAR",
-  "bio": "3D LiDAR 객체 인식 및 센서 퓨전 알고리즘을 연구하고 있습니다.",
-  "tags": ["ROS2", "PointCloud"],
+  "bio": "3D LiDAR 객체 인식 및 센서 퓨전 알고리즘을 담당합니다.",
+  "tags": ["LiDAR", "Sensor_Fusion"],
   "githubUrl": "https://github.com/gildong-hong"
 }
 ```
 
-- `divisions`: 필터링될 카테고리 배열 (`"core"`, `"perception"`, `"planning"`, `"control"`, `"alumni"` 중 복수 선택 가능. 전체보기(`"all"`)에는 자동 포함됨)
-- `isAlumni`: `true`로 설정하면 졸업생 전용 카드 배경/강조 디자인이 자동 적용됨
-- `badgeTheme`: `"amber"`(노랑/골드), `"blue"`(파랑), `"green"`(초록), `"rose"`(버건디/로즈), `"rose-soft"`(연분홍), `"stone"`(기본 회색), `"dark"`(검정/졸업생), `"teal"`(청록)
+- `divisions`: 담당 분야 배열 (`"perception"`, `"localization"`, `"planning"`, `"control"`, `"simulator"` 중 복수 선택 가능). 운영진은 `"core"`, 졸업생은 `"alumni"`도 함께 넣음
+- `isAlumni`: `true`로 설정하면 '졸업생' 구역에 표시됨 (직책에 `(Alumni)`를 따로 붙이지 않음)
+- `roleBadge`: 직책만 입력 (예: `회장`, `3대 회장`, `인지 파트장`, `파트원`). 회장·파트장은 굵게 표시됨. `파트원`은 담당 분야명으로 바뀌어 `인지`, `판단·제어`처럼 표시됨 (분야가 없으면 `파트원`)
+- `currentPosition`: 현재 소속 (선택, 졸업생 위주). 비워두면 표시되지 않음
+- `tags`: 카드 하단 분야 뱃지 아래에 표시되는 관심 키워드 (`_`는 띄어쓰기로 표시됨)
+- `githubUrl`: 입력하면 카드 우상단에 `GitHub ↗` 링크가 표시됨
+- 카드 하단 분야 뱃지(Perception / Localization / Planning / Control / Simulator)와 상단 필터는 `divisions` 값에서 자동 표시됨. 인원이 없는 분야의 필터는 숨겨짐
+- 홈페이지에서는 `isAlumni` 값에 따라 '현역 크루'와 '졸업생' 구역으로 나뉘어 표시됨
+- `badgeTheme`: 멤버 카드에서는 더 이상 사용하지 않음 (다른 카드용). `"amber"`(노랑/골드), `"blue"`(파랑), `"green"`(초록), `"rose"`(버건디/로즈), `"rose-soft"`(연분홍), `"stone"`(기본 회색), `"dark"`(검정/졸업생), `"teal"`(청록)
 
 ### 2. GitHub 리소스 카드 양식 (`repositories.json` -> `repositories` 배열에 추가)
 
