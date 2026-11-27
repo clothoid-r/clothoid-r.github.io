@@ -47,10 +47,10 @@
       "githubUrl": ""
     },
     {
-      "id": "minjun-lee",
-      "cohort": "3기",
-      "name": "이민준",
-      "subtitle": "minjun-lee",
+      "id": "eunsu-kim",
+      "cohort": "4기",
+      "name": "김은수",
+      "subtitle": "esem5377",
       "isAlumni": false,
       "divisions": [
         "core",
@@ -59,12 +59,12 @@
       "roleBadge": "인지 파트장 (Lead)",
       "badgeTheme": "blue",
       "specialty": "Perception / Vision",
-      "bio": "3D LiDAR 점군(Point Cloud) 정밀 클러스터링 및 실시간 카메라 오브젝트 트래킹을 통한 전방 장애물 식별 시스템을 책임집니다.",
+      "bio": "인지 파트를 이끌며 카메라 기반 객체 검출과 딥러닝 모델 최적화를 담당합니다.",
       "tags": [
-        "LiDAR_3D",
-        "OpenCV"
+        "Computer_Vision",
+        "Model_Optimization"
       ],
-      "githubUrl": ""
+      "githubUrl": "https://github.com/esem5377"
     },
     {
       "id": "seoyeon-p",
@@ -104,6 +104,63 @@
         "Semantic_Segmentation"
       ],
       "githubUrl": ""
+    },
+    {
+      "id": "yeonsu-ji",
+      "cohort": "3기",
+      "name": "지연수",
+      "subtitle": "ysjee0229",
+      "isAlumni": false,
+      "divisions": [
+        "perception"
+      ],
+      "roleBadge": "파트원 (Member)",
+      "badgeTheme": "stone",
+      "specialty": "Perception / Edge",
+      "bio": "카메라 기반 객체 검출 모델을 차량 탑재 환경에 배포하는 작업을 담당합니다.",
+      "tags": [
+        "Computer_Vision",
+        "Edge_Deployment"
+      ],
+      "githubUrl": "https://github.com/ysjee0229"
+    },
+    {
+      "id": "jeeun-kim",
+      "cohort": "5기",
+      "name": "김제은",
+      "subtitle": "jendarc",
+      "isAlumni": false,
+      "divisions": [
+        "perception"
+      ],
+      "roleBadge": "파트원 (Member)",
+      "badgeTheme": "stone",
+      "specialty": "Perception / LiDAR",
+      "bio": "딥러닝 기반 LiDAR 인지를 담당합니다.",
+      "tags": [
+        "LiDAR",
+        "Deep_Learning"
+      ],
+      "githubUrl": "https://github.com/jendarc"
+    },
+    {
+      "id": "chaemin-jin",
+      "cohort": "5기",
+      "name": "진채민",
+      "subtitle": "okiogummy",
+      "isAlumni": false,
+      "divisions": [
+        "perception"
+      ],
+      "roleBadge": "파트원 (Member)",
+      "badgeTheme": "stone",
+      "specialty": "Perception / LiDAR",
+      "bio": "딥러닝 기반 LiDAR 인지를 담당합니다.",
+      "tags": [
+        "LiDAR",
+        "Deep_Learning"
+      ],
+      "githubUrl": "https://github.com/okiogummy"
     },
     {
       "id": "sohee-planning",
@@ -213,12 +270,72 @@
       "roleBadge": "4대 회장",
       "badgeTheme": "dark",
       "specialty": "Perception / ROS 2",
-      "bio": "담당 연구 분야 및 간단한 자기소개를 입력해 주세요.",
+      "bio": "나는야 유태현, 최강의 사나이",
       "tags": [
         "ROS2",
         "Autonomous_Driving"
       ],
       "githubUrl": ""
+    },
+    {
+      "id": "jagyeong-gu",
+      "cohort": "3기",
+      "name": "구자경",
+      "subtitle": "현 충북대학교 AVLab 학석사연계과정",
+      "isAlumni": true,
+      "divisions": [
+        "perception",
+        "alumni"
+      ],
+      "roleBadge": "인지 파트장 (Alumni)",
+      "badgeTheme": "dark",
+      "specialty": "CBNU AVLab",
+      "bio": "카메라·LiDAR 기반 센서 퓨전과 인지 아키텍처 설계를 담당했습니다. 현재는 딥러닝 기반 Camera·LiDAR·Radar 센서 퓨전과 VLA를 연구하고 있습니다.",
+      "tags": [
+        "Sensor_Fusion",
+        "Edge_AI"
+      ],
+      "githubUrl": "https://github.com/JaGyeong1024"
+    },
+    {
+      "id": "minjae-kim",
+      "cohort": "3기",
+      "name": "김민재",
+      "subtitle": "Minjea31",
+      "isAlumni": true,
+      "divisions": [
+        "perception",
+        "alumni"
+      ],
+      "roleBadge": "멤버 (Alumni)",
+      "badgeTheme": "dark",
+      "specialty": "Perception / Vision",
+      "bio": "카메라 기반 객체 검출과 딥러닝 모델 최적화를 담당했습니다.",
+      "tags": [
+        "Computer_Vision",
+        "Model_Optimization"
+      ],
+      "githubUrl": "https://github.com/Minjea31"
+    },
+    {
+      "id": "juyeong-heo",
+      "cohort": "3기",
+      "name": "허주영",
+      "subtitle": "heojy",
+      "isAlumni": true,
+      "divisions": [
+        "perception",
+        "alumni"
+      ],
+      "roleBadge": "멤버 (Alumni)",
+      "badgeTheme": "dark",
+      "specialty": "Perception / Fusion",
+      "bio": "카메라·LiDAR 센서 퓨전을 담당했습니다.",
+      "tags": [
+        "Sensor_Fusion",
+        "Camera_LiDAR"
+      ],
+      "githubUrl": "https://github.com/heojy"
     },
     {
       "id": "member-1795704902200",
@@ -232,7 +349,7 @@
       "roleBadge": "2대 회장",
       "badgeTheme": "stone",
       "specialty": "Perception / ROS 2",
-      "bio": "담당 연구 분야 및 간단한 자기소개를 입력해 주세요.",
+      "bio": "나는야 정준범, 최강의 사나이",
       "tags": [
         "ROS2",
         "Autonomous_Driving"
