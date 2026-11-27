@@ -134,41 +134,50 @@
     };
 
     let activeMemberDivision = 'all';
-    let activeMemberCohort = 'all';
+    const MEMBER_FILTER_ACTIVE = 'min-h-[44px] px-5 py-2.5 rounded-full text-sm font-bold bg-rose-800 text-white transition-all shadow-sm';
+    const MEMBER_FILTER_IDLE = 'min-h-[44px] px-5 py-2.5 rounded-full text-sm font-bold bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition-all';
 
     function populateMembers(membersData) {
         if (!membersData) return;
 
+        if (!Array.isArray(membersData.members)) return;
+
+        // 현역/졸업생은 구역으로 나누므로 필터 탭에서는 운영진(core)과 졸업생(alumni)을 빼고,
+        // 해당 인원이 없는 분야는 숨김. 라벨은 카드 분야 뱃지와 같은 이름을 씀
         const filtersContainer = document.getElementById('member-filters');
         if (filtersContainer && Array.isArray(membersData.filters)) {
-            filtersContainer.innerHTML = membersData.filters.map((f, idx) => {
-                const isFirst = idx === 0;
-                const cls = isFirst
-                    ? 'px-5 py-2.5 rounded-full text-sm font-bold bg-rose-800 text-white transition-all shadow-sm'
-                    : 'px-5 py-2.5 rounded-full text-sm font-bold bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition-all';
-                return `<button onclick="filterMembers('${R.escapeHtml(f.id)}')" id="filter-btn-${R.escapeHtml(f.id)}" class="${cls}">${R.escapeHtml(f.label)}</button>`;
-            }).join('');
+            const usedDivisions = new Set(membersData.members.flatMap(m => Array.isArray(m.divisions) ? m.divisions : []));
+            filtersContainer.innerHTML = membersData.filters
+                .filter(f => f.id !== 'core' && f.id !== 'alumni')
+                .filter(f => f.id === 'all' || usedDivisions.has(f.id))
+                .map(f => {
+                    const label = f.id === 'all' ? '전체' : ((R.DIVISION_BADGES[f.id] && R.DIVISION_BADGES[f.id].label) || f.label);
+                    return `<button onclick="filterMembers('${R.escapeHtml(f.id)}')" id="filter-btn-${R.escapeHtml(f.id)}" class="${f.id === activeMemberDivision ? MEMBER_FILTER_ACTIVE : MEMBER_FILTER_IDLE}">${R.escapeHtml(label)}</button>`;
+                })
+                .join('');
         }
+        const cohortNum = m => parseInt(String(m.cohort || '').replace(/[^0-9]/g, ''), 10) || 99;
+        const roleRank = m => {
+            const role = String(m.roleBadge || '');
+            if (/회장/.test(role)) return 0;
+            if (R.isLeaderRole(role)) return 1;
+            return 2;
+        };
+        // 'N대 회장'처럼 대수가 있으면 같은 기수 안에서 대수 순으로 정렬
+        const termNum = m => {
+            const hit = String(m.roleBadge || '').match(/(\d+)\s*대/);
+            return hit ? parseInt(hit[1], 10) : 99;
+        };
+        const active = membersData.members.filter(m => !m.isAlumni)
+            .sort((a, b) => roleRank(a) - roleRank(b) || cohortNum(a) - cohortNum(b));
+        const alumni = membersData.members.filter(m => m.isAlumni)
+            .sort((a, b) => cohortNum(a) - cohortNum(b) || roleRank(a) - roleRank(b) || termNum(a) - termNum(b));
 
-        const cohortContainer = document.getElementById('member-cohort-filters');
-        if (cohortContainer && Array.isArray(membersData.members)) {
-            const cohorts = Array.from(new Set(
-                membersData.members
-                    .map(m => R.formatCohort(m.cohort))
-                    .filter(Boolean)
-            )).sort((a, b) => a.localeCompare(b, 'ko', { numeric: true }));
-
-            if (cohorts.length > 0) {
-                const allBtn = `<button onclick="filterMembersByCohort('all')" data-cohort-btn="all" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-stone-800 text-white transition-all">전체 기수</button>`;
-                const btns = cohorts.map(c => `<button onclick="filterMembersByCohort('${R.escapeHtml(c)}')" data-cohort-btn="${R.escapeHtml(c)}" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-stone-100 text-stone-600 hover:bg-stone-200 transition-all">${R.escapeHtml(c)}</button>`);
-                cohortContainer.innerHTML = [allBtn, ...btns].join('');
-            }
-        }
-
-        const memberGrid = document.getElementById('member-grid');
-        if (memberGrid && Array.isArray(membersData.members)) {
-            memberGrid.innerHTML = membersData.members.map(R.renderMemberCard).join('');
-        }
+        const activeGrid = document.getElementById('member-grid-active');
+        const alumniGrid = document.getElementById('member-grid-alumni');
+        if (activeGrid) activeGrid.innerHTML = active.map(R.renderMemberCard).join('');
+        if (alumniGrid) alumniGrid.innerHTML = alumni.map(R.renderMemberCard).join('');
+        applyMemberFilters();
     }
 
     function populateChallenge(challengeData) {
@@ -341,41 +350,30 @@
     };
 
     function applyMemberFilters() {
-        const cards = document.querySelectorAll('#member-grid .member-card');
-        cards.forEach(card => {
-            const divisions = (card.getAttribute('data-divisions') || '').split(/\s+/);
-            const cohort = card.getAttribute('data-cohort') || '';
-            const divOk = divisions.includes(activeMemberDivision);
-            const cohortOk = activeMemberCohort === 'all' || cohort === activeMemberCohort;
-            if (divOk && cohortOk) {
-                card.classList.remove('hidden-filter');
-            } else {
-                card.classList.add('hidden-filter');
-            }
+        let totalVisible = 0;
+        ['active', 'alumni'].forEach(group => {
+            const cards = document.querySelectorAll(`#member-grid-${group} .member-card`);
+            let visible = 0;
+            cards.forEach(card => {
+                const divisions = (card.getAttribute('data-divisions') || '').split(/\s+/);
+                const show = divisions.includes(activeMemberDivision);
+                card.classList.toggle('hidden-filter', !show);
+                if (show) visible++;
+            });
+            const groupEl = document.getElementById(`member-group-${group}`);
+            if (groupEl) groupEl.classList.toggle('hidden', visible === 0);
+            const countEl = document.getElementById(`member-count-${group}`);
+            if (countEl) countEl.textContent = `${visible}명`;
+            totalVisible += visible;
         });
+        const emptyEl = document.getElementById('member-empty');
+        if (emptyEl) emptyEl.classList.toggle('hidden', totalVisible > 0);
     }
 
     window.filterMembers = function (division) {
         activeMemberDivision = division;
-        const filterButtons = document.querySelectorAll('#member-filters button');
-        filterButtons.forEach(btn => {
-            btn.className = 'px-5 py-2.5 rounded-full text-sm font-bold bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition-all';
-        });
-
-        const activeBtn = document.getElementById(`filter-btn-${division}`);
-        if (activeBtn) {
-            activeBtn.className = 'px-5 py-2.5 rounded-full text-sm font-bold bg-rose-800 text-white transition-all shadow-sm';
-        }
-        applyMemberFilters();
-    };
-
-    window.filterMembersByCohort = function (cohort) {
-        activeMemberCohort = cohort;
-        document.querySelectorAll('#member-cohort-filters button').forEach(btn => {
-            const val = btn.getAttribute('data-cohort-btn');
-            btn.className = val === cohort
-                ? 'px-3.5 py-1.5 rounded-full text-xs font-bold bg-stone-800 text-white transition-all'
-                : 'px-3.5 py-1.5 rounded-full text-xs font-bold bg-stone-100 text-stone-600 hover:bg-stone-200 transition-all';
+        document.querySelectorAll('#member-filters button').forEach(btn => {
+            btn.className = btn.id === `filter-btn-${division}` ? MEMBER_FILTER_ACTIVE : MEMBER_FILTER_IDLE;
         });
         applyMemberFilters();
     };

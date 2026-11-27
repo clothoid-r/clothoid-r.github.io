@@ -80,61 +80,79 @@
         return /^\d+$/.test(trimmed) ? `${trimmed}기` : trimmed;
     }
 
+    // 카드 하단 분야 뱃지 (divisions 값에서 자동 표시, core/alumni는 페이지 구역으로 구분하므로 제외)
+    const DIVISION_BADGES = {
+        'perception': { label: 'Perception', ko: '인지', classes: 'bg-blue-50 text-blue-800 border-blue-200' },
+        'localization': { label: 'Localization', ko: '측위', classes: 'bg-teal-50 text-teal-800 border-teal-200' },
+        'planning': { label: 'Planning', ko: '판단', classes: 'bg-green-50 text-green-800 border-green-200' },
+        'control': { label: 'Control', ko: '제어', classes: 'bg-amber-50 text-amber-800 border-amber-200' },
+        'simulator': { label: 'Simulator', ko: '시뮬레이터', classes: 'bg-rose-50 text-rose-800 border-rose-200' }
+    };
+
+    // 회장 / 파트장 / 팀장 같은 리더 직책은 굵게 강조
+    function isLeaderRole(role) {
+        return /회장|파트장|팀장/.test(String(role || ''));
+    }
+
     function renderMemberCard(member) {
         const isAlumni = Boolean(member.isAlumni);
-        const divisionSet = new Set(['all', ...(Array.isArray(member.divisions) ? member.divisions : [])]);
+        const divisions = Array.isArray(member.divisions) ? member.divisions : [];
+        const divisionSet = new Set(['all', ...divisions]);
         if (isAlumni) divisionSet.add('alumni');
         const divisionsAttr = escapeHtml(Array.from(divisionSet).join(' '));
         const cohortText = formatCohort(member.cohort);
-        const cohortAttr = escapeHtml(cohortText || 'none');
 
-        const cardCls = isAlumni
-            ? 'member-card bg-stone-100 rounded-xl p-6 border border-rose-200 shadow-sm flex flex-col justify-between animate-fade-in h-full'
-            : 'member-card bg-white rounded-xl p-6 border border-stone-200 shadow-sm flex flex-col justify-between animate-fade-in h-full';
-
-        const badgeCls = getBadgeClasses(member.badgeTheme, isAlumni ? 'dark' : 'stone');
-        const cohortBadgeCls = isAlumni
-            ? 'bg-rose-800 text-white'
-            : 'bg-rose-900 text-white';
-        const specialtyCls = isAlumni ? 'text-xs font-semibold text-rose-800' : 'text-xs font-semibold text-stone-400';
-        const subtitleCls = isAlumni ? 'text-xs text-rose-800 mb-4' : 'text-xs text-stone-500 mb-4';
-        const borderTopCls = isAlumni ? 'border-stone-200' : 'border-stone-100';
-        const tagBgCls = isAlumni ? 'bg-white/80' : 'bg-stone-100';
-
-        const tags = Array.isArray(member.tags) ? member.tags : [];
-        const tagsHtml = tags
+        // 직책이 '파트원'이면 담당 분야명만 표시 (예: 인지, 판단·제어). 분야가 없으면 '파트원' 그대로
+        let roleText = String(member.roleBadge || '').trim();
+        const partNames = divisions.filter(d => DIVISION_BADGES[d]).map(d => DIVISION_BADGES[d].ko);
+        if (roleText === '파트원' && partNames.length) {
+            roleText = partNames.join('·');
+        }
+        const roleHtml = roleText
+            ? `<span class="${isLeaderRole(roleText) ? 'font-bold text-stone-900' : ''}">${escapeHtml(roleText)}</span>`
+            : '';
+        const metaHtml = [cohortText ? escapeHtml(cohortText) : '', roleHtml]
             .filter(Boolean)
-            .map(tag => {
-                const cleanTag = String(tag).replace(/^#+/, '');
-                return `<span class="${tagBgCls} px-2 py-1 rounded">#${escapeHtml(cleanTag)}</span>`;
-            })
-            .join('');
+            .join('<span class="text-stone-400 mx-1.5" aria-hidden="true">·</span>');
 
-        const subtitleHtml = member.githubUrl
-            ? `<a href="${safeUrl(member.githubUrl)}" target="_blank" rel="noopener noreferrer" class="${subtitleCls} inline-flex items-center gap-1 hover:underline">${escapeHtml(member.subtitle || '')} <span class="text-[10px]">↗</span></a>`
-            : `<p class="${subtitleCls}">${escapeHtml(member.subtitle || '')}</p>`;
-
-        const cohortHtml = cohortText
-            ? `<span class="text-xs font-black ${cohortBadgeCls} px-2 py-1 rounded">${escapeHtml(cohortText)}</span>`
+        const githubHref = safeUrl(member.githubUrl);
+        const githubHtml = member.githubUrl && githubHref !== '#'
+            ? `<a href="${githubHref}" target="_blank" rel="noopener noreferrer" class="shrink-0 inline-flex items-center min-h-[44px] -mr-2 -mt-2.5 px-2 text-sm font-semibold text-stone-600 hover:text-rose-800 transition-colors whitespace-nowrap">GitHub ↗</a>`
             : '';
 
+        const positionHtml = member.currentPosition
+            ? `<p class="text-sm font-bold text-rose-800 mt-4 break-keep text-balance">${escapeHtml(member.currentPosition)}</p>`
+            : '';
+
+        const divisionHtml = divisions
+            .filter(d => DIVISION_BADGES[d])
+            .map(d => `<span class="text-xs font-bold border ${DIVISION_BADGES[d].classes} px-2 py-0.5 rounded">${DIVISION_BADGES[d].label}</span>`)
+            .join('');
+        const interests = (Array.isArray(member.tags) ? member.tags : [])
+            .filter(Boolean)
+            .map(t => `<span class="whitespace-nowrap">${escapeHtml(String(t).replace(/^#+/, '').replace(/_/g, ' '))}</span>`);
+        const interestHtml = interests.length > 0
+            ? `<p class="text-sm text-stone-600 max-w-full">${interests.join(' <span class="text-stone-400 mx-0.5" aria-hidden="true">·</span> ')}</p>`
+            : '';
+        const footerHtml = (divisionHtml || interestHtml) ? `
+                <div class="flex flex-col items-start gap-2 border-t border-stone-100 pt-4 mt-auto">
+                    ${divisionHtml ? `<div class="flex flex-wrap gap-1.5">${divisionHtml}</div>` : ''}
+                    ${interestHtml}
+                </div>
+        ` : '';
+
         return `
-            <div class="${cardCls}" data-divisions="${divisionsAttr}" data-cohort="${cohortAttr}">
-                <div>
-                    <div class="flex justify-between items-center mb-4 gap-2">
-                        <div class="flex flex-wrap items-center gap-1.5">
-                            ${cohortHtml}
-                            <span class="text-xs font-black tracking-widest ${badgeCls} px-2.5 py-1 rounded">${escapeHtml(member.roleBadge || '')}</span>
-                        </div>
-                        <span class="${specialtyCls} text-right">${escapeHtml(member.specialty || '')}</span>
+            <div class="member-card bg-white rounded-xl p-6 border border-stone-200 shadow-sm flex flex-col animate-fade-in h-full" data-divisions="${divisionsAttr}" data-cohort="${escapeHtml(cohortText || 'none')}" data-alumni="${isAlumni ? 'true' : 'false'}">
+                <div class="flex items-start justify-between gap-3">
+                    <div class="min-w-0">
+                        <h3 class="text-xl font-black text-stone-900 leading-tight">${escapeHtml(member.name || '')}</h3>
+                        ${metaHtml ? `<p class="text-sm text-stone-500 mt-1.5">${metaHtml}</p>` : ''}
                     </div>
-                    <h3 class="text-xl font-black text-stone-900 mb-1">${escapeHtml(member.name || '')}</h3>
-                    ${subtitleHtml}
-                    <p class="text-sm text-stone-600 leading-relaxed mb-6">${escapeHtml(member.bio || '')}</p>
+                    ${githubHtml}
                 </div>
-                <div class="flex flex-wrap gap-2 text-xs border-t ${borderTopCls} pt-4 text-stone-500">
-                    ${tagsHtml}
-                </div>
+                ${positionHtml}
+                ${member.bio ? `<p class="text-base text-stone-700 leading-relaxed break-keep text-pretty ${member.currentPosition ? 'mt-2' : 'mt-4'} mb-6">${escapeHtml(member.bio)}</p>` : '<div class="mb-4"></div>'}
+                ${footerHtml}
             </div>
         `;
     }
@@ -562,6 +580,8 @@
         renderCompetitionScheduleItem,
         renderCompetitionCard,
         renderMemberCard,
+        isLeaderRole,
+        DIVISION_BADGES,
         renderProjectCard,
         renderMissionCard,
         renderRuleItem,

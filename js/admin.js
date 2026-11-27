@@ -774,7 +774,7 @@
                 }
                 if (uiState.memberSearch.trim()) {
                     const q = uiState.memberSearch.trim().toLowerCase();
-                    const hay = `${m.cohort || ''} ${m.name || ''} ${m.subtitle || ''} ${m.roleBadge || ''} ${m.specialty || ''} ${(m.tags || []).join(' ')}`.toLowerCase();
+                    const hay = `${m.cohort || ''} ${m.name || ''} ${m.currentPosition || ''} ${m.roleBadge || ''} ${(m.divisions || []).join(' ')} ${(m.tags || []).join(' ')}`.toLowerCase();
                     return hay.includes(q);
                 }
                 return true;
@@ -813,7 +813,7 @@
                                         <span class="font-bold text-sm text-stone-900 truncate">${R.escapeHtml(m.name || '(이름 없음)')}</span>
                                         <span class="text-[10px] px-1.5 py-0.5 rounded font-bold ${R.getBadgeClasses(m.badgeTheme, m.isAlumni ? 'dark' : 'stone')}">${R.escapeHtml(m.roleBadge || '')}</span>
                                     </div>
-                                    <p class="text-xs text-stone-500 truncate mt-0.5">${R.escapeHtml(m.specialty || '')} · ${R.escapeHtml(m.subtitle || '')}</p>
+                                    <p class="text-xs text-stone-500 truncate mt-0.5">${R.escapeHtml(m.currentPosition || (m.tags || []).map(t => '#' + t).join(' '))}</p>
                                 </div>
                                 <div class="flex items-center gap-1 shrink-0" onclick="event.stopPropagation()">
                                     <button onclick="moveMember(${idx}, -1)" title="위로 이동" class="px-1.5 py-1 text-xs text-stone-500 hover:bg-stone-200 rounded">↑</button>
@@ -841,8 +841,8 @@
                             <!-- 현역 / 졸업생 구분 -->
                             <div class="bg-stone-50 p-3 rounded-xl border border-stone-200 flex items-center justify-between">
                                 <div>
-                                    <span class="text-xs font-bold text-stone-800 block">🎓 졸업생(명예의 전당) 카드 스타일 적용</span>
-                                    <span class="text-[11px] text-stone-500">켜면 졸업생 전용 배경색 및 로즈 강조 테마가 적용됩니다.</span>
+                                    <span class="text-xs font-bold text-stone-800 block">🎓 졸업생 (Alumni)</span>
+                                    <span class="text-[11px] text-stone-500">켜면 홈페이지 '졸업생' 구역에 표시됩니다.</span>
                                 </div>
                                 <input type="checkbox" ${current.isAlumni ? 'checked' : ''} onchange="updateMemberField('isAlumni', this.checked)"
                                     class="h-5 w-5 rounded text-rose-800 focus:ring-rose-700 cursor-pointer">
@@ -860,17 +860,17 @@
                                         placeholder="예: 홍길동" class="w-full px-3 py-2 text-sm rounded-lg border border-stone-300 focus:ring-2 focus:ring-rose-700 focus:outline-none">
                                 </div>
                                 <div class="col-span-5">
-                                    <label class="block text-xs font-bold text-stone-700 mb-1">아이디 또는 현 소속 (부제)</label>
-                                    <input type="text" value="${R.escapeHtml(current.subtitle || '')}" oninput="updateMemberField('subtitle', this.value)"
-                                        placeholder="예: ttaehyun / 현 현대자동차" class="w-full px-3 py-2 text-sm rounded-lg border border-stone-300 focus:ring-2 focus:ring-rose-700 focus:outline-none">
+                                    <label class="block text-xs font-bold text-stone-700 mb-1">현재 소속 (선택 · 졸업생 위주)</label>
+                                    <input type="text" value="${R.escapeHtml(current.currentPosition || '')}" oninput="updateMemberField('currentPosition', this.value)"
+                                        placeholder="예: 현 충북대학교 AVLab 석사과정" class="w-full px-3 py-2 text-sm rounded-lg border border-stone-300 focus:ring-2 focus:ring-rose-700 focus:outline-none">
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-2 gap-3">
                                 <div>
-                                    <label class="block text-xs font-bold text-stone-700 mb-1">좌측 상단 직책/기수 뱃지</label>
+                                    <label class="block text-xs font-bold text-stone-700 mb-1">직책 (회장·파트장은 굵게 표시)</label>
                                     <input type="text" value="${R.escapeHtml(current.roleBadge || '')}" oninput="updateMemberField('roleBadge', this.value)"
-                                        placeholder="예: 파트원 (Member) / 1기 회장" class="w-full px-3 py-2 text-sm rounded-lg border border-stone-300 focus:ring-2 focus:ring-rose-700 focus:outline-none">
+                                        placeholder="예: 회장 / 3대 회장 / 인지 파트장 / 파트원" class="w-full px-3 py-2 text-sm rounded-lg border border-stone-300 focus:ring-2 focus:ring-rose-700 focus:outline-none">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-stone-700 mb-1">뱃지 색상 테마</label>
@@ -880,21 +880,16 @@
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-2 gap-3">
+                            <div>
                                 <div>
-                                    <label class="block text-xs font-bold text-stone-700 mb-1">우측 상단 전문분야 / 기업명</label>
-                                    <input type="text" value="${R.escapeHtml(current.specialty || '')}" oninput="updateMemberField('specialty', this.value)"
-                                        placeholder="예: Perception / SLAM" class="w-full px-3 py-2 text-sm rounded-lg border border-stone-300 focus:ring-2 focus:ring-rose-700 focus:outline-none">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-stone-700 mb-1">GitHub / 개인 링크 (선택)</label>
+                                    <label class="block text-xs font-bold text-stone-700 mb-1">GitHub 링크 (선택 · 카드 우상단에 GitHub ↗ 표시)</label>
                                     <input type="url" value="${R.escapeHtml(current.githubUrl || '')}" oninput="updateMemberField('githubUrl', this.value)"
                                         placeholder="https://github.com/..." class="w-full px-3 py-2 text-sm rounded-lg border border-stone-300 font-mono focus:ring-2 focus:ring-rose-700 focus:outline-none">
                                 </div>
                             </div>
 
                             <div>
-                                <label class="block text-xs font-bold text-stone-700 mb-1.5">필터 탭 노출 카테고리 (복수 선택 가능)</label>
+                                <label class="block text-xs font-bold text-stone-700 mb-1.5">담당 분야 (복수 선택 · 카드 하단 분야 뱃지와 필터에 사용)</label>
                                 <div class="flex flex-wrap gap-2">
                                     ${divisionOptions.map(opt => {
                                         const checked = (current.divisions || []).includes(opt.id);
@@ -916,9 +911,9 @@
                             </div>
 
                             <div>
-                                <label class="block text-xs font-bold text-stone-700 mb-1">하단 해시태그 (쉼표 <code>,</code> 로 구분)</label>
+                                <label class="block text-xs font-bold text-stone-700 mb-1">관심 키워드 (쉼표 <code>,</code> 로 구분 · 분야 뱃지 아래 표시)</label>
                                 <input type="text" value="${R.escapeHtml((current.tags || []).join(', '))}" oninput="updateMemberTags(this.value)"
-                                    placeholder="예: LiDAR_3D, OpenCV, ROS2" class="w-full px-3 py-2 text-sm rounded-lg border border-stone-300 focus:ring-2 focus:ring-rose-700 focus:outline-none">
+                                    placeholder="예: Sensor_Fusion, VLA, LiDAR" class="w-full px-3 py-2 text-sm rounded-lg border border-stone-300 focus:ring-2 focus:ring-rose-700 focus:outline-none">
                             </div>
                         </div>
 
@@ -995,14 +990,13 @@
             id: `member-${Date.now()}`,
             cohort: '3기',
             name: '신규 부원',
-            subtitle: 'github-id',
+            currentPosition: '',
             isAlumni: false,
             divisions: ['perception'],
-            roleBadge: '파트원 (Member)',
+            roleBadge: '파트원',
             badgeTheme: 'stone',
-            specialty: 'Perception / ROS 2',
-            bio: '담당 연구 분야 및 간단한 자기소개를 입력해 주세요.',
-            tags: ['ROS2', 'Autonomous_Driving'],
+            bio: '',
+            tags: [],
             githubUrl: ''
         };
         db.members.members.push(newMember);

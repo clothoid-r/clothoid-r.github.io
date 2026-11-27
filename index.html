@@ -376,18 +376,35 @@
     <!-- data/members.json 바인딩 뷰 -->
     <div id="view-members" class="view-section hidden">
         <section class="max-w-6xl mx-auto px-4 py-12">
-            <div class="text-center mb-10 sm:mb-12">
-                <span class="text-rose-800 font-bold text-sm tracking-widest uppercase block mb-2">Our Crew & Alumni</span>
-                <h2 class="text-2xl sm:text-4xl font-black text-stone-900 mb-4">Clothoid-R 크루 & 졸업 명예의 전당</h2>
-                <p class="text-sm sm:text-base text-stone-600 max-w-2xl mx-auto mb-8 break-keep">
-                    자율주행 연구 및 대회 성과를 함께 축적해가는 액티브 멤버들과 연구실의 위상을 높이고 계신 졸업생들의 명단입니다.
-                </p>
+            <div class="mb-12">
+                <div class="max-w-2xl">
+                    <span class="text-rose-800 font-bold text-sm tracking-widest uppercase block mb-2">Our Crew & Alumni</span>
+                    <h2 class="text-3xl sm:text-4xl font-black text-stone-900 mb-3">Clothoid-R 크루</h2>
+                    <p class="text-base text-stone-600 leading-relaxed break-keep">
+                        인지·측위·판단·제어·시뮬레이터 파트에서 자율주행 차량을 직접 만드는 현역 크루와, 지금은 대학원과 업계에서 활동하는 졸업생을 소개합니다.
+                    </p>
+                </div>
 
-                <div class="flex flex-wrap justify-center gap-2" id="member-filters"></div>
-                <div class="flex flex-wrap justify-center gap-1.5 mt-3" id="member-cohort-filters"></div>
+                <div class="flex flex-wrap gap-2 mt-6" id="member-filters"></div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16 relative" id="member-grid"></div>
+            <div id="member-grid">
+                <div id="member-group-active" class="mb-16">
+                    <div class="flex items-baseline gap-2 border-b border-stone-200 pb-3 mb-6">
+                        <h3 class="text-xl font-black text-stone-900">현역 크루</h3>
+                        <span id="member-count-active" class="text-sm font-semibold text-stone-500"></span>
+                    </div>
+                    <div id="member-grid-active" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+                </div>
+                <div id="member-group-alumni" class="mb-16">
+                    <div class="flex items-baseline gap-2 border-b border-stone-200 pb-3 mb-6">
+                        <h3 class="text-xl font-black text-stone-900">졸업생</h3>
+                        <span id="member-count-alumni" class="text-sm font-semibold text-stone-500"></span>
+                    </div>
+                    <div id="member-grid-alumni" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+                </div>
+                <p id="member-empty" class="hidden text-center text-sm text-stone-500 py-12">해당 분야의 멤버가 없습니다.</p>
+            </div>
         </section>
     </div>
 
