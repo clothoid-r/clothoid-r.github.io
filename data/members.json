@@ -28,13 +28,14 @@
   "members": [
     {
       "id": "ttaehyun",
-      "cohort": "3기",
+      "cohort": "5",
       "name": "이남규",
       "subtitle": "namgyu",
       "isAlumni": false,
       "divisions": [
         "core",
-        "control"
+        "control",
+        "planning"
       ],
       "roleBadge": "회장",
       "badgeTheme": "amber",
@@ -48,7 +49,7 @@
     },
     {
       "id": "eunsu-kim",
-      "cohort": "4기",
+      "cohort": "5",
       "name": "김은수",
       "subtitle": "esem5377",
       "isAlumni": false,
@@ -67,47 +68,8 @@
       "githubUrl": "https://github.com/esem5377"
     },
     {
-      "id": "seoyeon-p",
-      "cohort": "3기",
-      "name": "박서연",
-      "subtitle": "seoyeon-p",
-      "isAlumni": false,
-      "divisions": [
-        "core",
-        "planning"
-      ],
-      "roleBadge": "판단 파트장 (Lead)",
-      "badgeTheme": "green",
-      "specialty": "Planning / Localization",
-      "bio": "GPS와 전역 경로 노드 오차 보정, 실시간 충돌 가능 영역(Costmap)을 기반으로 한 Dynamic Path Optimization 연구를 이끌고 있습니다.",
-      "tags": [
-        "Dijkstra",
-        "GPS_NavSat"
-      ],
-      "githubUrl": ""
-    },
-    {
-      "id": "woojin-vision",
-      "cohort": "3기",
-      "name": "정우진",
-      "subtitle": "woojin-vision",
-      "isAlumni": false,
-      "divisions": [
-        "perception"
-      ],
-      "roleBadge": "파트원 (Member)",
-      "badgeTheme": "stone",
-      "specialty": "Perception / SLAM",
-      "bio": "2D/3D 환경 맵 작성을 위한 LiDAR SLAM 패키지 튜닝 및 카메라 단안 차선 감지 신경망 모형을 통합 구현합니다.",
-      "tags": [
-        "Cartographer",
-        "Semantic_Segmentation"
-      ],
-      "githubUrl": ""
-    },
-    {
       "id": "yeonsu-ji",
-      "cohort": "3기",
+      "cohort": "4",
       "name": "지연수",
       "subtitle": "ysjee0229",
       "isAlumni": false,
@@ -115,7 +77,7 @@
         "perception"
       ],
       "roleBadge": "파트원 (Member)",
-      "badgeTheme": "stone",
+      "badgeTheme": "blue",
       "specialty": "Perception / Edge",
       "bio": "카메라 기반 객체 검출 모델을 차량 탑재 환경에 배포하는 작업을 담당합니다.",
       "tags": [
@@ -126,7 +88,7 @@
     },
     {
       "id": "jeeun-kim",
-      "cohort": "5기",
+      "cohort": "5",
       "name": "김제은",
       "subtitle": "jendarc",
       "isAlumni": false,
@@ -134,7 +96,7 @@
         "perception"
       ],
       "roleBadge": "파트원 (Member)",
-      "badgeTheme": "stone",
+      "badgeTheme": "blue",
       "specialty": "Perception / LiDAR",
       "bio": "딥러닝 기반 LiDAR 인지를 담당합니다.",
       "tags": [
@@ -145,7 +107,7 @@
     },
     {
       "id": "chaemin-jin",
-      "cohort": "5기",
+      "cohort": "5",
       "name": "진채민",
       "subtitle": "okiogummy",
       "isAlumni": false,
@@ -153,7 +115,7 @@
         "perception"
       ],
       "roleBadge": "파트원 (Member)",
-      "badgeTheme": "stone",
+      "badgeTheme": "blue",
       "specialty": "Perception / LiDAR",
       "bio": "딥러닝 기반 LiDAR 인지를 담당합니다.",
       "tags": [
@@ -164,54 +126,53 @@
     },
     {
       "id": "sohee-planning",
-      "cohort": "3기",
-      "name": "한소희",
-      "subtitle": "sohee-planning",
-      "isAlumni": false,
+      "cohort": "3",
+      "name": "유인석",
+      "subtitle": "",
+      "isAlumni": true,
       "divisions": [
-        "planning"
+        "alumni"
       ],
-      "roleBadge": "파트원 (Member)",
-      "badgeTheme": "stone",
-      "specialty": "Planning / FSM",
-      "bio": "교차로 및 정지선, 장애물 급가속 등 실시간 규칙 기반 상태 판단을 위한 Finite State Machine(FSM) 아키텍처 설계를 고도화합니다.",
+      "roleBadge": "파트원",
+      "badgeTheme": "dark",
+      "specialty": "Hardware",
+      "bio": "차량 정비 담당",
       "tags": [
-        "State_Machine",
-        "Behavior_Tree"
+        "Hardware Mechanic"
       ],
       "githubUrl": ""
     },
     {
       "id": "jiwoo-control",
-      "cohort": "3기",
-      "name": "최지우",
-      "subtitle": "jiwoo-control",
-      "isAlumni": false,
+      "cohort": "4",
+      "name": "김선우",
+      "subtitle": "",
+      "isAlumni": true,
       "divisions": [
-        "control"
+        "control",
+        "alumni"
       ],
-      "roleBadge": "파트원 (Member)",
-      "badgeTheme": "stone",
-      "specialty": "Control / MPC",
-      "bio": "차량 횡/종방향 통합 주행 제어를 위해 PID 정밀 제어기 및 Model Predictive Control(MPC) 알고리즘의 응답 성능 분석을 담당합니다.",
+      "roleBadge": "판단 파트장",
+      "badgeTheme": "dark",
+      "specialty": "Planning",
+      "bio": "Local Planning 창시자",
       "tags": [
-        "MPC",
-        "PID_Tuning"
+        "Local planning"
       ],
       "githubUrl": ""
     },
     {
       "id": "jaebeom-park",
       "cohort": "1기",
-      "name": "박재범",
-      "subtitle": "현 현대자동차 자율주행개발센터 연구원",
+      "name": "반영준",
+      "subtitle": "",
       "isAlumni": true,
       "divisions": [
         "alumni"
       ],
-      "roleBadge": "회장 (Alumni)",
+      "roleBadge": "1대 회장",
       "badgeTheme": "dark",
-      "specialty": "Hyundai Motors",
+      "specialty": "Aceworks",
       "bio": "학부 시절 Clothoid-R의 기틀을 닦았으며, Pure Pursuit 및 PID 제어 기반 조향 시스템 프로토타입 설계를 완료했습니다. 후배들의 창의적인 랩타임 도전을 응원합니다!",
       "tags": [
         "Founding_President",
@@ -221,16 +182,16 @@
     },
     {
       "id": "suhan-yoon",
-      "cohort": "2기",
+      "cohort": "1",
       "name": "윤수한",
-      "subtitle": "현 서울대학교 대학원 자율주행전공 석사과정",
+      "subtitle": "현 충북대학교 AVLab 석사과정",
       "isAlumni": true,
       "divisions": [
         "alumni"
       ],
       "roleBadge": "3대 회장",
       "badgeTheme": "dark",
-      "specialty": "SNU Grad School",
+      "specialty": "AVLab",
       "bio": "동아리 연구 인프라인 3D LiDAR 기반 SLAM 아키텍처 및 정밀 GPS 측위 세션을 직접 빌드했습니다. 막힐 때는 언제든 편하게 랩실로 물어보러 오세요!",
       "tags": [
         "LiDAR_SLAM",
@@ -240,46 +201,47 @@
     },
     {
       "id": "jieun-lee",
-      "cohort": "2기",
-      "name": "이지은",
-      "subtitle": "현 네이버랩스 로보틱스 자율주행 그룹 연구원",
-      "isAlumni": true,
-      "divisions": [
-        "alumni"
-      ],
-      "roleBadge": "멤버 (Alumni)",
-      "badgeTheme": "dark",
-      "specialty": "NAVER LABS",
-      "bio": "OpenCV 차선 감지 및 카메라-라이다 캘리브레이션 융합 모듈을 개발했습니다. 신입 부원 챌린지 시뮬레이터 미션은 자율주행 현업 기술의 기본기를 담고 있는 명품 과제입니다.",
-      "tags": [
-        "Camera_Calibration",
-        "Naver_Labs"
-      ],
-      "githubUrl": ""
-    },
-    {
-      "id": "member-1795704843158",
-      "cohort": "2기",
-      "name": "유태현",
-      "subtitle": "github-id",
+      "cohort": "1기",
+      "name": "이지원",
+      "subtitle": "",
       "isAlumni": true,
       "divisions": [
         "perception",
         "alumni"
       ],
+      "roleBadge": "파트원",
+      "badgeTheme": "dark",
+      "specialty": "",
+      "bio": "인지, 카메라-라이다 캘리브레이션",
+      "tags": [
+        "Camera_Calibration"
+      ],
+      "githubUrl": ""
+    },
+    {
+      "id": "member-1795704843158",
+      "cohort": "3",
+      "name": "유태현",
+      "subtitle": "",
+      "isAlumni": true,
+      "divisions": [
+        "alumni",
+        "control"
+      ],
       "roleBadge": "4대 회장",
       "badgeTheme": "dark",
-      "specialty": "Perception / ROS 2",
-      "bio": "나는야 유태현, 최강의 사나이",
+      "specialty": "Control",
+      "bio": "제어 담당(Pure Pursuit, Stanley) / 현재 로봇 관련 모바일 매니퓰레이터 연구중",
       "tags": [
-        "ROS2",
-        "Autonomous_Driving"
+        "Pure pursuit",
+        "Stanley Method",
+        "Mobile Manipulator"
       ],
       "githubUrl": ""
     },
     {
       "id": "jagyeong-gu",
-      "cohort": "3기",
+      "cohort": "4",
       "name": "구자경",
       "subtitle": "현 충북대학교 AVLab 학석사연계과정",
       "isAlumni": true,
@@ -287,7 +249,7 @@
         "perception",
         "alumni"
       ],
-      "roleBadge": "인지 파트장 (Alumni)",
+      "roleBadge": "인지 파트장",
       "badgeTheme": "dark",
       "specialty": "CBNU AVLab",
       "bio": "카메라·LiDAR 기반 센서 퓨전과 인지 아키텍처 설계를 담당했습니다. 현재는 딥러닝 기반 Camera·LiDAR·Radar 센서 퓨전과 VLA를 연구하고 있습니다.",
@@ -299,7 +261,7 @@
     },
     {
       "id": "minjae-kim",
-      "cohort": "3기",
+      "cohort": "4",
       "name": "김민재",
       "subtitle": "Minjea31",
       "isAlumni": true,
@@ -307,7 +269,7 @@
         "perception",
         "alumni"
       ],
-      "roleBadge": "멤버 (Alumni)",
+      "roleBadge": "파트원",
       "badgeTheme": "dark",
       "specialty": "Perception / Vision",
       "bio": "카메라 기반 객체 검출과 딥러닝 모델 최적화를 담당했습니다.",
@@ -319,7 +281,7 @@
     },
     {
       "id": "juyeong-heo",
-      "cohort": "3기",
+      "cohort": "4",
       "name": "허주영",
       "subtitle": "heojy",
       "isAlumni": true,
@@ -327,7 +289,7 @@
         "perception",
         "alumni"
       ],
-      "roleBadge": "멤버 (Alumni)",
+      "roleBadge": "파트원",
       "badgeTheme": "dark",
       "specialty": "Perception / Fusion",
       "bio": "카메라·LiDAR 센서 퓨전을 담당했습니다.",
@@ -341,15 +303,55 @@
       "id": "member-1795704902200",
       "cohort": "1기",
       "name": "정준범",
-      "subtitle": "github-id",
-      "isAlumni": false,
+      "subtitle": "",
+      "isAlumni": true,
       "divisions": [
-        "perception"
+        "perception",
+        "alumni"
       ],
       "roleBadge": "2대 회장",
-      "badgeTheme": "stone",
-      "specialty": "Perception / ROS 2",
+      "badgeTheme": "dark",
+      "specialty": "",
       "bio": "나는야 정준범, 최강의 사나이",
+      "tags": [
+        "ROS2",
+        "Autonomous_Driving"
+      ],
+      "githubUrl": ""
+    },
+    {
+      "id": "member-1795761143591",
+      "cohort": "4",
+      "name": "양세현",
+      "subtitle": "github-id",
+      "isAlumni": true,
+      "divisions": [
+        "planning",
+        "alumni"
+      ],
+      "roleBadge": "파트원",
+      "badgeTheme": "dark",
+      "specialty": "Perception / ROS 2",
+      "bio": "Planning 합니다",
+      "tags": [
+        "ROS2",
+        "Autonomous_Driving"
+      ],
+      "githubUrl": ""
+    },
+    {
+      "id": "member-1795761498417",
+      "cohort": "4",
+      "name": "김건호",
+      "subtitle": "",
+      "isAlumni": true,
+      "divisions": [
+        "alumni"
+      ],
+      "roleBadge": "파트원",
+      "badgeTheme": "dark",
+      "specialty": "GNSS",
+      "bio": "GNSS 담당했습니다.",
       "tags": [
         "ROS2",
         "Autonomous_Driving"
