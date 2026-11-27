@@ -183,29 +183,43 @@
         <section class="bg-stone-100/60 border-y border-stone-200/80 py-20 px-4">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-16">
-                    <h2 class="text-3xl font-black text-stone-900 mb-4">우리가 탐구하는 3대 핵심 연구 도메인</h2>
-                    <p class="text-stone-600 max-w-xl mx-auto">우리의 엔지니어링 파트는 유기적으로 맞물려 실제 하드웨어 차량 및 가상 레이싱 차량을 제어합니다.</p>
+                    <h2 class="text-2xl sm:text-3xl font-black text-stone-900 mb-4">우리가 탐구하는 5대 핵심 연구 도메인</h2>
+                    <p class="text-stone-600 max-w-xl mx-auto break-keep">우리의 엔지니어링 파트는 유기적으로 맞물려 실제 하드웨어 차량 및 가상 레이싱 차량을 제어합니다.</p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-200 hover:shadow-md transition-shadow">
+                <div class="flex flex-wrap justify-center gap-6">
+                    <div class="w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] bg-white p-8 rounded-2xl shadow-sm border border-stone-200 hover:shadow-md transition-shadow">
                         <div class="w-12 h-12 bg-rose-50 text-rose-800 rounded-xl flex items-center justify-center text-2xl font-bold mb-6">👁️</div>
                         <h3 class="text-xl font-bold mb-3">인지 (Perception)</h3>
-                        <p class="text-sm text-stone-600 leading-relaxed">
+                        <p class="text-sm text-stone-600 leading-relaxed break-keep">
                             3D LiDAR 점군(Point Cloud) 데이터 군집화, 카메라의 비전 인식 차선 검출, 센서 데이터를 종합하여 차량 주위 환경을 밀도 높게 재구성합니다.
                         </p>
                     </div>
-                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-200 hover:shadow-md transition-shadow">
-                        <div class="w-12 h-12 bg-stone-100 text-stone-800 rounded-xl flex items-center justify-center text-2xl font-bold mb-6">🧠</div>
-                        <h3 class="text-xl font-bold mb-3">판단 (Planning)</h3>
-                        <p class="text-sm text-stone-600 leading-relaxed">
-                            GPS와 전역 경로 노드를 매핑하고 실시간 장애물 정보를 조합하여 충돌을 피하고 최속으로 주행할 수 있는 정밀 회피 궤적을 연산합니다.
+                    <div class="w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] bg-white p-8 rounded-2xl shadow-sm border border-stone-200 hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 bg-blue-50 text-blue-800 rounded-xl flex items-center justify-center text-2xl font-bold mb-6">📍</div>
+                        <h3 class="text-xl font-bold mb-3">측위 (Localization)</h3>
+                        <p class="text-sm text-stone-600 leading-relaxed break-keep">
+                            RTK-GNSS 정밀 위성 항법과 3D LiDAR SLAM, 센서 퓨전 알고리즘을 결합하여 실내외 트랙 어디서나 차량의 위치와 자세를 오차 없이 추정합니다.
                         </p>
                     </div>
-                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-200 hover:shadow-md transition-shadow">
+                    <div class="w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] bg-white p-8 rounded-2xl shadow-sm border border-stone-200 hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 bg-stone-100 text-stone-800 rounded-xl flex items-center justify-center text-2xl font-bold mb-6">🧠</div>
+                        <h3 class="text-xl font-bold mb-3">판단 (Planning)</h3>
+                        <p class="text-sm text-stone-600 leading-relaxed break-keep">
+                            전역 경로 노드와 실시간 장애물 비용 지도(Costmap)를 조합하여 충돌을 피하고 최속으로 주행할 수 있는 정밀 회피 궤적을 연산합니다.
+                        </p>
+                    </div>
+                    <div class="w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] bg-white p-8 rounded-2xl shadow-sm border border-stone-200 hover:shadow-md transition-shadow">
                         <div class="w-12 h-12 bg-stone-950 text-white rounded-xl flex items-center justify-center text-2xl font-bold mb-6">⚙️</div>
                         <h3 class="text-xl font-bold mb-3">제어 (Control)</h3>
-                        <p class="text-sm text-stone-600 leading-relaxed">
-                            순수 추종(Pure Pursuit) 및 횡/종방향 조향 속도 프로파일을 토대로 모터 액추에이터에 보낼 물리 명령을 완벽한 정밀도로 수행시킵니다.
+                        <p class="text-sm text-stone-600 leading-relaxed break-keep">
+                            순수 추종(Pure Pursuit), Stanley 및 횡/종방향 조향 속도 프로파일을 토대로 모터 액추에이터에 보낼 물리 명령을 완벽한 정밀도로 수행시킵니다.
+                        </p>
+                    </div>
+                    <div class="w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] bg-white p-8 rounded-2xl shadow-sm border border-stone-200 hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 bg-amber-50 text-amber-800 rounded-xl flex items-center justify-center text-2xl font-bold mb-6">💻</div>
+                        <h3 class="text-xl font-bold mb-3">시뮬레이터 (Simulator)</h3>
+                        <p class="text-sm text-stone-600 leading-relaxed break-keep">
+                            자체 제작한 물리 기반 자율주행 레이싱 시뮬레이터와 ROS 2 디지털 트윈 환경을 통해 실차 주행 전 알고리즘을 안전하고 정교하게 검증합니다.
                         </p>
                     </div>
                 </div>

@@ -13,12 +13,20 @@
       "label": "인지 (Perception)"
     },
     {
+      "id": "localization",
+      "label": "측위 (Localization)"
+    },
+    {
       "id": "planning",
       "label": "판단 (Planning)"
     },
     {
       "id": "control",
       "label": "제어 (Control)"
+    },
+    {
+      "id": "simulator",
+      "label": "시뮬레이터 (Simulator)"
     },
     {
       "id": "alumni",
