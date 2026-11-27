@@ -1379,20 +1379,21 @@
                 <!-- 좌측: 대회 목록 -->
                 <div class="lg:col-span-4 bg-white rounded-2xl border border-stone-200 shadow-sm p-4 space-y-3">
                     <div class="flex justify-between items-center">
-                        <h2 class="font-black text-base text-stone-900">🏆 참가 대회 (${comps.length}개)</h2>
+                        <h2 class="font-black text-base text-stone-900">🏆 참가 대회 (${comps.length}개 · 홈 고정 ${comps.filter(c => c.pinnedOnHome).length}개)</h2>
                         <button onclick="addCompCard()" class="px-3 py-1.5 bg-rose-800 hover:bg-rose-700 text-white text-xs font-bold rounded-lg transition-colors">
                             + 새 대회 추가
                         </button>
                     </div>
-                    <p class="text-xs text-stone-500">출전 대회 정보와 수상 내역, 상장 이미지를 한 카드 안에서 함께 관리합니다.</p>
+                    <p class="text-xs text-stone-500">📌 핀이 켜진 대회만 메인 홈 화면에 표시되고, 전체 목록은 '대회 & 수상' 전용 페이지에 표시됩니다.</p>
 
                     <div class="space-y-2 max-h-[65vh] overflow-y-auto pr-1">
                         ${comps.length === 0 ? `<p class="text-xs text-stone-400 text-center py-8">등록된 대회가 없습니다.</p>` : ''}
                         ${comps.map((c, idx) => `
                             <div onclick="selectCompCard(${idx})" class="item-row ${idx === uiState.selectedCompIdx ? 'selected' : ''} cursor-pointer p-3.5 rounded-xl border border-stone-200 hover:border-rose-400 transition-all flex justify-between items-center gap-2">
                                 <div class="min-w-0">
-                                    <div class="flex items-center gap-1.5 mb-0.5">
+                                    <div class="flex flex-wrap items-center gap-1.5 mb-0.5">
                                         <span class="bg-stone-900 text-white text-[10px] font-black px-1.5 py-0.5 rounded">${R.escapeHtml(c.year || '')}</span>
+                                        ${c.pinnedOnHome ? `<span class="text-[10px] bg-rose-800 text-white font-bold px-1.5 py-0.5 rounded">📌 홈 고정</span>` : ''}
                                         ${c.awardTitle ? `<span class="text-[10px] bg-amber-100 text-amber-800 font-bold px-1.5 py-0.5 rounded">🏆 수상</span>` : ''}
                                         ${c.certificateImage ? `<span class="text-[10px] bg-rose-50 text-rose-800 font-bold px-1.5 py-0.5 rounded">📜 상장</span>` : ''}
                                     </div>
@@ -1400,6 +1401,7 @@
                                     <div class="text-xs text-stone-500 truncate">${R.escapeHtml(c.awardTitle || c.organizer || '')}</div>
                                 </div>
                                 <div class="flex items-center gap-1 shrink-0" onclick="event.stopPropagation()">
+                                    <button onclick="toggleCompPin(${idx})" title="메인 홈페이지 고정 켜기/끄기" class="px-1.5 py-1 text-xs rounded border ${c.pinnedOnHome ? 'bg-rose-50 border-rose-300 text-rose-800' : 'border-transparent opacity-40 hover:opacity-100 hover:bg-stone-100'}">📌</button>
                                     <button onclick="moveCompCard(${idx}, -1)" class="px-1.5 py-1 text-xs text-stone-500 hover:bg-stone-200 rounded">↑</button>
                                     <button onclick="moveCompCard(${idx}, 1)" class="px-1.5 py-1 text-xs text-stone-500 hover:bg-stone-200 rounded">↓</button>
                                 </div>
@@ -1419,6 +1421,16 @@
                                     <button onclick="duplicateCompCard(${uiState.selectedCompIdx})" class="px-2.5 py-1 text-xs font-bold bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-lg">복제</button>
                                     <button onclick="deleteCompCard(${uiState.selectedCompIdx})" class="px-2.5 py-1 text-xs font-bold bg-red-50 hover:bg-red-100 text-red-700 rounded-lg">삭제</button>
                                 </div>
+                            </div>
+
+                            <!-- 메인 홈 고정 노출 토글 -->
+                            <div class="bg-rose-50/70 p-3.5 rounded-xl border border-rose-200 flex items-center justify-between gap-3">
+                                <div>
+                                    <span class="text-xs font-black text-rose-900 block">📌 메인 홈페이지 '대표 수상 및 성과' 섹션에 고정 노출</span>
+                                    <span class="text-[11px] text-stone-600">켜면 홈 화면에 대표 실적으로 노출되며, 끄면 '대회 & 수상' 전체 페이지에만 기록됩니다.</span>
+                                </div>
+                                <input type="checkbox" ${current.pinnedOnHome ? 'checked' : ''} onchange="updateCompField('pinnedOnHome', this.checked)"
+                                    class="h-5 w-5 rounded text-rose-800 focus:ring-rose-700 cursor-pointer shrink-0">
                             </div>
 
                             <div class="grid grid-cols-3 gap-3">
@@ -1622,6 +1634,13 @@
         uiState.selectedCompIdx = idx;
         renderActiveTab();
     };
+    window.toggleCompPin = function (idx) {
+        const target = db.competitions.competitions[idx];
+        if (!target) return;
+        target.pinnedOnHome = !target.pinnedOnHome;
+        updateDirtyIndicators();
+        renderActiveTab();
+    };
     window.updateCompField = function (field, value) {
         const current = db.competitions.competitions[uiState.selectedCompIdx];
         if (!current) return;
@@ -1631,12 +1650,13 @@
         if (preview) {
             preview.innerHTML = R.renderCompetitionCard(current, { resolveImage: resolveAdminImage });
         }
-        if (field === 'badgeTheme') renderActiveTab();
+        if (field === 'badgeTheme' || field === 'pinnedOnHome') renderActiveTab();
     };
     window.addCompCard = function () {
         if (!db.competitions) db.competitions = { competitions: [] };
         db.competitions.competitions.unshift({
             id: `comp-${Date.now()}`,
+            pinnedOnHome: false,
             year: String(new Date().getFullYear()),
             statusBadge: '수상 달성',
             badgeTheme: 'amber',
@@ -1920,6 +1940,7 @@
                                 <input type="text" value="${R.escapeHtml(current.ctaText || '')}" oninput="updateProjectField('ctaText', this.value)"
                                     class="w-full px-3 py-2 text-sm rounded-lg border border-stone-300">
                             </div>
+
                             <div class="grid grid-cols-3 gap-3">
                                 <div>
                                     <label class="block text-xs font-bold text-stone-700 mb-1">우측 박스 아이콘</label>

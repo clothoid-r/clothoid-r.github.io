@@ -18,25 +18,39 @@
         return res.json();
     }
 
+    let activeCompMode = 'all';
+    let activeCompYear = 'all';
+
     function populateHome(reposData, competitionsData, projectsData) {
         const repoGrid = document.getElementById('repo-grid');
         if (repoGrid && reposData && Array.isArray(reposData.repositories)) {
             repoGrid.innerHTML = reposData.repositories.map(R.renderRepositoryCard).join('');
         }
 
-        const compSchedBox = document.getElementById('competition-schedule-box');
-        const compSchedList = document.getElementById('competition-schedule-list');
-        if (compSchedBox && compSchedList && competitionsData && Array.isArray(competitionsData.schedule) && competitionsData.schedule.length > 0) {
-            compSchedList.innerHTML = competitionsData.schedule.map(R.renderCompetitionScheduleItem).join('');
-            compSchedBox.classList.remove('hidden');
-        } else if (compSchedBox) {
-            compSchedBox.classList.add('hidden');
+        const allComps = (competitionsData && Array.isArray(competitionsData.competitions))
+            ? competitionsData.competitions
+            : [];
+        const pinnedComps = allComps.filter(c => Boolean(c.pinnedOnHome));
+
+        const countBadge = document.getElementById('home-comp-count-badge');
+        if (countBadge) {
+            countBadge.textContent = `총 ${allComps.length}건`;
         }
 
-        const compGrid = document.getElementById('competitions-grid');
-        if (compGrid && competitionsData && Array.isArray(competitionsData.competitions)) {
-            compGrid.innerHTML = competitionsData.competitions.map(c => R.renderCompetitionCard(c)).join('');
+        const homePinnedGrid = document.getElementById('home-pinned-competitions');
+        if (homePinnedGrid) {
+            if (pinnedComps.length > 0) {
+                homePinnedGrid.innerHTML = pinnedComps.map(c => R.renderCompetitionCard(c)).join('');
+            } else {
+                homePinnedGrid.innerHTML = `
+                    <div class="md:col-span-2 bg-stone-100/70 border border-stone-200 rounded-2xl p-8 text-center text-stone-500 text-sm">
+                        메인 화면에 고정된 대표 실적이 없습니다. 우측 상단 버튼을 눌러 전체 대회 및 수상 기록을 확인해 보세요!
+                    </div>
+                `;
+            }
         }
+
+        populateCompetitionsPage(competitionsData);
 
         const projectsGrid = document.getElementById('projects-grid');
         if (projectsGrid && projectsData && Array.isArray(projectsData.projects)) {
@@ -44,22 +58,79 @@
         }
     }
 
-    window.filterCompetitions = function (mode) {
-        const allBtn = document.getElementById('comp-filter-all');
-        const awardBtn = document.getElementById('comp-filter-awarded');
-        const activeCls = 'px-4 py-2 rounded-full text-xs font-bold bg-rose-800 text-white shadow-sm transition-all';
-        const inactiveCls = 'px-4 py-2 rounded-full text-xs font-bold bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition-all';
-        if (allBtn) allBtn.className = mode === 'all' ? activeCls : inactiveCls;
-        if (awardBtn) awardBtn.className = mode === 'awarded' ? activeCls : inactiveCls;
+    function populateCompetitionsPage(competitionsData) {
+        if (!competitionsData) return;
+        const allComps = Array.isArray(competitionsData.competitions) ? competitionsData.competitions : [];
 
+        const compSchedBox = document.getElementById('competition-schedule-box');
+        const compSchedList = document.getElementById('competition-schedule-list');
+        if (compSchedBox && compSchedList && Array.isArray(competitionsData.schedule) && competitionsData.schedule.length > 0) {
+            compSchedList.innerHTML = competitionsData.schedule.map(R.renderCompetitionScheduleItem).join('');
+            compSchedBox.classList.remove('hidden');
+        } else if (compSchedBox) {
+            compSchedBox.classList.add('hidden');
+        }
+
+        const yearContainer = document.getElementById('competition-year-filters');
+        if (yearContainer) {
+            const years = Array.from(new Set(
+                allComps.map(c => String(c.year || '').trim()).filter(Boolean)
+            )).sort((a, b) => b.localeCompare(a, 'ko', { numeric: true }));
+
+            if (years.length > 0) {
+                const allBtn = `<button onclick="filterCompetitionsByYear('all')" data-comp-year-btn="all" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-stone-800 text-white transition-all">전체 연도</button>`;
+                const yearBtns = years.map(y => `<button onclick="filterCompetitionsByYear('${R.escapeHtml(y)}')" data-comp-year-btn="${R.escapeHtml(y)}" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-stone-100 text-stone-600 hover:bg-stone-200 transition-all">${R.escapeHtml(y)}년</button>`);
+                yearContainer.innerHTML = [allBtn, ...yearBtns].join('');
+            }
+        }
+
+        const compGrid = document.getElementById('competitions-grid');
+        if (compGrid) {
+            compGrid.innerHTML = allComps.map(c => R.renderCompetitionCard(c)).join('');
+        }
+    }
+
+    function applyCompetitionFilters() {
         document.querySelectorAll('#competitions-grid .competition-card').forEach(card => {
             const hasAward = card.getAttribute('data-has-award') === 'true';
-            if (mode === 'awarded' && !hasAward) {
-                card.classList.add('hidden-filter');
-            } else {
+            const isPinned = card.getAttribute('data-pinned') === 'true';
+            const year = card.getAttribute('data-year') || '';
+
+            let modeOk = true;
+            if (activeCompMode === 'awarded') modeOk = hasAward;
+            else if (activeCompMode === 'pinned') modeOk = isPinned;
+
+            const yearOk = activeCompYear === 'all' || year === activeCompYear;
+
+            if (modeOk && yearOk) {
                 card.classList.remove('hidden-filter');
+            } else {
+                card.classList.add('hidden-filter');
             }
         });
+    }
+
+    window.filterCompetitions = function (mode) {
+        activeCompMode = mode;
+        const ids = ['all', 'awarded', 'pinned'];
+        const activeCls = 'px-5 py-2.5 rounded-full text-sm font-bold bg-rose-800 text-white shadow-sm transition-all';
+        const inactiveCls = 'px-5 py-2.5 rounded-full text-sm font-bold bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition-all';
+        ids.forEach(id => {
+            const btn = document.getElementById(`comp-filter-${id}`);
+            if (btn) btn.className = id === mode ? activeCls : inactiveCls;
+        });
+        applyCompetitionFilters();
+    };
+
+    window.filterCompetitionsByYear = function (year) {
+        activeCompYear = year;
+        document.querySelectorAll('#competition-year-filters button').forEach(btn => {
+            const val = btn.getAttribute('data-comp-year-btn');
+            btn.className = val === year
+                ? 'px-3.5 py-1.5 rounded-full text-xs font-bold bg-stone-800 text-white transition-all'
+                : 'px-3.5 py-1.5 rounded-full text-xs font-bold bg-stone-100 text-stone-600 hover:bg-stone-200 transition-all';
+        });
+        applyCompetitionFilters();
     };
 
     let activeMemberDivision = 'all';
@@ -223,17 +294,22 @@
         currentView = viewName;
 
         const viewHome = document.getElementById('view-home');
+        const viewCompetitions = document.getElementById('view-competitions');
         const viewCalendar = document.getElementById('view-calendar');
         const viewMembers = document.getElementById('view-members');
         const viewProject = document.getElementById('view-project');
 
         if (viewHome) viewHome.classList.add('hidden');
+        if (viewCompetitions) viewCompetitions.classList.add('hidden');
         if (viewCalendar) viewCalendar.classList.add('hidden');
         if (viewMembers) viewMembers.classList.add('hidden');
         if (viewProject) viewProject.classList.add('hidden');
 
         if (viewName === 'home' && viewHome) {
             viewHome.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else if (viewName === 'competitions' && viewCompetitions) {
+            viewCompetitions.classList.remove('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         } else if (viewName === 'calendar' && viewCalendar) {
             viewCalendar.classList.remove('hidden');
@@ -415,7 +491,7 @@
             }
 
             const hash = window.location.hash.replace('#', '');
-            if (hash === 'calendar' || hash === 'members' || hash === 'project') {
+            if (hash === 'competitions' || hash === 'calendar' || hash === 'members' || hash === 'project') {
                 window.switchView(hash);
             }
         } catch (err) {

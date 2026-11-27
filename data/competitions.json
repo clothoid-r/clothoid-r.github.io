@@ -37,6 +37,7 @@
   "competitions": [
     {
       "id": "ksae-2025",
+      "pinnedOnHome": true,
       "year": "2024",
       "statusBadge": "수상 달성",
       "badgeTheme": "amber",
@@ -52,6 +53,7 @@
     },
     {
       "id": "autonomous-racing-2026",
+      "pinnedOnHome": true,
       "year": "2025",
       "statusBadge": "수상 달성",
       "badgeTheme": "amber",

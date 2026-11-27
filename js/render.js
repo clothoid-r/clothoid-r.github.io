@@ -443,8 +443,11 @@
             </a>
         ` : '';
 
+        const yearAttr = escapeHtml(String(comp.year || '').trim() || 'none');
+        const pinnedAttr = comp.pinnedOnHome ? 'true' : 'false';
+
         return `
-            <div class="competition-card bg-white rounded-2xl p-6 border ${hasAward ? 'border-amber-300/90' : 'border-stone-200'} shadow-sm hover:border-rose-500 transition-all flex flex-col justify-between h-full" data-has-award="${hasAward ? 'true' : 'false'}">
+            <div class="competition-card bg-white rounded-2xl p-6 border ${hasAward ? 'border-amber-300/90' : 'border-stone-200'} shadow-sm hover:border-rose-500 transition-all flex flex-col justify-between h-full" data-has-award="${hasAward ? 'true' : 'false'}" data-year="${yearAttr}" data-pinned="${pinnedAttr}">
                 <div>
                     <div class="flex justify-between items-center gap-2 mb-3">
                         <div class="flex items-center gap-2 min-w-0">
