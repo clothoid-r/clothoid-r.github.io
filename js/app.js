@@ -134,8 +134,11 @@
     };
 
     let activeMemberDivision = 'all';
+    let activeMemberCohort = 'all';
     const MEMBER_FILTER_ACTIVE = 'min-h-[44px] px-5 py-2.5 rounded-full text-sm font-bold bg-rose-800 text-white transition-all shadow-sm';
     const MEMBER_FILTER_IDLE = 'min-h-[44px] px-5 py-2.5 rounded-full text-sm font-bold bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition-all';
+    const MEMBER_COHORT_IDLE = 'appearance-none cursor-pointer min-h-[44px] pl-5 pr-10 rounded-full text-sm font-bold bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition-all';
+    const MEMBER_COHORT_ACTIVE = 'appearance-none cursor-pointer min-h-[44px] pl-5 pr-10 rounded-full text-sm font-bold bg-rose-50 text-rose-800 border border-rose-800 transition-all';
 
     function populateMembers(membersData) {
         if (!membersData) return;
@@ -157,6 +160,17 @@
                 .join('');
         }
         const cohortNum = m => parseInt(String(m.cohort || '').replace(/[^0-9]/g, ''), 10) || 99;
+
+        // 기수 드롭다운: 실제 멤버가 있는 기수만 표시 (카드의 data-cohort와 같은 'N기' 형식)
+        const cohortSelect = document.getElementById('member-cohort-filter');
+        if (cohortSelect) {
+            const cohorts = [...new Set(membersData.members.map(cohortNum).filter(n => n !== 99))].sort((a, b) => a - b);
+            if (activeMemberCohort !== 'all' && !cohorts.includes(parseInt(activeMemberCohort, 10))) activeMemberCohort = 'all';
+            cohortSelect.innerHTML = '<option value="all">전체 기수</option>' +
+                cohorts.map(n => `<option value="${n}기">${n}기</option>`).join('');
+            cohortSelect.value = activeMemberCohort;
+            cohortSelect.className = activeMemberCohort === 'all' ? MEMBER_COHORT_IDLE : MEMBER_COHORT_ACTIVE;
+        }
         const roleRank = m => {
             const role = String(m.roleBadge || '');
             if (/회장/.test(role)) return 0;
@@ -356,7 +370,8 @@
             let visible = 0;
             cards.forEach(card => {
                 const divisions = (card.getAttribute('data-divisions') || '').split(/\s+/);
-                const show = divisions.includes(activeMemberDivision);
+                const cohortOk = activeMemberCohort === 'all' || card.getAttribute('data-cohort') === activeMemberCohort;
+                const show = divisions.includes(activeMemberDivision) && cohortOk;
                 card.classList.toggle('hidden-filter', !show);
                 if (show) visible++;
             });
@@ -375,6 +390,13 @@
         document.querySelectorAll('#member-filters button').forEach(btn => {
             btn.className = btn.id === `filter-btn-${division}` ? MEMBER_FILTER_ACTIVE : MEMBER_FILTER_IDLE;
         });
+        applyMemberFilters();
+    };
+
+    window.filterMembersByCohort = function (cohort) {
+        activeMemberCohort = cohort;
+        const select = document.getElementById('member-cohort-filter');
+        if (select) select.className = cohort === 'all' ? MEMBER_COHORT_IDLE : MEMBER_COHORT_ACTIVE;
         applyMemberFilters();
     };
 
