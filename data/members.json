@@ -36,9 +36,9 @@
   "members": [
     {
       "id": "ttaehyun",
-      "cohort": "5",
+      "cohort": "6기",
       "name": "이남규",
-      "subtitle": "namgyu",
+      "currentPosition": "",
       "isAlumni": false,
       "divisions": [
         "core",
@@ -47,7 +47,6 @@
       ],
       "roleBadge": "회장",
       "badgeTheme": "amber",
-      "specialty": "Control / Integration",
       "bio": "자체 레이싱 시뮬레이터 개발 및 전체 시스템 파이프라인 통합을 담당합니다. 부드러운 전이 곡선 주행 최적화에 힘쓰고 있습니다.",
       "tags": [
         "System_Integration",
@@ -57,17 +56,16 @@
     },
     {
       "id": "eunsu-kim",
-      "cohort": "5",
+      "cohort": "6기",
       "name": "김은수",
-      "subtitle": "esem5377",
+      "currentPosition": "",
       "isAlumni": false,
       "divisions": [
         "core",
         "perception"
       ],
-      "roleBadge": "인지 파트장 (Lead)",
+      "roleBadge": "인지 파트장",
       "badgeTheme": "blue",
-      "specialty": "Perception / Vision",
       "bio": "인지 파트를 이끌며 카메라 기반 객체 검출과 딥러닝 모델 최적화를 담당합니다.",
       "tags": [
         "Computer_Vision",
@@ -77,16 +75,15 @@
     },
     {
       "id": "yeonsu-ji",
-      "cohort": "4",
+      "cohort": "4기",
       "name": "지연수",
-      "subtitle": "ysjee0229",
+      "currentPosition": "",
       "isAlumni": false,
       "divisions": [
         "perception"
       ],
-      "roleBadge": "파트원 (Member)",
+      "roleBadge": "파트원",
       "badgeTheme": "blue",
-      "specialty": "Perception / Edge",
       "bio": "카메라 기반 객체 검출 모델을 차량 탑재 환경에 배포하는 작업을 담당합니다.",
       "tags": [
         "Computer_Vision",
@@ -96,16 +93,15 @@
     },
     {
       "id": "jeeun-kim",
-      "cohort": "5",
+      "cohort": "6기",
       "name": "김제은",
-      "subtitle": "jendarc",
+      "currentPosition": "",
       "isAlumni": false,
       "divisions": [
         "perception"
       ],
-      "roleBadge": "파트원 (Member)",
+      "roleBadge": "파트원",
       "badgeTheme": "blue",
-      "specialty": "Perception / LiDAR",
       "bio": "딥러닝 기반 LiDAR 인지를 담당합니다.",
       "tags": [
         "LiDAR",
@@ -115,16 +111,15 @@
     },
     {
       "id": "chaemin-jin",
-      "cohort": "5",
+      "cohort": "6기",
       "name": "진채민",
-      "subtitle": "okiogummy",
+      "currentPosition": "",
       "isAlumni": false,
       "divisions": [
         "perception"
       ],
-      "roleBadge": "파트원 (Member)",
+      "roleBadge": "파트원",
       "badgeTheme": "blue",
-      "specialty": "Perception / LiDAR",
       "bio": "딥러닝 기반 LiDAR 인지를 담당합니다.",
       "tags": [
         "LiDAR",
@@ -134,16 +129,15 @@
     },
     {
       "id": "sohee-planning",
-      "cohort": "3",
+      "cohort": "3기",
       "name": "유인석",
-      "subtitle": "",
+      "currentPosition": "",
       "isAlumni": true,
       "divisions": [
         "alumni"
       ],
       "roleBadge": "파트원",
       "badgeTheme": "dark",
-      "specialty": "Hardware",
       "bio": "차량 정비 담당",
       "tags": [
         "Hardware Mechanic"
@@ -152,17 +146,16 @@
     },
     {
       "id": "jiwoo-control",
-      "cohort": "4",
+      "cohort": "4기",
       "name": "김선우",
-      "subtitle": "",
+      "currentPosition": "현 충북대학교 IRLab 석사과정",
       "isAlumni": true,
       "divisions": [
-        "control",
+        "planning",
         "alumni"
       ],
       "roleBadge": "판단 파트장",
       "badgeTheme": "dark",
-      "specialty": "Planning",
       "bio": "Local Planning 창시자",
       "tags": [
         "Local planning"
@@ -173,14 +166,15 @@
       "id": "jaebeom-park",
       "cohort": "1기",
       "name": "반영준",
-      "subtitle": "",
+      "currentPosition": "현 Aceworks",
       "isAlumni": true,
       "divisions": [
+        "planning",
+        "control",
         "alumni"
       ],
       "roleBadge": "1대 회장",
       "badgeTheme": "dark",
-      "specialty": "Aceworks",
       "bio": "학부 시절 Clothoid-R의 기틀을 닦았으며, Pure Pursuit 및 PID 제어 기반 조향 시스템 프로토타입 설계를 완료했습니다. 후배들의 창의적인 랩타임 도전을 응원합니다!",
       "tags": [
         "Founding_President",
@@ -190,20 +184,22 @@
     },
     {
       "id": "suhan-yoon",
-      "cohort": "1",
+      "cohort": "1기",
       "name": "윤수한",
-      "subtitle": "현 충북대학교 AVLab 석사과정",
+      "currentPosition": "현 충북대학교 AVLab 석사과정",
       "isAlumni": true,
       "divisions": [
+        "core",
+        "control",
         "alumni"
       ],
       "roleBadge": "3대 회장",
       "badgeTheme": "dark",
-      "specialty": "AVLab",
       "bio": "동아리 연구 인프라인 3D LiDAR 기반 SLAM 아키텍처 및 정밀 GPS 측위 세션을 직접 빌드했습니다. 막힐 때는 언제든 편하게 랩실로 물어보러 오세요!",
       "tags": [
-        "LiDAR_SLAM",
-        "Academic_Path"
+        "VLA",
+        "Control",
+        "Architecture"
       ],
       "githubUrl": ""
     },
@@ -211,26 +207,26 @@
       "id": "jieun-lee",
       "cohort": "1기",
       "name": "이지원",
-      "subtitle": "",
+      "currentPosition": "현 충북대학교 AVLab 석사과정",
       "isAlumni": true,
       "divisions": [
         "perception",
         "alumni"
       ],
-      "roleBadge": "파트원",
+      "roleBadge": "인지 파트장",
       "badgeTheme": "dark",
-      "specialty": "",
       "bio": "인지, 카메라-라이다 캘리브레이션",
       "tags": [
-        "Camera_Calibration"
+        "Object_Detection",
+        "Camera-LiDAR_Calibration"
       ],
       "githubUrl": ""
     },
     {
       "id": "member-1795704843158",
-      "cohort": "3",
+      "cohort": "3기",
       "name": "유태현",
-      "subtitle": "",
+      "currentPosition": "",
       "isAlumni": true,
       "divisions": [
         "alumni",
@@ -238,7 +234,6 @@
       ],
       "roleBadge": "4대 회장",
       "badgeTheme": "dark",
-      "specialty": "Control",
       "bio": "제어 담당(Pure Pursuit, Stanley) / 현재 로봇 관련 모바일 매니퓰레이터 연구중",
       "tags": [
         "Pure pursuit",
@@ -249,9 +244,9 @@
     },
     {
       "id": "jagyeong-gu",
-      "cohort": "4",
+      "cohort": "4기",
       "name": "구자경",
-      "subtitle": "현 충북대학교 AVLab 학석사연계과정",
+      "currentPosition": "현 충북대학교 AVLab 학석사연계과정",
       "isAlumni": true,
       "divisions": [
         "perception",
@@ -259,19 +254,19 @@
       ],
       "roleBadge": "인지 파트장",
       "badgeTheme": "dark",
-      "specialty": "CBNU AVLab",
       "bio": "카메라·LiDAR 기반 센서 퓨전과 인지 아키텍처 설계를 담당했습니다. 현재는 딥러닝 기반 Camera·LiDAR·Radar 센서 퓨전과 VLA를 연구하고 있습니다.",
       "tags": [
         "Sensor_Fusion",
-        "Edge_AI"
+        "Edge_AI",
+        "VLA"
       ],
       "githubUrl": "https://github.com/JaGyeong1024"
     },
     {
       "id": "minjae-kim",
-      "cohort": "4",
+      "cohort": "4기",
       "name": "김민재",
-      "subtitle": "Minjea31",
+      "currentPosition": "",
       "isAlumni": true,
       "divisions": [
         "perception",
@@ -279,7 +274,6 @@
       ],
       "roleBadge": "파트원",
       "badgeTheme": "dark",
-      "specialty": "Perception / Vision",
       "bio": "카메라 기반 객체 검출과 딥러닝 모델 최적화를 담당했습니다.",
       "tags": [
         "Computer_Vision",
@@ -289,9 +283,9 @@
     },
     {
       "id": "juyeong-heo",
-      "cohort": "4",
+      "cohort": "4기",
       "name": "허주영",
-      "subtitle": "heojy",
+      "currentPosition": "",
       "isAlumni": true,
       "divisions": [
         "perception",
@@ -299,11 +293,10 @@
       ],
       "roleBadge": "파트원",
       "badgeTheme": "dark",
-      "specialty": "Perception / Fusion",
-      "bio": "카메라·LiDAR 센서 퓨전을 담당했습니다.",
+      "bio": "카메라·LiDAR 센서 퓨전과 캘리브레이션을 담당했습니다.",
       "tags": [
         "Sensor_Fusion",
-        "Camera_LiDAR"
+        "Camera-LiDAR_Calibration"
       ],
       "githubUrl": "https://github.com/heojy"
     },
@@ -311,7 +304,7 @@
       "id": "member-1795704902200",
       "cohort": "1기",
       "name": "정준범",
-      "subtitle": "",
+      "currentPosition": "현 충북대학교 AVLab 석사과정",
       "isAlumni": true,
       "divisions": [
         "perception",
@@ -319,51 +312,250 @@
       ],
       "roleBadge": "2대 회장",
       "badgeTheme": "dark",
-      "specialty": "",
       "bio": "나는야 정준범, 최강의 사나이",
       "tags": [
-        "ROS2",
         "Autonomous_Driving"
       ],
-      "githubUrl": ""
+      "githubUrl": "https://github.com/JunSpring"
     },
     {
       "id": "member-1795761143591",
-      "cohort": "4",
+      "cohort": "6기",
       "name": "양세현",
-      "subtitle": "github-id",
+      "currentPosition": "현 충북대학교 AVLab 학석사연계과정",
       "isAlumni": true,
       "divisions": [
         "planning",
         "alumni"
       ],
-      "roleBadge": "파트원",
+      "roleBadge": "판단 파트장",
       "badgeTheme": "dark",
-      "specialty": "Perception / ROS 2",
       "bio": "Planning 합니다",
       "tags": [
-        "ROS2",
         "Autonomous_Driving"
       ],
       "githubUrl": ""
     },
     {
       "id": "member-1795761498417",
-      "cohort": "4",
+      "cohort": "4기",
       "name": "김건호",
-      "subtitle": "",
+      "currentPosition": "",
       "isAlumni": true,
       "divisions": [
+        "core",
+        "localization",
+        "alumni"
+      ],
+      "roleBadge": "5대 회장",
+      "badgeTheme": "dark",
+      "bio": "GNSS 담당했습니다.",
+      "tags": [
+        "GNSS",
+        "Autonomous_Driving"
+      ],
+      "githubUrl": ""
+    },
+    {
+      "id": "member-1795765625982",
+      "cohort": "7기",
+      "name": "김윤수",
+      "currentPosition": "",
+      "isAlumni": false,
+      "divisions": [],
+      "roleBadge": "",
+      "badgeTheme": "stone",
+      "bio": "",
+      "tags": [],
+      "githubUrl": ""
+    },
+    {
+      "id": "member-1795765625983",
+      "cohort": "7기",
+      "name": "박예서",
+      "currentPosition": "",
+      "isAlumni": false,
+      "divisions": [],
+      "roleBadge": "",
+      "badgeTheme": "stone",
+      "bio": "",
+      "tags": [],
+      "githubUrl": ""
+    },
+    {
+      "id": "member-1795765625984",
+      "cohort": "7기",
+      "name": "박준수",
+      "currentPosition": "",
+      "isAlumni": false,
+      "divisions": [],
+      "roleBadge": "",
+      "badgeTheme": "stone",
+      "bio": "",
+      "tags": [],
+      "githubUrl": ""
+    },
+    {
+      "id": "member-1795765625985",
+      "cohort": "7기",
+      "name": "유지연",
+      "currentPosition": "",
+      "isAlumni": false,
+      "divisions": [],
+      "roleBadge": "",
+      "badgeTheme": "stone",
+      "bio": "",
+      "tags": [],
+      "githubUrl": ""
+    },
+    {
+      "id": "member-1795765625986",
+      "cohort": "7기",
+      "name": "이재훈",
+      "currentPosition": "",
+      "isAlumni": false,
+      "divisions": [],
+      "roleBadge": "",
+      "badgeTheme": "stone",
+      "bio": "",
+      "tags": [],
+      "githubUrl": ""
+    },
+    {
+      "id": "member-1795765625987",
+      "cohort": "7기",
+      "name": "장주원",
+      "currentPosition": "",
+      "isAlumni": false,
+      "divisions": [],
+      "roleBadge": "",
+      "badgeTheme": "stone",
+      "bio": "",
+      "tags": [],
+      "githubUrl": ""
+    },
+    {
+      "id": "member-1795765625988",
+      "cohort": "5기",
+      "name": "서민영",
+      "currentPosition": "",
+      "isAlumni": false,
+      "divisions": [
+        "planning",
+        "control"
+      ],
+      "roleBadge": "파트원",
+      "badgeTheme": "stone",
+      "bio": "",
+      "tags": [],
+      "githubUrl": ""
+    },
+    {
+      "id": "member-1795765625989",
+      "cohort": "6기",
+      "name": "윤여민",
+      "currentPosition": "",
+      "isAlumni": false,
+      "divisions": [
+        "control"
+      ],
+      "roleBadge": "파트원",
+      "badgeTheme": "stone",
+      "bio": "",
+      "tags": [],
+      "githubUrl": ""
+    },
+    {
+      "id": "member-1795765625990",
+      "cohort": "4기",
+      "name": "서준혁",
+      "currentPosition": "현 충북대학교 AVLab 석사과정",
+      "isAlumni": true,
+      "divisions": [
+        "perception",
+        "alumni"
+      ],
+      "roleBadge": "인지 파트장",
+      "badgeTheme": "dark",
+      "bio": "",
+      "tags": [],
+      "githubUrl": ""
+    },
+    {
+      "id": "member-1795765625991",
+      "cohort": "4기",
+      "name": "김종엽",
+      "currentPosition": "현 DGIST 석사과정",
+      "isAlumni": true,
+      "divisions": [
+        "perception",
         "alumni"
       ],
       "roleBadge": "파트원",
       "badgeTheme": "dark",
-      "specialty": "GNSS",
-      "bio": "GNSS 담당했습니다.",
-      "tags": [
-        "ROS2",
-        "Autonomous_Driving"
+      "bio": "",
+      "tags": [],
+      "githubUrl": ""
+    },
+    {
+      "id": "member-1795765625992",
+      "cohort": "4기",
+      "name": "이규태",
+      "currentPosition": "현 DGIST 석사과정",
+      "isAlumni": true,
+      "divisions": [
+        "perception",
+        "alumni"
       ],
+      "roleBadge": "파트원",
+      "badgeTheme": "dark",
+      "bio": "",
+      "tags": [],
+      "githubUrl": ""
+    },
+    {
+      "id": "member-1795767468092",
+      "cohort": "3기",
+      "name": "김윤태",
+      "currentPosition": "",
+      "isAlumni": true,
+      "divisions": [
+        "alumni"
+      ],
+      "roleBadge": "",
+      "badgeTheme": "dark",
+      "bio": "",
+      "tags": [],
+      "githubUrl": ""
+    },
+    {
+      "id": "member-1795767468093",
+      "cohort": "4기",
+      "name": "최환준",
+      "currentPosition": "",
+      "isAlumni": true,
+      "divisions": [
+        "alumni"
+      ],
+      "roleBadge": "",
+      "badgeTheme": "dark",
+      "bio": "",
+      "tags": [],
+      "githubUrl": ""
+    },
+    {
+      "id": "member-1795767468094",
+      "cohort": "4기",
+      "name": "신동준",
+      "currentPosition": "",
+      "isAlumni": true,
+      "divisions": [
+        "alumni"
+      ],
+      "roleBadge": "",
+      "badgeTheme": "dark",
+      "bio": "",
+      "tags": [],
       "githubUrl": ""
     }
   ]
